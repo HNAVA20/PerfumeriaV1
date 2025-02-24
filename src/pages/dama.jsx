@@ -1,10 +1,10 @@
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
 import '../styles/dama.css';
 
-function dama() {
+function Dama() {
     return (
         <h1>Sección Dama</h1>
     );
 }
 
-export default dama;
+export default Dama;

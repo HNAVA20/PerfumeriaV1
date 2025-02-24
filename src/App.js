@@ -1,20 +1,25 @@
-import { BrowserRouter } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route } from "react-router-dom";
 import './App.css';
 import Navbar from './componentes/NavBar.jsx';
-import 
-import caballero from './pages/caballero.jsx';
-import dama from './pages/dama.jsx';
-import ninos from './pages/infantil.jsx';
-import sets from './pages/sets.jsx';
-import unisex from './pages/unisex.jsx';
+import Inicio from './pages/inicio.jsx';
+import Caballero from './pages/caballero.jsx';
+import Dama from './pages/dama.jsx';
+import Ninos from './pages/infantil.jsx';
+import Sets from './pages/sets.jsx';
+import Unisex from './pages/unisex.jsx';
 
 function App() {
   return (
     <BrowserRouter>
     <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/" element={<Inicio />} />
+        <Route path="/caballero" element={<Caballero />} />
+        <Route path="/dama" element={<Dama />} />
+        <Route path='/ninos' element={<Ninos />} />
+        <Route path='/sets' element={<Sets />} />
+        <Route path='/unisex' element={<Unisex />} />
       </Routes>
     </BrowserRouter>
   );

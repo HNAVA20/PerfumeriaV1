@@ -1,10 +1,10 @@
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
 import '../styles/infantil.css';
 
-function ninos() {
+function Ninos() {
     return(
         <h1>Sección Niños</h1>
     );
 }
 
-export default ninos;
+export default Ninos;

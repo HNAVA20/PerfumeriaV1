@@ -1,11 +1,11 @@
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
 import '../styles/caballero.css';
 
 
-function caballero() {
+function Caballero() {
     return (
         <h1>Sección Caballero</h1>
     );
 }
 
-export default caballero;
+export default Caballero;

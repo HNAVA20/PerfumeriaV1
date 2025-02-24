@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Importar Link de React Router
-import logo from './imagenes/Logo.png';
-import '../componentes/Navbar.css';
+import logo from '../imagenes/logo192.png';
+import '../componentes/NavBar.css';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav>
       <div className="menu-container">
-        <Link to="/"><img src={logo} alt="Logo " className="logo" /></Link>
+        <Link to="/"><img src={logo} alt="Logo" className="logo" /></Link>
 
         {/* Botón de hamburguesa */}
         <button 
@@ -34,7 +34,7 @@ const Navbar = () => {
               <li><Link to="/dama">Dama</Link></li>
               <li><Link to="/caballero">Caballero</Link></li>
               <li><Link to="/unisex">Unisex</Link></li>
-              <li><Link to="/niños">Niños</Link></li>
+              <li><Link to="/ninos">Niños</Link></li>
               <li><Link to="/sets">Sets</Link></li>
             </ul>
           </li>
