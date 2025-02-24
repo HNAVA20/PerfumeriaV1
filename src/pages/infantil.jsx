@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import '../styles/infantil.css'
+import '../styles/infantil.css';
 
 function ninos() {
     return(

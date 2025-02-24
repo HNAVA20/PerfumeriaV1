@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import '../styles/dama.css'
+import '../styles/dama.css';
 
 function dama() {
     return (

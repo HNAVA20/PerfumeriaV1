@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import '../styles/caballero.css'
+import '../styles/caballero.css';
 
 
 function caballero() {

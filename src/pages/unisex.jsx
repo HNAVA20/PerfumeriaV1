@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import '../styles/unisex.css'
+import '../styles/unisex.css';
 
 function unisex() {
     return(
