@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Importar Link de React Router
-import logo from "./imagenes/Logo.png";
-import "./componentes/Navbar.css";
+import logo from './imagenes/Logo.png';
+import '../componentes/Navbar.css';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,17 +31,17 @@ const Navbar = () => {
           <li className={`submenu ${submenuOpen === 1 ? "open" : ""}`}>
             <a href="#" onClick={() => toggleSubmenu(1)}>Perfumes</a>
             <ul>
-              <li><Link to="/acceso-plataforma">Dama</Link></li>
-              <li><Link to="/pre-registro">Caballero</Link></li>
-              <li><Link to="/convocatoria">Unisex</Link></li>
-              <li><Link to="/recorrido">Niños</Link></li>
-              <li><Link to="/recorrido">Sets</Link></li>
+              <li><Link to="/dama">Dama</Link></li>
+              <li><Link to="/caballero">Caballero</Link></li>
+              <li><Link to="/unisex">Unisex</Link></li>
+              <li><Link to="/niños">Niños</Link></li>
+              <li><Link to="/sets">Sets</Link></li>
             </ul>
           </li>
 
-          <li><Link to="/carreras">Novedades</Link></li>
-          <li><Link to="/vinculacion">Blog</Link></li>
-          <li><Link to="/psicologia">Aromas</Link></li>
+          <li><Link to="/novedades">Novedades</Link></li>
+          <li><Link to="/blog">Blog</Link></li>
+          <li><Link to="/aromas">Aromas</Link></li>
         </ul>
       </div>
     </nav>

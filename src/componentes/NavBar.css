@@ -1,0 +1,166 @@
+* --- ESTILOS GENERALES --- */
+nav {
+    background-color: #000;
+    padding: 10px 20px;
+  }
+  
+  .menu-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  
+  .logo {
+    height: 60px;
+  }
+  
+  /* --- MENÚ NORMAL (ESCRITORIO) --- */
+  .menu {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu li {
+    position: relative;
+  }
+  
+  .menu a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none; /* Eliminar subrayado predeterminado */
+    position: relative; /* Necesario para el pseudo-elemento */
+  }
+  
+  /* --- Subrayado personalizado con ::after --- */
+  .menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 4px; /* Ajusta la posición vertical de la línea */
+    width: 100%;
+    height: 3px; /* Grosor de la línea */
+    background-color: white; /* Color de la línea */
+    transform: scaleX(0); /* La línea comienza oculta */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-in-out; /* Animación para mostrar la línea */
+  }
+  
+  .menu a:hover::after {
+    transform: scaleX(1); /* La línea se expande al hacer hover */
+    transform-origin: bottom left;
+  }
+  
+  /* --- SUBMENÚS (ESCRITORIO) --- */
+  .submenu ul {
+    display: none;
+    position: absolute;
+    background-color: #000;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 200px;
+    top: 100%;
+    left: 0;
+  }
+  
+  .submenu:hover ul {
+    display: block;
+  }
+  
+  .submenu ul li {
+    width: 100%;
+  }
+  
+  /* --- MENÚ HAMBURGUESA --- */
+  .menu-toggle {
+    margin-right: 20px;
+    display: none; /* Ocultar en pantallas grandes */
+    width: 35px;
+    height: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  /* Líneas del icono de hamburguesa */
+  .menu-toggle span,
+  .menu-toggle::before,
+  .menu-toggle::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  
+  .menu-toggle::before {
+    top: 8px;
+  }
+  
+  .menu-toggle::after {
+    bottom: 8px;
+  }
+  
+  .menu-toggle span {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  /* Cuando el menú está abierto, cambia a "X" */
+  .menu-toggle.open span {
+    opacity: 0;
+  }
+  
+  .menu-toggle.open::before {
+    transform: rotate(45deg);
+    top: 45%;
+  }
+  
+  .menu-toggle.open::after {
+    transform: rotate(-45deg);
+    bottom: 50%;
+  }
+  
+  /* --- MODO RESPONSIVO --- */
+  @media (max-width: 900px) {
+    .menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #000;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      padding: 10px 0;
+    }
+  
+    .menu.open {
+      display: flex;
+    }
+  
+    .menu li {
+      text-align: center;
+    }
+  
+    .menu-toggle {
+      display: block; /* Solo se muestra en móviles */
+    }
+  
+    /* Submenús en móviles: desplegados debajo */
+    .submenu ul {
+      display: none;
+      position: static;
+      background-color: #0e0e0e;
+      width: 100%;
+    }
+  
+    .submenu.open ul {
+      display: block;
+    }
+  }
