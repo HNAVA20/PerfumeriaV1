@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="menu-container">
+      <div classNaime="menu-container">
         <Link to="/"><img src={logo} alt="Logo" className="logo" /></Link>
 
         {/* Botón de hamburguesa */}
@@ -41,6 +41,8 @@ const Navbar = () => {
 
           <li><Link to="/novedades">Novedades</Link></li>
           <li><Link to="/blog">Blog</Link></li>
+          <li><Link to="/carrito">Carrito</Link></li>
+          <li><Link to="/login">Login</Link></li>
         </ul>
       </div>
     </nav>
