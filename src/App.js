@@ -8,6 +8,7 @@ import Dama from './pages/dama.jsx';
 import Ninos from './pages/infantil.jsx';
 import Sets from './pages/sets.jsx';
 import Unisex from './pages/unisex.jsx';
+import Blog from './pages/blog.jsx';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/ninos' element={<Ninos />} />
         <Route path='/sets' element={<Sets />} />
         <Route path='/unisex' element={<Unisex />} />
+        <Route path='/blog' element={<Blog />}d />
       </Routes>
     </BrowserRouter>
   );
