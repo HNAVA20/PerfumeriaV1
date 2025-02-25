@@ -1,10 +1,14 @@
 import React from "react";
 import '../styles/inicio.css';
 import '../componentes/NavBar.jsx';
+import FormContactanos from "../componentes/FormContactanos.jsx";
 
 function Inicio() {
     return(
-        <h1>Hello World!</h1>
+        <div>
+            <h1>Hello World!</h1>
+            <FormContactanos />
+        </div>
     );
 }
 
