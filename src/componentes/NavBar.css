@@ -5,6 +5,7 @@ nav {
   }
   
   .menu-container {
+    padding: 0 10px;
     background-color: black;
     display: flex;
     justify-content: space-between;
