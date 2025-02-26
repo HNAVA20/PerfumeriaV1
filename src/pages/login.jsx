@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import "../styles/login.css";
 
 function Login() {
-<<<<<<< HEAD
-    return(
-        <h1>Hello World!</h1>
-=======
+    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
