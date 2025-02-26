@@ -5,6 +5,7 @@ import Dolce from "../imagenes/Dolce-Gabana.png";
 import Jean from "../imagenes/Jean-Paul-Gaultier.png"
 import Onemillion from "../imagenes/onemillion.png"
 import Versace from "../imagenes/Versace.png"
+import Prada from "../imagenes/Prada.png"
 
 const productos = [
     { id: 1, nombre: "Jean Paul Gaultier", precio: 3200, img: Jean },
@@ -12,7 +13,7 @@ const productos = [
     { id: 3, nombre: "Versace", precio: 3510, img: Versace },
     { id: 4, nombre: "Paco Rabanne", precio: 2600, img: Onemillion },
     { id: 5, nombre: "Dolce & Gabbana", precio: 5600, img: Dolce },
-    { id: 6, nombre: "Prada", precio: 7600, img: "Prada.png" }
+    { id: 6, nombre: "Prada", precio: 7600, img: Prada }
 ];
 function Dama() {
     return (
