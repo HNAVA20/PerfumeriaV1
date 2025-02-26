@@ -9,6 +9,7 @@ import Ninos from './pages/infantil.jsx';
 import Sets from './pages/sets.jsx';
 import Unisex from './pages/unisex.jsx';
 import Blog from './pages/blog.jsx';
+import Login from './pages/login.jsx';
 
 function App() {
   return (
@@ -21,12 +22,11 @@ function App() {
         <Route path='/ninos' element={<Ninos />} />
         <Route path='/sets' element={<Sets />} />
         <Route path='/unisex' element={<Unisex />} />
-        <Route path='/blog' element={<Blog />}d />
+        <Route path='/blog' element={<Blog />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-hola
