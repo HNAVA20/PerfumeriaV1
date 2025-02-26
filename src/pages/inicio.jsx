@@ -4,6 +4,9 @@ import FormContactanos from '../componentes/FormContactanos';
 import Footer from '../componentes/footer';
 import Banner from '../imagenes/Banner.png';
 import Banner2 from '../imagenes/Banner-2.png';
+import img from '../imagenes/img.png';
+import img2 from '../imagenes/img-2.png'
+import img3 from '../imagenes/img-3.png'
 
 function Inicio() {
   return (
@@ -20,19 +23,21 @@ function Inicio() {
 
       {/* Información sobre las secciones del municipio */}
       <section className="info-secciones">
-        <h2>Conoce nuestras secciones</h2>
         <div className="seccion">
-          <h3>Fragancias Exclusivas</h3>
-          <p>Descubre nuestra línea exclusiva de perfumes de lujo.</p>
+          <h1>Fragancias Exclusivas</h1>
+          <h3>Descubre nuestra línea exclusiva de perfumes de lujo.</h3>
         </div>
+        <img src={img} alt='Productos exclusivos' className='img-inicio'/>
         <div className="seccion">
-          <h3>Ofertas Especiales</h3>
-          <p>Los mejores precios en perfumes seleccionados.</p>
+          <h1>Ofertas Especiales</h1>
+          <h3>Los mejores precios en perfumes seleccionados.</h3>
         </div>
+        <img src={img2} alt='Productos exclusivos' className='img-inicio'/>
         <div className="seccion">
-          <h3>Perfumería para Todos</h3>
-          <p>Perfumes para todas las ocasiones, desde lo más sofisticado hasta lo más casual.</p>
+          <h1>Perfumería para Todos</h1>
+          <h3>Perfumes para todas las ocasiones, desde lo más sofisticado hasta lo más casual.</h3>
         </div>
+        <img src={img3} alt='Productos exclusivos' className='img-inicio'/>
       </section>
       <FormContactanos />
     </div>

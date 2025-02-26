@@ -26,7 +26,7 @@ function App() {
         <Route path='/unisex' element={<Unisex />} />
         <Route path='/blog' element={<Blog />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/Registrousuarios' element={<Login />} />
+        <Route path='/registrousuarios' element={<Login />} />
       </Routes>
       <Footer />
     </BrowserRouter>

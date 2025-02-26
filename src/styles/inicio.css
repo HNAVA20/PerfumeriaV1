@@ -24,13 +24,23 @@
   /* Estilos para las secciones */
   .info-secciones {
     text-align: center;
-    margin: 30px 0;
+    margin: 0 0;
+    padding-bottom: 0;
+    margin-top: 70px;
   }
   
   .seccion {
     margin: 20px;
+    padding-top: 30px;
   }
   
+  .img-inicio{
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
   /* Estilos para el formulario de contacto */
   .contacto {
     padding: 40px 20px;
