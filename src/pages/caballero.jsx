@@ -3,7 +3,7 @@ import '../styles/caballero.css';
 
 function Caballero() {
     return (
-        <div className="container">
+        <div className="caballero-container">
             <aside className="filters">
                 <h2>FILTRAR POR:</h2>
                 <section>
