@@ -1,28 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/inicio.css';
+import FormContactanos from '../componentes/FormContactanos';
 import Footer from '../componentes/footer';
 
 function Inicio() {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    mensaje: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí puedes agregar la lógica para enviar el formulario
-    console.log(formData);
-  };
-
   return (
     <div className="Container-Inicio">
       {/* Carrusel de imágenes */}
@@ -54,47 +35,7 @@ function Inicio() {
           <p>Perfumes para todas las ocasiones, desde lo más sofisticado hasta lo más casual.</p>
         </div>
       </section>
-
-      {/* Formulario de contacto */}
-      <section className="contacto">
-        <h2>Contáctanos</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-field">
-            <label htmlFor="nombre">Nombre</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="email">Correo Electrónico</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="mensaje">Mensaje</label>
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              value={formData.mensaje}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit">Enviar</button>
-        </form>
-      </section>
-      <Footer />
+      <FormContactanos />
     </div>
   );
 }

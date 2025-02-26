@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Navbar from './componentes/NavBar.jsx';
+import Footer from './componentes/footer.jsx';
 import Inicio from './pages/inicio.jsx';
 import Caballero from './pages/caballero.jsx';
 import Dama from './pages/dama.jsx';
@@ -25,6 +26,7 @@ function App() {
         <Route path='/blog' element={<Blog />} />
         <Route path='/login' element={<Login />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

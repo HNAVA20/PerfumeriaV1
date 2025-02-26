@@ -1,0 +1,104 @@
+.form-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start; /* Alinea el contenido al inicio */
+    margin: auto; /* Centra el contenedor en la página */
+    padding: 100px 0 100px 0; /* Espaciado interno */
+    background-color: #D2B091; /* Fondo claro para contraste */
+  }
+  
+  .form-instructions {
+    flex: 1; /* Toma un espacio proporcional */
+    max-width: 700px; /* Ancho máximo para el texto */
+    margin-right: 20px; /* Espacio entre el texto y el formulario */
+  }
+  
+  .instructions-title {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+  .instructions-text {
+    font-size: 20px;
+    color: white;
+    font-family: sans-serif;
+  }
+  
+
+.form-card1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(132, 216, 252); /* Fondo claro para contraste */
+  }
+  
+  .form-card2 {
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .form-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .form-field {
+    margin-bottom: 15px;
+  }
+  
+  .input-field {
+    width: 10%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 18px;
+    transition: border 0.3s; /* Suaviza el borde */
+  }
+
+  .input-field::placeholder{
+    font-size: 18px;
+    font-family: sans-serif;
+  }
+  
+  .input-field:focus {
+    border-color: #03b3f1; /* Resaltar el borde al enfocar */
+  }
+  
+  .sendMessage-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #03b3f1;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sendMessage-btn:hover {
+    background-color: #0287bf;
+  }
+  
+  @media (max-width: 1100px) {
+    .form-container {
+      flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+      align-items: center; /* Alinea los elementos al centro */
+    }
+  
+    .form-instructions {
+      margin-bottom: 20px; /* Espacio entre el texto y el formulario */
+      max-width: 100%; /* Permite que ocupe todo el ancho en pantallas pequeñas */
+      text-align: center; /* Centra el texto */
+    }
+  
+    .form-card2 {
+      width: 70%; /* Asegura que el formulario use el ancho completo */
+    }
+  }

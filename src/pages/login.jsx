@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/login.css";
+import Footer from "../componentes/footer";
 
 function Login() {
     
@@ -32,7 +33,6 @@ function Login() {
                 <button type="submit">Ingresar</button>
             </form>
         </div>
->>>>>>> 74a8033 (Se agega login jsx y css)
     );
 }
 
