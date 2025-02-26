@@ -20,6 +20,7 @@ function Footer() {
             <li><Link to="/dama">Dama</Link></li>
             <li><Link to="/caballero">Caballero</Link></li>
             <li><Link to="/blog">Blog</Link></li>
+            <li><Link to="/sitemap">Mapa de sitio</Link></li>
           </ul>
         </div>
         <div className="footer-section">
@@ -28,7 +29,6 @@ function Footer() {
             <a href="#"><FaFacebook /></a>
             <a href="#"><FaTwitter /></a>
             <a href="#"><FaInstagram /></a>
-            <h3>Mapa del sitio</h3>
           </div>
         </div>
       </div>
