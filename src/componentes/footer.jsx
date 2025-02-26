@@ -28,7 +28,7 @@ function Footer() {
             <a href="#"><FaFacebook /></a>
             <a href="#"><FaTwitter /></a>
             <a href="#"><FaInstagram /></a>
-            <h3><link to="/">Mapa del sitio</link></h3>
+            <h3>Mapa del sitio</h3>
           </div>
         </div>
       </div>
