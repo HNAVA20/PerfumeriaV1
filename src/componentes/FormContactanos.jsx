@@ -1,6 +1,5 @@
 import React from "react";
 import '../componentes/FormContactanos.css';
-import Footer from '../componentes/footer';
 
 const FormContactanos = () => {
   return (
@@ -54,9 +53,7 @@ const FormContactanos = () => {
 
           <button type="submit" className="sendMessage-btn">Enviar</button>
         </form>
-        <Footer />
       </div>
-      
     </div>
   );
 };
