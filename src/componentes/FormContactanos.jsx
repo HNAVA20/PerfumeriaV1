@@ -28,7 +28,7 @@ const Form = () => {
 
 
    return (
-     <div>
+     <div className="form-container">
          <form onSubmit={handleForm}>
          <h1>CONTACTA CON NOSOTROS</h1>
          <input
