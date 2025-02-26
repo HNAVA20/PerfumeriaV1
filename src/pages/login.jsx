@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/login.css';
-import Registrousuarios from "./Registrousuarios";
 
 function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+    var [email, setEmail] = useState("");
+    var [password, setPassword] = useState("");
+    var navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    var handleSubmit = (e) => {
         e.preventDefault();
         console.log("Email:", email, "Password:", password);
+        // Aquí puedes agregar la lógica de autenticación
     };
 
     return (
@@ -33,7 +33,9 @@ function Login() {
                     required
                 />
                 <button type="submit">Ingresar</button>
-                <button className="register-button" onClick={() => navigate("/registrousuarios")}>Registrar nuevo usuario</button>
+                <p className="register-link" onClick={() => navigate("/registrousuarios")}>
+                    No cuentas con usuario? Regístrate aquí
+                </p>
             </form>
         </div>
     );
