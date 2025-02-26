@@ -12,6 +12,7 @@ import Unisex from './pages/unisex.jsx';
 import Blog from './pages/blog.jsx';
 import Login from './pages/login.jsx';
 import Registrousuarios from './pages/registrousuarios.jsx';
+import Sitemap from './pages/sitemap.jsx';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path='/blog' element={<Blog />} />
         <Route path='/login' element={<Login />} />
         <Route path='/registrousuarios' element={<Registrousuarios />} />
+        <Route path='/sitemap' element={<Sitemap />} />
       </Routes>
       <Footer />
     </BrowserRouter>
