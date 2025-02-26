@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/inicio.css';
-import NavBar from '../componentes/NavBar.jsx';  // Asegúrate de importar correctamente tu NavBar
+import Footer from '../componentes/footer';
 
 function Inicio() {
   const [formData, setFormData] = useState({
@@ -94,6 +94,7 @@ function Inicio() {
           <button type="submit">Enviar</button>
         </form>
       </section>
+      <Footer />
     </div>
   );
 }
