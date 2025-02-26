@@ -1,0 +1,129 @@
+:root {
+    --gradient-primary: linear-gradient(to right, #ff758c, #ff7eb3);
+    --gradient-hover: linear-gradient(to right, #e75480, #ff6584);
+    --primary-color: #ff758c;
+    --font-primary: 'Lora', serif;
+    --font-secondary: 'Playfair Display', serif;
+}
+
+/* Contenedor principal */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: var(--font-primary);
+    padding: 1rem;
+    position: relative;
+}
+
+/* Overlay con efecto de desenfoque */
+.login-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: 1;
+}
+
+@media (min-width: 481px) {
+    .login-overlay {
+        backdrop-filter: blur(5px);
+    }
+}
+
+/* Formulario de inicio de sesión */
+.login-form {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.login-form h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-secondary);
+}
+
+.login-form input {
+    padding: 1.2rem 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.login-form input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0px 0px 8px rgba(255, 117, 140, 0.6);
+    outline: none;
+    transform: scale(1.02);
+}
+
+.login-form button {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.login-form button:hover {
+    background: var(--gradient-hover);
+    transform: translateY(-3px);
+    box-shadow: 0px 5px 15px rgba(255, 117, 140, 0.4);
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 480px) {
+    .login-form {
+        padding: 2rem;
+        width: 95%;
+    }
+
+    .login-form h2 {
+        font-size: 2rem;
+    }
+
+    .login-form input {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .login-form button {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+}
