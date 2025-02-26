@@ -11,6 +11,7 @@ import Sets from './pages/sets.jsx';
 import Unisex from './pages/unisex.jsx';
 import Blog from './pages/blog.jsx';
 import Login from './pages/login.jsx';
+import login from './pages/Registrousuarios.jsx';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/unisex' element={<Unisex />} />
         <Route path='/blog' element={<Blog />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/Registrousuarios' element={<Login />} />
       </Routes>
       <Footer />
     </BrowserRouter>

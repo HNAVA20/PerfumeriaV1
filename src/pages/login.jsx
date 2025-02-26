@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import "../styles/login.css";
 import Footer from "../componentes/footer";
+import { useNavigate } from "react-router-dom";
+import '../styles/login.css';
 
 function Login() {
-    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -14,6 +15,7 @@ function Login() {
 
     return (
         <div className="login-container">
+            <div className="login-overlay"></div>
             <form className="login-form" onSubmit={handleSubmit}>
                 <h2>Iniciar Sesión</h2>
                 <input 
@@ -31,6 +33,7 @@ function Login() {
                     required
                 />
                 <button type="submit">Ingresar</button>
+                <button className="register-button" onClick={() => navigate('/register')}>Registrar nuevo usuario</button>
             </form>
         </div>
     );
