@@ -11,8 +11,43 @@ nav {
   position: relative;
 }
 
+.menu-busqueda-container{
+  display: flex;
+}
+
+/* Logo */
 .logo {
   height: 60px;
+}
+
+/* --- Barra de búsqueda --- */
+.search-container {
+
+}
+
+.search-container form{
+  margin: 0;
+  padding: 0;
+}
+
+.search-input {
+  background-color: #D2B091;
+  padding: 8px 12px;
+  border: 1px solid white;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s;
+  width: 200px;  /* Tamaño fijo del input */
+}
+
+.search-input::placeholder{
+  color: white;
+}
+
+.search-input:focus {
+  border-color: #5c6bc0;
+  outline: none;
+  box-shadow: 0 0 5px rgba(92, 107, 192, 0.6);
 }
 
 /* --- MENÚ NORMAL (ESCRITORIO) --- */
@@ -146,7 +181,7 @@ nav {
       display: none;
       flex-direction: column;
       width: 100%;
-      background-color: #000;
+      background-color: #D2B091;
       position: absolute;
       top: 60px;
       left: 0;
@@ -155,6 +190,10 @@ nav {
 
   .menu.open {
       display: flex;
+  }
+
+  .menu.open ul{
+      width: 100%;
   }
 
   .menu li {
@@ -169,11 +208,12 @@ nav {
   .submenu ul {
       display: none;
       position: static;
-      background-color: #0e0e0e;
+      background-color: #cdb6a2;
       width: 100%;
   }
 
   .submenu.open ul {
       display: block;
+      width: 100%;
   }
 }
