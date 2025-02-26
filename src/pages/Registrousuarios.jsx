@@ -21,7 +21,6 @@ function Registrousuarios() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        // Aquí puedes agregar la lógica para enviar los datos
         console.log(formData);
     }
 
