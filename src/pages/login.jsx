@@ -1,9 +1,10 @@
 import React from "react";
 import '../styles/login.css';
+import Form from "../componentes/FormRegistro.jsx";
 
 function Login() {
     return(
-        <h1>Sección Login</h1>
+        <Form />
     );
 }
 
