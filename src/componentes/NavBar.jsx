@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Importar Link de React Router
-import logo from '../imagenes/logo192.png';
+import logo from '../imagenes/LogoPerfumeria.png';
 import '../componentes/NavBar.css';
 
 const Navbar = () => {
