@@ -40,27 +40,33 @@ function Caballero() {
                 <h2>VER COMO</h2>
                 <div className="product">
                     <h3>JEAN PAUL GAULTIER</h3>
-                    <p>Les de parfum Aquas 0 G de Profonde</p>
+                    <p>-------------</p>
                     <p>200 ml Nombre</p>
-                    <p className="price">53,200.00</p>
+                    <p className="price">3000.00</p>
                 </div>
                 <div className="product">
                     <h3>GIORGIO ARMANI</h3>
-                    <p>Les de parfum Aquas 0 G de Profonde</p>
+                    <p>-----------</p>
                     <p>200 ml Nombre</p>
-                    <p className="price">91,650.00</p>
+                    <p className="price">568.00</p>
                 </div>
                 <div className="product">
                     <h3>VERSACE</h3>
-                    <p>Les de parfum Aquas 0 G de Profonde</p>
+                    <p>-------------</p>
                     <p>200 ml Nombre</p>
-                    <p className="price">-</p>
+                    <p className="price">2000.00</p>
                 </div>
                 <div className="product">
                     <h3>PACO RABANNE</h3>
-                    <p>Les de parfum Aquas 0 G de Profonde</p>
+                    <p>----------------</p>
                     <p>200 ml Nombre</p>
-                    <p className="price">-</p>
+                    <p className="price">1000.00</p>
+                </div>
+                <div className="product">
+                    <h3>ONE MILLION</h3>
+                    <p>----------------</p>
+                    <p>200 ml Nombre</p>
+                    <p className="price">10000.00</p>
                 </div>
             </main>
         </div>
