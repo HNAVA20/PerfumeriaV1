@@ -33,7 +33,7 @@ function Login() {
                     required
                 />
                 <button type="submit">Ingresar</button>
-                <button className="register-button" onClick={() => navigate('/register')}>Registrar nuevo usuario</button>
+                <button className="register-button" onClick={() => navigate('/Registrousuario')}>Registrar nuevo usuario</button>
             </form>
         </div>
     );
