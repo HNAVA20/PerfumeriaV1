@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Footer from "../componentes/footer";
 import { useNavigate } from "react-router-dom";
 import '../styles/login.css';
 
@@ -33,7 +32,7 @@ function Login() {
                     required
                 />
                 <button type="submit">Ingresar</button>
-                <button className="register-button" onClick={() => navigate('/Registrousuario')}>Registrar nuevo usuario</button>
+                <button className="register-button" onClick={() => navigate('../pages/Registrousuario')}>Registrar nuevo usuario</button>
             </form>
         </div>
     );

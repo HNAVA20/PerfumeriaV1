@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../styles/inicio.css';
 import FormContactanos from '../componentes/FormContactanos';
 import Footer from '../componentes/footer';
+import Banner from '../imagenes/Banner.png';
+import Banner2 from '../imagenes/Banner-2.png';
 
 function Inicio() {
   return (
@@ -9,13 +11,10 @@ function Inicio() {
       {/* Carrusel de imágenes */}
       <div id="carousel" className="carousel">
         <div className="carousel-item">
-          <img src="image1.jpg" alt="Perfume 1" />
+          <img src={Banner} alt="Perfume 1" />
         </div>
         <div className="carousel-item">
-          <img src="image2.jpg" alt="Perfume 2" />
-        </div>
-        <div className="carousel-item">
-          <img src="image3.jpg" alt="Perfume 3" />
+          <img src={Banner2} alt="Perfume 2" />
         </div>
       </div>
 
