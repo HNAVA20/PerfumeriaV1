@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Navbar from './componentes/NavBar.jsx';
+import Footer from './componentes/footer.jsx';
 import Inicio from './pages/inicio.jsx';
 import Caballero from './pages/caballero.jsx';
 import Dama from './pages/dama.jsx';
@@ -9,7 +10,9 @@ import Ninos from './pages/infantil.jsx';
 import Sets from './pages/sets.jsx';
 import Unisex from './pages/unisex.jsx';
 import Blog from './pages/blog.jsx';
-import Login from './pages/login.jsx'
+import Login from './pages/login.jsx';
+import Registrousuarios from './pages/registrousuarios.jsx';
+import Sitemap from './pages/sitemap.jsx';
 
 function App() {
   return (
@@ -24,7 +27,10 @@ function App() {
         <Route path='/unisex' element={<Unisex />} />
         <Route path='/blog' element={<Blog />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/registrousuarios' element={<Registrousuarios />} />
+        <Route path='/sitemap' element={<Sitemap />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

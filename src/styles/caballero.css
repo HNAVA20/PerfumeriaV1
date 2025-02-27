@@ -1,0 +1,78 @@
+
+
+.caballero-container {
+    display: flex;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.filters {
+    width: 25%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters h2, .filters h3 {
+    color: #333;
+}
+
+.filters ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.filters ul li {
+    margin-bottom: 10px;
+}
+
+.price-range {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-range input {
+    width: 45%;
+    padding: 5px;
+}
+
+.update-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    background-color: #555;
+}
+
+.products {
+    width: 75%;
+    padding: 20px;
+    background-color: #fff;
+    margin-left: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+
+.product h3 {
+    margin: 0;
+    color: #333;
+}
+
+.product p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.product .price {
+    color: #000;
+    font-weight: bold;
+}
