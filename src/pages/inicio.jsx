@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/inicio.css';
 import FormContactanos from '../componentes/FormContactanos';
-import Footer from '../componentes/footer';
 import Banner from '../imagenes/Banner.png';
 import Banner2 from '../imagenes/Banner-2.png';
 import img from '../imagenes/img.png';
