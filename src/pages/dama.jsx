@@ -1,19 +1,20 @@
 import React from "react";
 import "../styles/dama.css";
-import aqua from "../imagenes/Aqua.png";
-import Dolce from "../imagenes/Dolce-Gabana.png";
-import Jean from "../imagenes/Jean-Paul-Gaultier.png"
-import Onemillion from "../imagenes/onemillion.png"
-import Versace from "../imagenes/Versace.png"
-import Prada from "../imagenes/Prada.png"
+import Coco from "../imagenes/Coco.png";
+import flower from "../imagenes/flower.png";
+import Chance from "../imagenes/Chance.png"
+import Jadore from "../imagenes/Jadore.png"
+import Jacobs from "../imagenes/Jacobs.png"
+import Scandal from "../imagenes/Scandal.png"
+
 
 const productos = [
-    { id: 1, nombre: "Jean Paul Gaultier", precio: 3200, img: Jean },
-    { id: 2, nombre: "Giorgio Armani", precio: 4650, img: aqua },
-    { id: 3, nombre: "Versace", precio: 3510, img: Versace },
-    { id: 4, nombre: "Paco Rabanne", precio: 2600, img: Onemillion },
-    { id: 5, nombre: "Dolce & Gabbana", precio: 5600, img: Dolce },
-    { id: 6, nombre: "Prada", precio: 7600, img: Prada }
+    { id: 1, nombre: "Chance", precio: 3200, img: Chance },
+    { id: 2, nombre: "Coco", precio: 4650, img: Coco },
+    { id: 3, nombre: "Jacobs", precio: 3510, img: Jacobs },
+    { id: 4, nombre: "Jadore", precio: 2600, img: Jadore },
+    { id: 5, nombre: "Flower", precio: 5600, img: flower },
+    { id: 6, nombre: "Scandal", precio: 7600, img: Scandal }
 ];
 function Dama() {
     return (
@@ -24,7 +25,7 @@ function Dama() {
                     <div className="filter">
                         <h3>Marca</h3>
                         <ul>
-                            {['Azzaro', 'Bvlgari', 'Burberry', 'Coach'].map((marca, index) => (
+                            {['Chanel', 'Dior', 'Scandal', 'Marc Jacobs'].map((marca, index) => (
                                 <li key={index}>
                                     <input type="checkbox" id={`marca${index + 1}`} />
                                     <label htmlFor={`marca${index + 1}`}>{marca}</label>
