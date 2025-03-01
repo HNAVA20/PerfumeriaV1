@@ -38,7 +38,7 @@ nav {
   border-radius: 6px;
   font-size: 14px;
   transition: all 0.3s;
-  width: 500px;  /* Tamaño fijo del input */
+  width: 200px;  /* Tamaño fijo del input */
 }
 
 .search-input::placeholder{
