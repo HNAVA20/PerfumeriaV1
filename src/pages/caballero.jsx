@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/dama.css";
+import "../styles/caballero.css";
 import aqua from "../imagenes/Aqua.png";
 import Dolce from "../imagenes/Dolce-Gabana.png";
 import Jean from "../imagenes/Jean-Paul-Gaultier.png"
@@ -16,7 +16,7 @@ const productos = [
     { id: 5, nombre: "Dolce & Gabbana", precio: 5600, img: Dolce },
     { id: 6, nombre: "Prada", precio: 7600, img: Prada }
 ];
-function Dama() {
+function caballero() {
     return (
         <div>
             <main className="dama-container">
@@ -25,7 +25,7 @@ function Dama() {
                     <div className="filter">
                         <h3>Marca</h3>
                         <ul>
-                            {['Azzaro', 'Bvlgari', 'Burberry', 'Coach'].map((marca, index) => (
+                            {['Versace','Giorgio Armani','Azzaro', 'Bvlgari', 'Burberry', 'Coach'].map((marca, index) => (
                                 <li key={index}>
                                     <input type="checkbox" id={`marca${index + 1}`} />
                                     <label htmlFor={`marca${index + 1}`}>{marca}</label>
@@ -69,4 +69,4 @@ function Dama() {
     );
 }
 
-export default Dama;
+export default caballero;

@@ -25,7 +25,7 @@ function Dama() {
                     <div className="filter">
                         <h3>Marca</h3>
                         <ul>
-                            {['Chanel', 'Dior', 'Scandal', 'Marc Jacobs'].map((marca, index) => (
+                            {['Scandal','Coco','Chanel', 'Dior', 'Scandal', 'Marc Jacobs'].map((marca, index) => (
                                 <li key={index}>
                                     <input type="checkbox" id={`marca${index + 1}`} />
                                     <label htmlFor={`marca${index + 1}`}>{marca}</label>
