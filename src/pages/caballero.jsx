@@ -19,7 +19,7 @@ const productos = [
 function caballero() {
     return (
         <div>
-            <main className="dama-container">
+            <main className="caballero-container">
                 <aside className="filter-container">
                     <h2>Filtrar por:</h2>
                     <div className="filter">
