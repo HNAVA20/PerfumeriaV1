@@ -6,6 +6,7 @@ import Chance from "../imagenes/Chance.png"
 import Jadore from "../imagenes/Jadore.png"
 import Jacobs from "../imagenes/Jacobs.png"
 import Scandal from "../imagenes/Scandal.png"
+import Breadcrumbs from "../componentes/Breadcrumb.jsx";
 
 
 const productos = [
@@ -19,6 +20,7 @@ const productos = [
 function Dama() {
     return (
         <div>
+            <Breadcrumbs />
             <main className="dama-container">
                 <aside className="filter-container">
                     <h2>Filtrar por:</h2>
