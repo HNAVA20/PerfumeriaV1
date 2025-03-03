@@ -14,7 +14,8 @@ import Login from './pages/login.jsx';
 import Registrousuarios from './pages/registrousuarios.jsx';
 import Sitemap from './pages/sitemap.jsx';
 import Perfumes from './pages/perfumes.jsx';
-import Novedades from './pages/novedades.jsx'
+import Novedades from './pages/novedades.jsx';
+import Chanel from './pages/chanel.jsx';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path='/sitemap' element={<Sitemap />} />
         <Route path='/perfumes' element={<Perfumes />} />
         <Route path='/novedades' element={<Novedades />} />
+        <Route path='/chanel' element={<Chanel />} />
       </Routes>
       <Footer />
     </BrowserRouter>
