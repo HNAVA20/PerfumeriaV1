@@ -13,6 +13,8 @@ import Blog from './pages/blog.jsx';
 import Login from './pages/login.jsx';
 import Registrousuarios from './pages/registrousuarios.jsx';
 import Sitemap from './pages/sitemap.jsx';
+import Perfumes from './pages/perfumes.jsx';
+import Novedades from './pages/novedades.jsx'
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/registrousuarios' element={<Registrousuarios />} />
         <Route path='/sitemap' element={<Sitemap />} />
+        <Route path='/perfumes' element={<Perfumes />} />
+        <Route path='/novedades' element={<Novedades />} />
       </Routes>
       <Footer />
     </BrowserRouter>
