@@ -7,6 +7,7 @@ import Jadore from "../imagenes/imagenesMujer/Jadore.png"
 import Jacobs from "../imagenes/imagenesMujer/Jacobs.png"
 import Scandal from "../imagenes/imagenesMujer/Scandal.png"
 import Breadcrumbs from "../componentes/Breadcrumb";
+import BackToHomeButton from "../componentes/BackToHomeButton";
 
 const productos = [
     { id: 1, nombre: "Chance", precio: 3200, img: Chance },
@@ -66,6 +67,7 @@ function Dama() {
                     </div>
                 </section>
             </main>
+            <BackToHomeButton />
         </div>
     );
 }

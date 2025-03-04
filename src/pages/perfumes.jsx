@@ -6,6 +6,7 @@ import caballero from "../imagenes/caballero.png";
 import unisex from "../imagenes/unisex.png";
 import ninos from "../imagenes/ninos.png";
 import sets from "../imagenes/sets.png";
+import BackToHomeButton from "../componentes/BackToHomeButton";
 
 function Perfumes() {
     const navigate = useNavigate();

@@ -7,6 +7,7 @@ import Onemillion from "../imagenes/imagenesHombre/onemillion.png"
 import Versace from "../imagenes/imagenesHombre/Versace.png"
 import Prada from "../imagenes/imagenesHombre/Prada.png"
 import Breadcrumbs from "../componentes/Breadcrumb";
+import BackToHomeButton from "../componentes/BackToHomeButton";
 
 
 const productos = [
@@ -67,6 +68,7 @@ function caballero() {
                     </div>
                 </section>
             </main>
+            <BackToHomeButton />
         </div>
     );
 }

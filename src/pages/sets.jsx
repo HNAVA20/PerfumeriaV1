@@ -1,18 +1,13 @@
 import React from "react";
 import "../styles/sets.css";
-
 import EstucheSycomore from "../imagenes/imagenesSets/Estuche Sycomore.jpg";
-
 import Lattafa from "../imagenes/imagenesSets/Lattafa-Asad.png";
-
 import Blacksuede from "../imagenes/imagenesSets/Black Suede.jpg";
-
 import ParisHilton from "../imagenes/imagenesSets/ParisHilton.png";
-
 import HugoBoss from "../imagenes/imagenesSets/Hugo Boss Set.jpg";
-
 import Guess from "../imagenes/imagenesSets/Guess.jpg";
 import Breadcrumbs from "../componentes/Breadcrumb";
+import BackToHomeButton from "../componentes/BackToHomeButton";
 
 
 const productos = [
@@ -64,6 +59,7 @@ function caballero() {
                     </div>
                 </section>
             </main>
+            <BackToHomeButton />
         </div>
     );
 }

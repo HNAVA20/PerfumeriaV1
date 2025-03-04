@@ -2,6 +2,7 @@ import React from "react";
 import '../styles/blog.css';
 import '../componentes/NavBar.jsx';
 import Breadcrumbs from "../componentes/Breadcrumb.jsx";
+import BackToHomeButton from "../componentes/BackToHomeButton.jsx";
 
 const articles = [
   {
@@ -38,6 +39,7 @@ const Blog = () => {
           ))}
         </div>
       </div>
+      <BackToHomeButton />
     </div>
   );
 };

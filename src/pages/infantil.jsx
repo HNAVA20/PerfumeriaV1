@@ -7,6 +7,7 @@ import tous from "../imagenes/imagenesInfantil/tous.png"
 import ToyStory from "../imagenes/imagenesInfantil/ToyStory.png"
 import Cars from "../imagenes/imagenesInfantil/Cars.png"
 import Breadcrumbs from "../componentes/Breadcrumb";
+import BackToHomeButton from "../componentes/BackToHomeButton";
 
 
 const productos = [
@@ -68,6 +69,7 @@ function Infantil() {
                     </div>
                 </section>
             </main>
+            <BackToHomeButton />
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import '../styles/sitemap.css';
+import BackToHomeButton from "../componentes/BackToHomeButton";
 
 const sitemapData = [
     { category: "Dama", brands: ["Chanel", "Dior", "Lancome", "Carolina Herrera"] },
@@ -29,6 +30,7 @@ const Sitemap = () => {
                     </div>
                 ))}
             </div>
+            <BackToHomeButton />
         </div>
     );
 };
