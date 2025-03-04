@@ -17,7 +17,7 @@ const Breadcrumbs = () => {
           const to = `/${pathnames.slice(0, index + 1).join("/")}`;
           return (
             <li key={to}>
-              <Link to={to}>{decodeURIComponent(value)}</Link>
+              <li to={to}>{decodeURIComponent(value)}</li>
             </li>
           );
         })}

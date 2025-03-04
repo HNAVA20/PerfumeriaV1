@@ -6,6 +6,7 @@ import Jean from "../imagenes/Jean-Paul-Gaultier.png"
 import Onemillion from "../imagenes/onemillion.png"
 import Versace from "../imagenes/Versace.png"
 import Prada from "../imagenes/Prada.png"
+import Breadcrumbs from "../componentes/Breadcrumb";
 
 
 const productos = [
@@ -19,6 +20,7 @@ const productos = [
 function caballero() {
     return (
         <div>
+            <Breadcrumbs />
             <main className="caballero-container">
                 <aside className="filter-container">
                     <h2>Filtrar por:</h2>

@@ -7,18 +7,20 @@
   .carousel {
     display: flex;
     overflow: hidden;
-    justify-content: center;
-    margin-bottom: 20px;
+    width: 100%;
+    position: relative;
+    height: 300px;
   }
   
   .carousel-item {
-    min-width: 100%;
-    transition: transform 0.5s ease;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    width: 100%;
   }
   
-  .carousel-item img {
-    width: 100%;
-    height: auto;
+  .carousel-item.active {
+    opacity: 1;
   }
   
   /* Estilos para las secciones */

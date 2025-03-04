@@ -1,23 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/inicio.css';
 import FormContactanos from '../componentes/FormContactanos';
 import Banner from '../imagenes/Banner.png';
 import Banner2 from '../imagenes/Banner-2.png';
 import img from '../imagenes/img.png';
-import img2 from '../imagenes/img-2.png'
-import img3 from '../imagenes/img-3.png'
+import img2 from '../imagenes/img-2.png';
+import img3 from '../imagenes/img-3.png';
 
 function Inicio() {
+  const images = [Banner, Banner2];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // Cambia cada 3 segundos
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <div className="Container-Inicio">
       {/* Carrusel de imágenes */}
-      <div id="carousel" className="carousel">
-        <div className="carousel-item">
-          <img src={Banner} alt="Perfume 1" />
-        </div>
-        <div className="carousel-item">
-          <img src={Banner2} alt="Perfume 2" />
-        </div>
+      <div className="carousel">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`carousel-item ${index === currentIndex ? 'active' : ''}`}
+          >
+            <img src={image} alt={`Perfume ${index + 1}`} />
+          </div>
+        ))}
       </div>
 
       {/* Información sobre las secciones del municipio */}
