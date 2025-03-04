@@ -21,9 +21,15 @@ const Sitemap = () => {
                         <ul className="subcategory">
                             {section.brands.map((brand, i) => (
                                 <li key={i} className="brand-item">
-                                    <a href={`/perfumes/${brand.toLowerCase().replace(/\s+/g, '-')}`} className="brand-link">
-                                        {brand}
-                                    </a>
+                                    {brand === "Chanel" ? (
+                                        <a href={`/Dama/chanel`} className="brand-link">
+                                            {brand}
+                                        </a>
+                                    ) : (
+                                        <a href={`/perfumes/${brand.toLowerCase().replace(/\s+/g, '-')}`} className="brand-link">
+                                            {brand}
+                                        </a>
+                                    )}
                                 </li>
                             ))}
                         </ul>
