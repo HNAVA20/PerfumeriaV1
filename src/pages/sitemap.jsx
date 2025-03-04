@@ -7,7 +7,7 @@ const sitemapData = [
     { category: "Caballero", brands: ["Hugo Boss", "Paco Rabanne", "Armani", "YSL"] },
     { category: "Unisex", brands: ["Tom Ford", "Jo Malone", "Byredo", "Le Labo"] },
     { category: "Niños", brands: ["Disney", "Mustela", "Baby Tous"] },
-    { category: "Sets", brands: ["Set 1", "Set 2", "Set 3"] }, // Cambié los // por nombres de sets de ejemplo
+    { category: "Sets", brands: ["Set 1", "Set 2", "Set 3"] },
 ];
 
 const Sitemap = () => {
