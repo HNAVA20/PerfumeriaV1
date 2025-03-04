@@ -1,11 +1,11 @@
 import React from "react";
 import "../styles/unisex.css";
-import HumorLibertad from "../imagenes/HUMOR-LIBERTA.png";
-import LeauRevee from "../imagenes/LeauRevee.png";
-import EauDeToilette from "../imagenes/EauDeToilette.png"
-import ItsYouArt from "../imagenes/ItsYouArt.png"
-import Isolée from "../imagenes/Isolée.png"
-import Rouge from "../imagenes/Rouge.png"
+import HumorLibertad from "../imagenes/imagenesUnisex/HUMOR-LIBERTA.png";
+import LeauRevee from "../imagenes/imagenesUnisex/LeauRevee.png";
+import EauDeToilette from "../imagenes/imagenesUnisex/EauDeToilette.png"
+import ItsYouArt from "../imagenes/imagenesUnisex/ItsYouArt.png"
+import Isolée from "../imagenes/imagenesUnisex/Isolée.png"
+import Rouge from "../imagenes/imagenesUnisex/Rouge.png"
 import Breadcrumbs from "../componentes/Breadcrumb";
 
 

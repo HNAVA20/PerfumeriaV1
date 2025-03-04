@@ -1,11 +1,11 @@
 import React from "react";
 import "../styles/caballero.css";
-import aqua from "../imagenes/Aqua.png";
-import Dolce from "../imagenes/Dolce-Gabana.png";
-import Jean from "../imagenes/Jean-Paul-Gaultier.png"
-import Onemillion from "../imagenes/onemillion.png"
-import Versace from "../imagenes/Versace.png"
-import Prada from "../imagenes/Prada.png"
+import aqua from "../imagenes/imagenesHombre/Aqua.png";
+import Dolce from "../imagenes/imagenesHombre/Dolce-Gabana.png";
+import Jean from "../imagenes/imagenesHombre/Jean-Paul-Gaultier.png"
+import Onemillion from "../imagenes/imagenesHombre/onemillion.png"
+import Versace from "../imagenes/imagenesHombre/Versace.png"
+import Prada from "../imagenes/imagenesHombre/Prada.png"
 import Breadcrumbs from "../componentes/Breadcrumb";
 
 

@@ -1,11 +1,11 @@
 import React from "react";
 import "../styles/infantil.css";
-import scalpers from "../imagenes/scalpers.png";
-import skidrock from "../imagenes/skidrock.png";
-import esenzzia from "../imagenes/esenzzia.png"
-import tous from "../imagenes/tous.png"
-import ToyStory from "../imagenes/ToyStory.png"
-import Cars from "../imagenes/Cars.png"
+import scalpers from "../imagenes/imagenesInfantil/scalpers.png";
+import skidrock from "../imagenes/imagenesInfantil/skidrock.png";
+import esenzzia from "../imagenes/imagenesInfantil/esenzzia.png"
+import tous from "../imagenes/imagenesInfantil/tous.png"
+import ToyStory from "../imagenes/imagenesInfantil/ToyStory.png"
+import Cars from "../imagenes/imagenesInfantil/Cars.png"
 import Breadcrumbs from "../componentes/Breadcrumb";
 
 

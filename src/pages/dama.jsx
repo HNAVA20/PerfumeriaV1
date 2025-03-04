@@ -1,13 +1,12 @@
 import React from "react";
 import "../styles/dama.css";
-import Coco from "../imagenes/Coco.png";
-import flower from "../imagenes/flower.png";
-import Chance from "../imagenes/Chance.png"
-import Jadore from "../imagenes/Jadore.png"
-import Jacobs from "../imagenes/Jacobs.png"
-import Scandal from "../imagenes/Scandal.png"
-import Breadcrumbs from "../componentes/Breadcrumb.jsx";
-
+import Coco from "../imagenes/imagenesMujer/Coco.png";
+import flower from "../imagenes/imagenesMujer/flower.png";
+import Chance from "../imagenes/imagenesMujer/Chance.png"
+import Jadore from "../imagenes/imagenesMujer/Jadore.png"
+import Jacobs from "../imagenes/imagenesMujer/Jacobs.png"
+import Scandal from "../imagenes/imagenesMujer/Scandal.png"
+import Breadcrumbs from "../componentes/Breadcrumb";
 
 const productos = [
     { id: 1, nombre: "Chance", precio: 3200, img: Chance },
