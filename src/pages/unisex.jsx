@@ -6,6 +6,7 @@ import EauDeToilette from "../imagenes/EauDeToilette.png"
 import ItsYouArt from "../imagenes/ItsYouArt.png"
 import Isolée from "../imagenes/Isolée.png"
 import Rouge from "../imagenes/Rouge.png"
+import Breadcrumbs from "../componentes/Breadcrumb";
 
 
 const productos = [
@@ -19,6 +20,8 @@ const productos = [
 function unisex() {
     return (
         <div>
+            <Breadcrumbs />
+            
             <main className="unisex-container">
                 <aside className="filter-container">
                     <h2>Filtrar por:</h2>

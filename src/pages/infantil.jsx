@@ -6,6 +6,7 @@ import esenzzia from "../imagenes/esenzzia.png"
 import tous from "../imagenes/tous.png"
 import ToyStory from "../imagenes/ToyStory.png"
 import Cars from "../imagenes/Cars.png"
+import Breadcrumbs from "../componentes/Breadcrumb";
 
 
 const productos = [
@@ -19,6 +20,8 @@ const productos = [
 function Infantil() {
     return (
         <div>
+            <Breadcrumbs />
+            
             <main className="infantil-container">
                 <aside className="filter-container">
                     <h2>Filtrar por:</h2>

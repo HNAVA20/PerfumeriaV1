@@ -11,6 +11,7 @@
 }
 
 .breadcrumbs li a {
+  font-size: 18px;
   text-decoration: none;
   color: black;
   transition: 0.3s;
@@ -29,3 +30,10 @@
 .breadcrumbs li:last-child::after {
   content: "";
 }
+
+.last-breadcrumb-text {
+  color: #D2B091; /* Color rosa */
+  font-weight: bold;
+  font-size: 18px;
+}
+

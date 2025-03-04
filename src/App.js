@@ -20,22 +20,22 @@ import Chanel from './pages/chanel.jsx';
 function App() {
   return (
     <BrowserRouter>
-    <Navbar />
-      <Routes>
-        <Route path="/" element={<Inicio />} />
-        <Route path="/caballero" element={<Caballero />} />
-        <Route path="/dama" element={<Dama />} />
-        <Route path='/ninos' element={<Ninos />} />
-        <Route path='/sets' element={<Sets />} />
-        <Route path='/unisex' element={<Unisex />} />
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/registrousuarios' element={<Registrousuarios />} />
-        <Route path='/sitemap' element={<Sitemap />} />
-        <Route path='/perfumes' element={<Perfumes />} />
-        <Route path='/chanel' element={<Chanel />} />
-      </Routes>
-      <Footer />
+      <Navbar />
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/caballero" element={<Caballero />} />
+          <Route path="/dama" element={<Dama />} />
+          <Route path='/ninos' element={<Ninos />} />
+          <Route path='/sets' element={<Sets />} />
+          <Route path='/unisex' element={<Unisex />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/registrousuarios' element={<Registrousuarios />} />
+          <Route path='/sitemap' element={<Sitemap />} />
+          <Route path='/perfumes' element={<Perfumes />} />
+          <Route path='dama/chanel' element={<Chanel />} />
+        </Routes>
+        <Footer />
     </BrowserRouter>
   );
 }

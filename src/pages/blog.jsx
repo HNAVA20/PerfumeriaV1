@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/blog.css';
 import '../componentes/NavBar.jsx';
+import Breadcrumbs from "../componentes/Breadcrumb.jsx";
 
 const articles = [
   {
@@ -22,17 +23,20 @@ const articles = [
 
 const Blog = () => {
   return (
-    <div className="container">
-      <h1 className="title">Blog de Perfumería</h1>
-      <div className="articles-grid">
-        {articles.map((article, index) => (
-          <div key={index} className="article">
-            <img src={article.image} alt={article.title} className="article-image" />
-            <h2 className="article-title">{article.title}</h2>
-            <p className="article-content">{article.content}</p>
-            <a href="#" className="read-more">Leer más</a>
-          </div>
-        ))}
+    <div>
+      <Breadcrumbs />
+      <div className="container">
+        <h1 className="title">Blog de Perfumería</h1>
+        <div className="articles-grid">
+          {articles.map((article, index) => (
+            <div key={index} className="article">
+              <img src={article.image} alt={article.title} className="article-image" />
+              <h2 className="article-title">{article.title}</h2>
+              <p className="article-content">{article.content}</p>
+              <a href="#" className="read-more">Leer más</a>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

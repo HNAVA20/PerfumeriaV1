@@ -1,10 +1,13 @@
 import React from "react";
 import '../styles/chanel.css';
 import '../componentes/NavBar.jsx';
+import Breadcrumbs from "../componentes/Breadcrumb.jsx";
 
 function Chanel() {
     return(
-        <h1>Chanel</h1>
+        <div>
+            <Breadcrumbs />
+        </div>
     );
 }
 
