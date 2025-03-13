@@ -7,7 +7,7 @@ const Breadcrumbs = () => {
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   return (
-    <div aria-label="breadcrumb">
+    <div aria-label="breadcrumb" className="container-breadcrumbs">
       <ul className="breadcrumbs">
         <li>
           <Link to="/">Inicio</Link>

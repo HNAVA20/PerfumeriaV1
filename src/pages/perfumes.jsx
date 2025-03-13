@@ -21,6 +21,7 @@ function Perfumes() {
 
     return (
         <div className="category-container">
+            
             {categories.map((category, index) => (
                 <div 
                     key={index} 

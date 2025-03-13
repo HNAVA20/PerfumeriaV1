@@ -1,6 +1,7 @@
 /* Estilos para la página de inicio */
 .Container-Inicio {
-    font-family: Arial, sans-serif;
+  padding-top: 83px;
+  font-family: Arial, sans-serif;
   }
   
   /* Estilos para el carrusel */
@@ -9,35 +10,37 @@
     overflow: hidden;
     width: 100%;
     position: relative;
-    height: 300px;
-  }
-  
-  .carousel-item {
+}
+
+.carousel-item {
     opacity: 0;
     transition: opacity 1s ease-in-out;
     position: absolute;
     width: 100%;
-  }
+}
 
-  .carousel-item img{
+.carousel-item img {
     width: 100%;
-  }
-  
-  .carousel-item.active {
+    display: block;
+    height: auto;
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsión */
+}
+
+.carousel-item.active {
     opacity: 1;
-  }
+    position: relative; /* Esto ayuda a mantener la altura del contenedor */
+}
+
   
   /* Estilos para las secciones */
   .info-secciones {
     text-align: center;
     margin: 0 0;
     padding-bottom: 0;
-    margin-top: 70px;
   }
   
   .seccion {
     margin: 20px;
-    padding-top: 30px;
   }
   
   .img-inicio{

@@ -19,7 +19,7 @@ const productos = [
 ];
 function Dama() {
     return (
-        <div>
+        <div className="containerGeneral-dama">
             <Breadcrumbs />
             <main className="dama-container">
                 <aside className="filter-container">
