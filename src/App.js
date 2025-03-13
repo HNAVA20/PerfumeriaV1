@@ -15,6 +15,10 @@ import Sitemap from './pages/sitemap.jsx';
 import Perfumes from './pages/perfumes.jsx';
 import Chanel from './pages/chanel.jsx';
 import Registroadmin from './pages/RegistroAdmin.jsx';
+import ProductosAdmin from './pages/ProductosAdmin.jsx';
+import SeccionesAdmin from './pages/SeccionesAdmin.jsx';
+import MarcasAdmin from './pages/MarcasAdmin.jsx';
+import UsuariosAdmin from './pages/UsuariosAdmin.jsx';
 
 function App() {
   return (
@@ -30,9 +34,13 @@ function App() {
         <Route path='/blog' element={<Blog />} />
         <Route path='/login' element={<Login />} />
         <Route path='/registroadmin' element={< Registroadmin/>} /> 
+        <Route path='/productosadmin' element={< ProductosAdmin />} />
+        <Route path='/seccionesadmin' element={< SeccionesAdmin />} />
         <Route path='/sitemap' element={<Sitemap />} />
         <Route path='/perfumes' element={<Perfumes />} />
         <Route path='dama/chanel' element={<Chanel />} />
+        <Route path='/marcasadmin' element={<MarcasAdmin />} />
+        <Route path='/usuariosadmin' element={<UsuariosAdmin/>} />
       </Routes>
       <Footer />
     </BrowserRouter>
