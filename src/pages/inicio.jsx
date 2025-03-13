@@ -10,13 +10,34 @@ import img3 from '../imagenes/img-3.png';
 function Inicio() {
   const images = [Banner, Banner2];
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Cambia cada 3 segundos
+    }, 3000);
     return () => clearInterval(interval);
   }, [images.length]);
+
+  // Mostrar u ocultar el botón según el scroll
+  useEffect(() => {
+    const handleScroll = () => {
+        if (window.scrollY > 150) {
+            setShowScrollButton(true);
+        } else {
+            setShowScrollButton(false);
+        }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
+
+  // Función para desplazar suavemente hacia arriba
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="Container-Inicio">
@@ -51,6 +72,13 @@ function Inicio() {
         <img src={img3} alt='Productos exclusivos' className='img-inicio'/>
       </section>
       <FormContactanos />
+
+      {/* Botón flotante para ir al inicio */}
+      {showScrollButton && (
+        <button className="scroll-to-top" onClick={scrollToTop}>
+          &#8679;
+        </button>
+      )}
     </div>
   );
 }
