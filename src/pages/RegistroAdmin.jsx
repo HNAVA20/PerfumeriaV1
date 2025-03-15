@@ -29,10 +29,7 @@ function RegistroAdmin() {
     if (categoryName === 'Usuarios') {
       navigate('/UsuariosAdmin');
     }
-    
-    
   };
-
 
   return (
     <div><br /><br /><br />

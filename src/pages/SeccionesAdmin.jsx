@@ -16,13 +16,24 @@ function RegistroAdmin() {
     navigate('/login'); // Ruta hacia la página de login
   };
 
+  const handleCardClick = (categoryName) => {
+    if (categoryName === "Agregar seccion") {
+      navigate('/AgregarSeccionAdmin'); // Navegar a la página de agregar sección
+    }
+    // Puedes agregar más condiciones aquí para otras categorías si es necesario
+  };
+
   return (
     <div><br /><br /><br />
-      <h2 id="h2" >Registro Seccion vista de administrador</h2>
-      <p id="p" >Aquí puedes registrar secciones como administrador.</p>
+      <h2 id="h2">Registro Seccion vista de administrador</h2>
+      <p id="p">Aquí puedes registrar secciones como administrador.</p>
       <div className="category-container">
         {categories.map((category, index) => (
-          <div key={index} className={`category-card ${category.className}`}>
+          <div
+            key={index}
+            className={`category-card ${category.className}`}
+            onClick={() => handleCardClick(category.name)}
+          >
             <div className="category-label">{category.name}</div>
           </div>
         ))}

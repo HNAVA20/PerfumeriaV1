@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Cambiado a useNavigate
+import { useNavigate } from 'react-router-dom';
 import '../styles/registroadmin.css';
 
 const categories = [
@@ -13,16 +13,23 @@ function RegistroAdmin() {
   const navigate = useNavigate();
 
   const handleBackToLogin = () => {
-    navigate('/login'); // Ruta hacia la página de login
+    navigate('/login'); 
+  };
+
+  const handleCardClick = (categoryName) => {
+    if (categoryName === "Agregar usuarios") {
+      navigate('/AgregarUsuariosAdmin');
+    }
   };
 
   return (
-    <div><br /><br /><br />
-      <h2 id="h2" >Registro Usuarios vista de administrador</h2>
-      <p id="p" >Aquí puedes registrar Usuarios como administrador.</p>
+    <div>
+      <br /><br /><br />
+      <h2 id="h2">Registro Usuarios vista de administrador</h2>
+      <p id="p">Aquí puedes registrar Usuarios como administrador.</p>
       <div className="category-container">
         {categories.map((category, index) => (
-          <div key={index} className={`category-card ${category.className}`}>
+          <div key={index} className={`category-card ${category.className}`} onClick={() => handleCardClick(category.name)}>
             <div className="category-label">{category.name}</div>
           </div>
         ))}

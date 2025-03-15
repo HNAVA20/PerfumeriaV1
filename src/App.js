@@ -19,6 +19,11 @@ import ProductosAdmin from './pages/ProductosAdmin.jsx';
 import SeccionesAdmin from './pages/SeccionesAdmin.jsx';
 import MarcasAdmin from './pages/MarcasAdmin.jsx';
 import UsuariosAdmin from './pages/UsuariosAdmin.jsx';
+import AgregarProductoAdmin from './pages/AgregarProductoAdmin.jsx';
+import ModificarProductoAdmin from './pages/ModificarProductoAdmin.jsx';
+import AgregarSeccionAdmin from './pages/AgregarSeccionAdmin.jsx';
+import AgregarMarcasAdmin from './pages/AgregarMarcasAdmin.jsx';
+import AgregarUsuariosAdmin from './pages/AgregarUsuariosAdmin.jsx';
 
 function App() {
   return (
@@ -41,6 +46,11 @@ function App() {
         <Route path='dama/chanel' element={<Chanel />} />
         <Route path='/marcasadmin' element={<MarcasAdmin />} />
         <Route path='/usuariosadmin' element={<UsuariosAdmin/>} />
+        <Route path='/agregarproductoadmin' element={<AgregarProductoAdmin/>} />
+        <Route path='/modificarproductoadmin' element={<ModificarProductoAdmin/>} />
+        <Route path='/agregarseccionadmin' element={<AgregarSeccionAdmin/>} />
+        <Route path='/agregarmarcasadmin' element={<AgregarMarcasAdmin/>} />
+        <Route path='/agregarusuariosadmin' element={<AgregarUsuariosAdmin/>} />
       </Routes>
       <Footer />
     </BrowserRouter>

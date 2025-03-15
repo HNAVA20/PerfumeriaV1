@@ -9,20 +9,30 @@ const categories = [
   { name: "Eliminar marcas", className: "eliminarmarcas-card" },
 ];
 
-function RegistroAdmin() {
+function MarcasAdmin() {
   const navigate = useNavigate();
 
   const handleBackToLogin = () => {
     navigate('/login'); // Ruta hacia la página de login
   };
 
+  const handleCardClick = (categoryName) => {
+    if (categoryName === "Agregar marcas") {
+      navigate('/AgregarMarcasAdmin'); // Navegar a la página de agregar producto
+    }    
+};
+
   return (
     <div><br /><br /><br />
-      <h2 id="h2" >Registro Marcas vista de administrador</h2>
-      <p id="p" >Aquí puedes registrar Marcas como administrador.</p>
+      <h2 id="h2">Registro Marcas vista administrador</h2>
+      <p id="p">Aquí puedes registrar las marcas como administrador.</p>
       <div className="category-container">
         {categories.map((category, index) => (
-          <div key={index} className={`category-card ${category.className}`}>
+          <div
+            key={index}
+            className={`category-card ${category.className}`}
+            onClick={() => handleCardClick(category.name)}
+          >
             <div className="category-label">{category.name}</div>
           </div>
         ))}
@@ -34,4 +44,4 @@ function RegistroAdmin() {
   );
 }
 
-export default RegistroAdmin;
+export default MarcasAdmin;
