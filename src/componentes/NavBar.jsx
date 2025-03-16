@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"; // Importar Link de React Router
 import logo from '../imagenes/LogoPerfumeria.png';
 import '../componentes/NavBar.css';
 
+
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState(null);
@@ -27,6 +28,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/"><img src={logo} alt="Logo" className="logo" /></Link>
         <div className="menu-busqueda-container">
+          
           {/* Barra de búsqueda */}
           <div className="search-container">
             <form onSubmit={handleSearchSubmit}>
@@ -39,6 +41,7 @@ const Navbar = () => {
               />
             </form>
           </div>
+
 
           {/* Botón de hamburguesa */}
           <button 
@@ -79,7 +82,6 @@ const Navbar = () => {
               </ul>
             </li>
 
-            <li><Link to="/novedades">Novedades</Link></li>
             <li><Link to="/blog">Blog</Link></li>
             <li><Link to="/login">Login</Link></li>
           </ul>

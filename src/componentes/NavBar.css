@@ -1,14 +1,20 @@
 /* --- ESTILOS GENERALES --- */
 nav {
+  margin: 0;
+  padding-top: 0;
+  position: fixed;
+  width: 100%;
   background-color: #D2B091;
   padding: 10px 20px;
+  z-index: 3;
 }
 
 .menu-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  /*position: relative;*/
+  width: 98%;
 }
 
 .menu-busqueda-container{
@@ -98,7 +104,7 @@ nav {
   list-style: none;
   padding: 0;
   margin: 0;
-  width: 200px;
+  width: 120px;
   top: 100%;
   left: 0;
   border-bottom-right-radius: 10px;
@@ -189,16 +195,21 @@ nav {
       padding: 10px 0;
   }
 
+  .menu-container{
+    width: 95%;
+  }
+
   .menu.open {
-      display: flex;
+    margin-top: 10px;
+    display: flex;
   }
 
   .menu.open ul{
-      width: 100%;
+    width: 100%;
   }
 
   .menu li {
-      text-align: center;
+    text-align: center;
   }
 
   .menu-toggle {

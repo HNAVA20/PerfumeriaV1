@@ -11,13 +11,24 @@ import Sets from './pages/sets.jsx';
 import Unisex from './pages/unisex.jsx';
 import Blog from './pages/blog.jsx';
 import Login from './pages/login.jsx';
-import Registrousuarios from './pages/registrousuarios.jsx';
 import Sitemap from './pages/sitemap.jsx';
+import Perfumes from './pages/perfumes.jsx';
+import Chanel from './pages/chanel.jsx';
+import Registroadmin from './pages/RegistroAdmin.jsx';
+import ProductosAdmin from './pages/ProductosAdmin.jsx';
+import SeccionesAdmin from './pages/SeccionesAdmin.jsx';
+import MarcasAdmin from './pages/MarcasAdmin.jsx';
+import UsuariosAdmin from './pages/UsuariosAdmin.jsx';
+import AgregarProductoAdmin from './pages/AgregarProductoAdmin.jsx';
+import ModificarProductoAdmin from './pages/ModificarProductoAdmin.jsx';
+import AgregarSeccionAdmin from './pages/AgregarSeccionAdmin.jsx';
+import AgregarMarcasAdmin from './pages/AgregarMarcasAdmin.jsx';
+import AgregarUsuariosAdmin from './pages/AgregarUsuariosAdmin.jsx';
 
 function App() {
   return (
     <BrowserRouter>
-    <Navbar />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/caballero" element={<Caballero />} />
@@ -27,8 +38,19 @@ function App() {
         <Route path='/unisex' element={<Unisex />} />
         <Route path='/blog' element={<Blog />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/registrousuarios' element={<Registrousuarios />} />
+        <Route path='/registroadmin' element={< Registroadmin/>} /> 
+        <Route path='/productosadmin' element={< ProductosAdmin />} />
+        <Route path='/seccionesadmin' element={< SeccionesAdmin />} />
         <Route path='/sitemap' element={<Sitemap />} />
+        <Route path='/perfumes' element={<Perfumes />} />
+        <Route path='dama/chanel' element={<Chanel />} />
+        <Route path='/marcasadmin' element={<MarcasAdmin />} />
+        <Route path='/usuariosadmin' element={<UsuariosAdmin/>} />
+        <Route path='/agregarproductoadmin' element={<AgregarProductoAdmin/>} />
+        <Route path='/modificarproductoadmin' element={<ModificarProductoAdmin/>} />
+        <Route path='/agregarseccionadmin' element={<AgregarSeccionAdmin/>} />
+        <Route path='/agregarmarcasadmin' element={<AgregarMarcasAdmin/>} />
+        <Route path='/agregarusuariosadmin' element={<AgregarUsuariosAdmin/>} />
       </Routes>
       <Footer />
     </BrowserRouter>

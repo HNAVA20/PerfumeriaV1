@@ -1,37 +1,46 @@
 /* Estilos para la página de inicio */
 .Container-Inicio {
-    font-family: Arial, sans-serif;
+  padding-top: 83px;
+  font-family: Arial, sans-serif;
   }
   
   /* Estilos para el carrusel */
   .carousel {
     display: flex;
     overflow: hidden;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .carousel-item {
-    min-width: 100%;
-    transition: transform 0.5s ease;
-  }
-  
-  .carousel-item img {
     width: 100%;
+    position: relative;
+}
+
+.carousel-item {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    width: 100%;
+}
+
+.carousel-item img {
+    width: 100%;
+    display: block;
     height: auto;
-  }
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsión */
+}
+
+.carousel-item.active {
+    opacity: 1;
+    position: relative; /* Esto ayuda a mantener la altura del contenedor */
+}
+
   
   /* Estilos para las secciones */
   .info-secciones {
     text-align: center;
     margin: 0 0;
     padding-bottom: 0;
-    margin-top: 70px;
   }
   
   .seccion {
     margin: 20px;
-    padding-top: 30px;
   }
   
   .img-inicio{
@@ -113,3 +122,31 @@
     margin-left: auto;
   }
   
+  /* Botón flotante para ir arriba */
+  .scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex !important; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    z-index: 8;
+}
+
+.scroll-to-top:hover {
+    background-color: rgb(229, 229, 229);
+}
+
+.scroll-to-top.show {
+    display: flex; /* Se muestra cuando el usuario hace scroll */
+}

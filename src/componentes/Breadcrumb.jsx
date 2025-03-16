@@ -1,52 +1,33 @@
 import React from "react";
-import '../componentes/Breadcrumb.css';
-import { Breadcrumbs, Link, Box, Typography} from "@material-ui/core";
-import { HomeWorkOutlined } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import "../componentes/Breadcrumb.css";
 
-function App(){
+const Breadcrumbs = () => {
+  const location = useLocation();
+  const pathnames = location.pathname.split("/").filter((x) => x);
 
-    return(
-        <Box display="Flex" flexDirection="column" m={10}>
-            <Breadcrumbs>
-            <Link className="breadcrumb-link" href="/" onClick={() => {}}>
-            Inicio
-            </Link>
-            <Link className="breadcrumb-link" href="/" onClick={() => {}}>
-            Perfumes
-            </Link>
-            <Link className="breadcrumb-link" href="/" onClick={() => {}}>
-            Novedades
-            </Link>
-            <Typography color="textPrimary">Page-1</Typography>
-            </Breadcrumbs>
+  return (
+    <div aria-label="breadcrumb" className="container-breadcrumbs">
+      <ul className="breadcrumbs">
+        <li>
+          <Link to="/">Inicio</Link>
+        </li>
+        {pathnames.map((value, index) => {
+          const to = `/${pathnames.slice(0, index + 1).join("/")}`;
+          const isLast = index === pathnames.length - 1; // Detectar la última miga
+          return (
+            <li key={to} className={isLast ? "last-breadcrumb" : ""}>
+              {isLast ? (
+                <span className="last-breadcrumb-text">{decodeURIComponent(value)}</span> // Cambiar el texto sin enlace
+              ) : (
+                <Link to={to}>{decodeURIComponent(value)}</Link>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
 
-            <Breadcrumbs separator="->">
-            <Link className="breascrumb-link" href="/" onClick={() => {}}>
-            Pages
-            </Link>
-            <Typography color="textPrimary">Page-1</Typography>
-            </Breadcrumbs>
-
-            <Breadcrumbs>
-            <Link className="breadcrumb-link breadcrumb-icon-link" href="/" onClick={() => {}}>
-            <HomeWorkOutlined className="breadcrumb-icon" />
-            Inicio
-            </Link>
-            <Typography color="textPrimary">Page-1</Typography>
-            </Breadcrumbs>
-
-            <Breadcrumbs maxItems={2}>
-            <Typography color="textPrimary">Inicio</Typography>
-            <Typography color="textPrimary">Perfumes</Typography>
-            <Typography color="textPrimary">All pages</Typography>
-            <Typography color="textPrimary">Pages</Typography>
-            <Typography color="textPrimary">Page-1</Typography>
-
-        </Breadcrumbs>
-         </Box>
-    );
-}
-
-
-export default App;
+export default Breadcrumbs;

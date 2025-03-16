@@ -1,76 +1,76 @@
 import React from "react";
-import '../styles/caballero.css';
+import "../styles/caballero.css";
+import aqua from "../imagenes/imagenesHombre/Aqua.png";
+import Dolce from "../imagenes/imagenesHombre/Dolce-Gabana.png";
+import Jean from "../imagenes/imagenesHombre/Jean-Paul-Gaultier.png"
+import Onemillion from "../imagenes/imagenesHombre/onemillion.png"
+import Versace from "../imagenes/imagenesHombre/Versace.png"
+import Prada from "../imagenes/imagenesHombre/Prada.png"
+import Breadcrumbs from "../componentes/Breadcrumb";
+import BackToHomeButton from "../componentes/BackToHomeButton";
 
-function Caballero() {
+
+const productos = [
+    { id: 1, nombre: "Jean Paul Gaultier", precio: 3200, img: Jean },
+    { id: 2, nombre: "Giorgio Armani", precio: 4650, img: aqua },
+    { id: 3, nombre: "Versace", precio: 3510, img: Versace },
+    { id: 4, nombre: "Paco Rabanne", precio: 2600, img: Onemillion },
+    { id: 5, nombre: "Dolce & Gabbana", precio: 5600, img: Dolce },
+    { id: 6, nombre: "Prada", precio: 7600, img: Prada }
+];
+function caballero() {
     return (
-        <div className="caballero-container">
-            <aside className="filters">
-                <h2>FILTRAR POR:</h2>
-                <section>
-                    <h3>MARCA</h3>
-                    <ul>
-                        <li><input type="checkbox" id="aurora" /><label htmlFor="aurora">Aurora</label></li>
-                        <li><input type="checkbox" id="sauritana" /><label htmlFor="sauritana">Sauritana</label></li>
-                        <li><input type="checkbox" id="bachemy" /><label htmlFor="bachemy">Bachemy</label></li>
-                        <li><input type="checkbox" id="cauda" /><label htmlFor="cauda">Cauda</label></li>
-                        <li><input type="checkbox" id="pierceuvelda" /><label htmlFor="pierceuvelda">Pierceuvelda</label></li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>AROMA</h3>
-                    <ul>
-                        <li><input type="checkbox" id="america" /><label htmlFor="america">América</label></li>
-                        <li><input type="checkbox" id="paranaticos" /><label htmlFor="paranaticos">Paranáticos</label></li>
-                        <li><input type="checkbox" id="corona" /><label htmlFor="corona">Corona</label></li>
-                        <li><input type="checkbox" id="dulce" /><label htmlFor="dulce">Dulce</label></li>
-                        <li><input type="checkbox" id="picard" /><label htmlFor="picard">Picard</label></li>
-                        <li><input type="checkbox" id="peruano" /><label htmlFor="peruano">Peruano</label></li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>PRECIO</h3>
-                    <div className="price-range">
-                        <input type="number" id="minPrice" placeholder="MIN." />
-                        <input type="number" id="maxPrice" placeholder="MAX." />
+        <div>
+            <Breadcrumbs />
+            <main className="caballero-container">
+                <aside className="filter-container">
+                    <h2>Filtrar por:</h2>
+                    <div className="filter">
+                        <h3>Marca</h3>
+                        <ul>
+                            {['Versace','Giorgio Armani','Azzaro', 'Bvlgari', 'Burberry', 'Coach'].map((marca, index) => (
+                                <li key={index}>
+                                    <input type="checkbox" id={`marca${index + 1}`} />
+                                    <label htmlFor={`marca${index + 1}`}>{marca}</label>
+                                </li>
+                            ))}
+                        </ul>
+                        <h3>Aroma</h3>
+                        <ul>
+                            {['Amaderado', 'Aromático', 'Cítrico', 'Dulce'].map((aroma, index) => (
+                                <li key={index}>
+                                    <input type="checkbox" id={`aroma${index + 1}`} />
+                                    <label htmlFor={`aroma${index + 1}`}>{aroma}</label>
+                                </li>
+                            ))}
+                        </ul>
+                        <h3>Precio</h3>
+                        <div className="price-filter">
+                            <label htmlFor="min-price">Min.</label>
+                            <input type="number" id="min-price" />
+                            <label htmlFor="max-price">Max.</label>
+                            <input type="number" id="max-price" />
+                            <button>Actualizar</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <section className="products">
+                    <h2>Productos</h2>
+                    <div className="product-list">
+                        {productos.map(producto => (
+                            <div className="product-item" key={producto.id}>
+                                <img src={producto.img} alt={producto.nombre} className="img" />
+                                <p>{producto.nombre}</p>
+                                <p>${producto.precio.toLocaleString()}</p>
+                            </div>
+                        ))}
                     </div>
                 </section>
-                <button className="update-button">ACTUALIZAR</button>
-            </aside>
-            <main className="products">
-                <h2>VER COMO</h2>
-                <div className="product">
-                    <h3>JEAN PAUL GAULTIER</h3>
-                    <p>-------------</p>
-                    <p>200 ml Nombre</p>
-                    <p className="price">3000.00</p>
-                </div>
-                <div className="product">
-                    <h3>GIORGIO ARMANI</h3>
-                    <p>-----------</p>
-                    <p>200 ml Nombre</p>
-                    <p className="price">568.00</p>
-                </div>
-                <div className="product">
-                    <h3>VERSACE</h3>
-                    <p>-------------</p>
-                    <p>200 ml Nombre</p>
-                    <p className="price">2000.00</p>
-                </div>
-                <div className="product">
-                    <h3>PACO RABANNE</h3>
-                    <p>----------------</p>
-                    <p>200 ml Nombre</p>
-                    <p className="price">1000.00</p>
-                </div>
-                <div className="product">
-                    <h3>ONE MILLION</h3>
-                    <p>----------------</p>
-                    <p>200 ml Nombre</p>
-                    <p className="price">10000.00</p>
-                </div>
             </main>
+            <BackToHomeButton />
         </div>
     );
 }
 
-export default Caballero;
+export default caballero;
