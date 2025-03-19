@@ -6,6 +6,7 @@ function RegistroProductos() {
         nombre_producto: "",
         descripcion: "",
         aroma: "",
+        marca: "",
         precio: "",
         cantidad: ""
     });
@@ -23,6 +24,8 @@ function RegistroProductos() {
         console.log("Datos del formulario:", formulario);
     };
 
+    const marcas = ["Chanel",]; // Lista de marcas disponibles
+
     return (
         <div className="registro-container">
             <form onSubmit={handleSubmit}>
@@ -35,6 +38,19 @@ function RegistroProductos() {
                     onChange={handleChange}
                     required
                 />
+                <select
+                    name="marca"
+                    value={formulario.marca}
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="">Selecciona una marca</option>
+                    {marcas.map((marca) => (
+                        <option key={marca} value={marca}>
+                            {marca}
+                        </option>
+                    ))}
+                </select>
                 <textarea
                     name="descripcion"
                     placeholder="Descripción"

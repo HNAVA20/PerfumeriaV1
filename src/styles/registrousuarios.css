@@ -8,6 +8,16 @@
     --font-secondary: 'Playfair Display', serif;
 }
 
+/* Aplicar la fuente primaria globalmente */
+.registro-container, 
+.registro-container input, 
+.registro-container textarea, 
+.registro-container select, 
+.registro-container button {
+    font-family: var(--font-primary); /* Consistencia en todo el formulario */
+}
+
+
 /* Contenedor principal */
 .registro-container {
     display: flex;
@@ -34,6 +44,10 @@
     animation: fadeIn 0.5s ease-in-out; /* Animación al mostrar el formulario */
 }
 
+.registro-container input[name="descripcion"] {
+    font-family: var(--font-primary);
+}
+
 /* Títulos */
 .registro-container h1 {
     font-size: 2.5rem;
@@ -57,6 +71,44 @@
     border-color: var(--primary-color);
     box-shadow: 0px 0px 8px rgba(255, 117, 140, 0.6);
     outline: none;
+    transform: scale(1.02); /* Efecto de zoom */
+}
+
+.registro-container textarea {
+    font-family: var(--gradient-primary); /* Aplica la misma fuente que el formulario. */
+    padding: 1rem; /* Espaciado interno similar al de los inputs. */
+    border: 1px solid var(--border-color); /* Consistencia en el estilo del borde. */
+    border-radius: 6px; /* Esquinas redondeadas como los inputs. */
+    font-size: 1rem; /* Tamaño del texto. */
+    transition: all 0.3s ease; /* Animación suave para las interacciones. */
+    width: calc(100% - 16px); /* Ajuste para evitar desbordamiento. */
+    box-sizing: border-box; /* Asegura que padding y borde no alteren el tamaño total. */
+}
+
+.registro-container textarea:focus {
+    border-color: var(--primary-color); /* Resalta el borde al hacer foco. */
+    box-shadow: 0px 0px 8px rgba(255, 117, 140, 0.6); /* Sombra para el efecto de foco. */
+    outline: none; /* Elimina el contorno predeterminado. */
+    transform: scale(1.02); /* Pequeño efecto de zoom. */
+}
+
+/* Estilo del selector (select) */
+.registro-container select {
+    padding: 1rem; /* Igual que los inputs */
+    border: 1px solid var(--border-color); /* Mantener consistencia con los inputs */
+    border-radius: 6px; /* Esquinas redondeadas como los inputs */
+    font-size: 1rem; /* Tamaño de texto coherente */
+    transition: all 0.3s ease; /* Animación suave al interactuar */
+    width: calc(100% - 16px); /* Ajuste de ancho */
+    box-sizing: border-box; /* Evitar desbordamiento */
+    background: var(--secondary-color); /* Fondo consistente */
+    font-family: var(--font-primary); /* Aplicar la misma fuente que los inputs */
+}
+
+.registro-container select:focus {
+    border-color: var(--primary-color); /* Resaltar borde al hacer foco */
+    box-shadow: 0px 0px 8px rgba(255, 117, 140, 0.6); /* Efecto de sombra */
+    outline: none; /* Quitar el contorno predeterminado */
     transform: scale(1.02); /* Efecto de zoom */
 }
 

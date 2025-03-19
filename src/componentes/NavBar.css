@@ -1,37 +1,37 @@
 /* --- ESTILOS GENERALES --- */
 nav {
   margin: 0;
-  padding-top: 0;
+  padding: 0 20px; /* Ajustamos padding para eliminar el superior */
   position: fixed;
+  top: 0; /* Fijar al borde superior */
+  left: 0;
   width: 100%;
   background-color: #D2B091;
-  padding: 10px 20px;
-  z-index: 3;
+  z-index: 1000; /* Aseguramos que esté en el frente */
 }
 
 .menu-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /*position: relative;*/
   width: 98%;
 }
 
-.menu-busqueda-container{
+.menu-busqueda-container {
   display: flex;
 }
 
 /* Logo */
 .logo {
-  height: 60px;
+  height: 60px; /* Altura del logo */
+  margin: 10px 0; /* Espacio superior e inferior */
+  display: block; /* Asegura que el logo sea tratado como bloque */
 }
 
 /* --- Barra de búsqueda --- */
-.search-container {
+.search-container {}
 
-}
-
-.search-container form{
+.search-container form {
   margin: 0;
   padding: 0;
 }
@@ -44,10 +44,10 @@ nav {
   border-radius: 6px;
   font-size: 14px;
   transition: all 0.3s;
-  width: 200px;  /* Tamaño fijo del input */
+  width: 200px; /* Tamaño fijo del input */
 }
 
-.search-input::placeholder{
+.search-input::placeholder {
   color: white;
 }
 
@@ -185,17 +185,17 @@ nav {
 /* --- MODO RESPONSIVO --- */
 @media (max-width: 900px) {
   .menu {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      background-color: #D2B091;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      padding: 10px 0;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #D2B091;
+    position: absolute;
+    top: 60px; /* Ajusta la posición para móviles */
+    left: 0;
+    padding: 10px 0;
   }
 
-  .menu-container{
+  .menu-container {
     width: 95%;
   }
 
@@ -204,7 +204,7 @@ nav {
     display: flex;
   }
 
-  .menu.open ul{
+  .menu.open ul {
     width: 100%;
   }
 
@@ -213,19 +213,26 @@ nav {
   }
 
   .menu-toggle {
-      display: block;
+    display: block;
   }
 
   /* Submenús en móviles: desplegados debajo */
   .submenu ul {
-      display: none;
-      position: static;
-      background-color: #cdb6a2;
-      width: 100%;
+    display: none;
+    position: static;
+    background-color: #cdb6a2;
+    width: 100%;
   }
 
   .submenu.open ul {
-      display: block;
-      width: 100%;
+    display: block;
+    width: 100%;
   }
+}
+
+/* --- SOLUCIÓN GLOBAL: EVITAR MÁRGENES Y AJUSTAR AL TOPE --- */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
