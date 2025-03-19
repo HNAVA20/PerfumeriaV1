@@ -1,48 +1,96 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Cambiado a useNavigate
+import React, { useState } from 'react';
 import '../styles/registroadmin.css';
 
-const categories = [
-  { name: "Agregar seccion", className: "agregarseccion-card" },
-  { name: "Modificar seccion", className: "modificarseccion-card" },
-  { name: "Consultar seccion", className: "consultarseccion-card" },
-  { name: "Eliminar seccion", className: "eliminarseccion-card" },
-];
+function SeccionesCrud() {
+  const [secciones, setSecciones] = useState([
+    { id: 1, nombre: 'Perfumería' },
+    { id: 2, nombre: 'Ofertas' },
+    { id: 3, nombre: 'Novedades' }
+  ]);
 
-function RegistroAdmin() {
-  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [newSeccion, setNewSeccion] = useState('');
+  const [editIndex, setEditIndex] = useState(null);
 
-  const handleBackToLogin = () => {
-    navigate('/login'); // Ruta hacia la página de login
+  const handleAddSeccion = () => {
+    if (newSeccion.trim()) {
+      if (editIndex !== null) {
+        const updatedSecciones = [...secciones];
+        updatedSecciones[editIndex].nombre = newSeccion;
+        setSecciones(updatedSecciones);
+        setEditIndex(null);
+      } else {
+        const newId = secciones.length > 0 ? secciones[secciones.length - 1].id + 1 : 1;
+        setSecciones([...secciones, { id: newId, nombre: newSeccion }]);
+      }
+      setNewSeccion('');
+      setModalOpen(false);
+    }
   };
 
-  const handleCardClick = (categoryName) => {
-    if (categoryName === "Agregar seccion") {
-      navigate('/AgregarSeccionAdmin'); // Navegar a la página de agregar sección
-    }
-    // Puedes agregar más condiciones aquí para otras categorías si es necesario
+  const handleEditSeccion = (index) => {
+    setNewSeccion(secciones[index].nombre);
+    setEditIndex(index);
+    setModalOpen(true);
+  };
+
+  const handleDeleteSeccion = (index) => {
+    const updatedSecciones = secciones.filter((_, i) => i !== index);
+    setSecciones(updatedSecciones);
   };
 
   return (
-    <div><br /><br /><br />
-      <h2 id="h2">Registro Seccion vista de administrador</h2>
-      <p id="p">Aquí puedes registrar secciones como administrador.</p>
-      <div className="category-container">
-        {categories.map((category, index) => (
-          <div
-            key={index}
-            className={`category-card ${category.className}`}
-            onClick={() => handleCardClick(category.name)}
-          >
-            <div className="category-label">{category.name}</div>
+    <div className="crud-container">
+      <h2>CRUD de Secciones</h2>
+
+      <div className="toolbar">
+        <button className="btn-add" onClick={() => setModalOpen(true)}>
+          + Agregar Sección
+        </button>
+        <input type="text" placeholder="Buscar..." className="search-bar" />
+      </div>
+
+      <table className="secciones-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {secciones.map((seccion, index) => (
+            <tr key={seccion.id}>
+              <td>{seccion.id}</td>
+              <td>{seccion.nombre}</td>
+              <td>
+                <button className="btn-edit" onClick={() => handleEditSeccion(index)}>Editar</button>
+                <button className="btn-delete" onClick={() => handleDeleteSeccion(index)}>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {modalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>{editIndex !== null ? 'Editar Sección' : 'Agregar Sección'}</h3>
+            <input
+              type="text"
+              placeholder="Nombre de la sección"
+              value={newSeccion}
+              onChange={(e) => setNewSeccion(e.target.value)}
+            />
+            <div className="modal-actions">
+              <button onClick={handleAddSeccion}>Guardar</button>
+              <button onClick={() => setModalOpen(false)}>Cancelar</button>
+            </div>
           </div>
-        ))}
-      </div>
-      <div className="buttons-container">
-        <button id="back-to-login" onClick={handleBackToLogin}>Regresar al Login</button>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default RegistroAdmin;
+export default SeccionesCrud;
