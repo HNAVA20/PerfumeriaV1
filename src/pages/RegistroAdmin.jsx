@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/registroadmin.css';
+import '../styles/vistaadministrador.css';
 
 const categories = [
   { name: "Productos", className: "productos-card" },

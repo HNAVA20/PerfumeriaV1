@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/registroadmin.css';
+import '../styles/seccionesadmin.css';
 
 function SeccionesCrud() {
   const [secciones, setSecciones] = useState([
