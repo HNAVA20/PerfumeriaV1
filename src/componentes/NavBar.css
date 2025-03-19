@@ -8,6 +8,7 @@ nav {
   width: 100%;
   background-color: #D2B091;
   z-index: 1000; /* Aseguramos que esté en el frente */
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); /* Sombreado en la parte inferior */
 }
 
 .menu-container {
