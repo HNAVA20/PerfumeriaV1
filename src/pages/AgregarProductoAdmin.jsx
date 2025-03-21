@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import '../styles/registrousuarios.css';
 
 function RegistroProductos() {
@@ -11,6 +12,8 @@ function RegistroProductos() {
         cantidad: ""
     });
 
+    const [mensaje, setMensaje] = useState(""); // Para mostrar mensajes de éxito/error
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormulario({
@@ -19,17 +22,39 @@ function RegistroProductos() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Datos del formulario:", formulario);
+        
+        try {
+            const response = await axios.post("http://localhost/mi_api/insertar_producto.php", formulario, {
+                headers: { "Content-Type": "application/json" }
+            });
+
+            setMensaje(response.data.mensaje || response.data.error);
+            
+            if (response.data.mensaje) {
+                // Reiniciar formulario si se registró correctamente
+                setFormulario({
+                    nombre_producto: "",
+                    descripcion: "",
+                    aroma: "",
+                    marca: "",
+                    precio: "",
+                    cantidad: ""
+                });
+            }
+        } catch (error) {
+            setMensaje("Error al conectar con la API");
+        }
     };
 
-    const marcas = ["Chanel",]; // Lista de marcas disponibles
+    const marcas = ["1", "2", "3"]; // IDs de las marcas en la base de datos
 
     return (
         <div className="registro-container">
             <form onSubmit={handleSubmit}>
                 <h1>Agregar Producto</h1>
+                {mensaje && <p>{mensaje}</p>}
                 <input
                     type="text"
                     name="nombre_producto"
@@ -45,9 +70,9 @@ function RegistroProductos() {
                     required
                 >
                     <option value="">Selecciona una marca</option>
-                    {marcas.map((marca) => (
-                        <option key={marca} value={marca}>
-                            {marca}
+                    {marcas.map((id) => (
+                        <option key={id} value={id}>
+                            Marca {id}
                         </option>
                     ))}
                 </select>
