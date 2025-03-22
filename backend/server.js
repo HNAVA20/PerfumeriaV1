@@ -5,6 +5,8 @@ const mysql = require("mysql2");
 const nodemailer = require("nodemailer");
 
 const app = express();
+
+
 app.use(express.json()); // Para leer JSON del frontend
 app.use(cors()); // Habilita CORS si el frontend está en otro dominio
 
@@ -40,7 +42,7 @@ app.post("/enviar-correo", (req, res) => {
 
     const mailOptions = {
         from: process.env.EMAIL_USER,
-        to: "destinatario@example.com", // Cambiar esto al correo donde recibiré los mensajes
+        to: "tic-300015@utnay.edu.mx", // Cambiar esto al correo donde recibiré los mensajes
         subject: "Nuevo mensaje del formulario de contacto",
         text: `Nombre: ${nombre}\nCorreo: ${email}\nMensaje: ${mensaje}`
     };
@@ -56,8 +58,8 @@ app.post("/enviar-correo", (req, res) => {
     });
 });
 
-// Inicia el servidor en el puerto 5000
-const PORT = process.env.PORT || 5000;
+// Inicia el servidor en el puerto 3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
