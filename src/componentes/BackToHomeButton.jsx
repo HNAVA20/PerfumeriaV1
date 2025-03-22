@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./BackToHomeButton.css";
+import "./stylecom/BackToHomeButton.css";
 
 const BackToHomeButton = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Importar Link de React Router
 import logo from '../imagenes/LogoPerfumeria.png';
-import '../componentes/NavBar.css';
+import './stylecom/NavBar.css';
 
 
 const Navbar = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import '../componentes/FormContactanos.css';
+import './stylecom/FormContactanos.css';
 
 const FormContactanos = () => {
   return (
