@@ -68,7 +68,7 @@ app.listen(PORT, () => {
 
 // Obtener todas las marcas
 app.get("/marcas", (req, res) => {
-    db.query("SELECT * FROM marcas", (err, results) => {
+    db.query("SELECT * FROM marca", (err, results) => {
         if (err) {
             console.error("Error al obtener marcas:", err);
             res.status(500).json({ error: "Error al obtener marcas" });
@@ -85,7 +85,7 @@ app.post("/marcas", (req, res) => {
         return res.status(400).json({ error: "El nombre de la marca es requerido" });
     }
 
-    db.query("INSERT INTO marcas (nombre_marca) VALUES (?)", [nombre_marca], (err, result) => {
+    db.query("INSERT INTO marca (nombre_marca) VALUES (?)", [nombre_marca], (err, result) => {
         if (err) {
             console.error("Error al insertar marca:", err);
             res.status(500).json({ error: "Error al insertar marca" });
@@ -100,7 +100,7 @@ app.put("/marcas/:id", (req, res) => {
     const { id } = req.params;
     const { nombre_marca } = req.body;
 
-    db.query("UPDATE marcas SET nombre_marca = ? WHERE id_marca = ?", [nombre_marca, id], (err) => {
+    db.query("UPDATE marca SET nombre_marca = ? WHERE id_marca = ?", [nombre_marca, id], (err) => {
         if (err) {
             console.error("Error al actualizar marca:", err);
             res.status(500).json({ error: "Error al actualizar marca" });
@@ -114,7 +114,7 @@ app.put("/marcas/:id", (req, res) => {
 app.delete("/marcas/:id", (req, res) => {
     const { id } = req.params;
 
-    db.query("DELETE FROM marcas WHERE id_marca = ?", [id], (err) => {
+    db.query("DELETE FROM marca WHERE id_marca = ?", [id], (err) => {
         if (err) {
             console.error("Error al eliminar marca:", err);
             res.status(500).json({ error: "Error al eliminar marca" });
