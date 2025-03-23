@@ -1,47 +1,96 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Cambiado a useNavigate
-import '../styles/registroadmin.css';
+import React, { useState } from 'react';
+import '../styles/MarcasAdmin.css';
 
-const categories = [
-  { name: "Agregar marcas", className: "agregarmarcas-card" },
-  { name: "Modificar marcas", className: "modificarmarcas-card" },
-  { name: "Consultar marcas", className: "consultarmarcas-card" },
-  { name: "Eliminar marcas", className: "eliminarmarcas-card" },
-];
+function MarcasCrud() {
+  const [marcas, setMarcas] = useState([
+    { id: 1, nombre: 'Chanel' },
+    { id: 2, nombre: 'Dior' },
+    { id: 3, nombre: 'Gucci' }
+  ]);
 
-function MarcasAdmin() {
-  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [newMarca, setNewMarca] = useState('');
+  const [editIndex, setEditIndex] = useState(null);
 
-  const handleBackToLogin = () => {
-    navigate('/login'); // Ruta hacia la página de login
+  const handleAddMarca = () => {
+    if (newMarca.trim()) {
+      if (editIndex !== null) {
+        const updatedMarcas = [...marcas];
+        updatedMarcas[editIndex].nombre = newMarca;
+        setMarcas(updatedMarcas);
+        setEditIndex(null);
+      } else {
+        const newId = marcas.length > 0 ? marcas[marcas.length - 1].id + 1 : 1;
+        setMarcas([...marcas, { id: newId, nombre: newMarca }]);
+      }
+      setNewMarca('');
+      setModalOpen(false);
+    }
   };
 
-  const handleCardClick = (categoryName) => {
-    if (categoryName === "Agregar marcas") {
-      navigate('/AgregarMarcasAdmin'); // Navegar a la página de agregar producto
-    }    
-};
+  const handleEditMarca = (index) => {
+    setNewMarca(marcas[index].nombre);
+    setEditIndex(index);
+    setModalOpen(true);
+  };
+
+  const handleDeleteMarca = (index) => {
+    const updatedMarcas = marcas.filter((_, i) => i !== index);
+    setMarcas(updatedMarcas);
+  };
 
   return (
-    <div><br /><br /><br />
-      <h2 id="h2">Registro Marcas vista administrador</h2>
-      <p id="p">Aquí puedes registrar las marcas como administrador.</p>
-      <div className="category-container">
-        {categories.map((category, index) => (
-          <div
-            key={index}
-            className={`category-card ${category.className}`}
-            onClick={() => handleCardClick(category.name)}
-          >
-            <div className="category-label">{category.name}</div>
+    <div className="crud-container">
+      <h2>CRUD de Marcas</h2>
+
+      <div className="toolbar">
+        <button className="btn-add" onClick={() => setModalOpen(true)}>
+          + Agregar Marca
+        </button>
+        <input type="text" placeholder="Buscar..." className="search-bar" />
+      </div>
+
+      <table className="marcas-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {marcas.map((marca, index) => (
+            <tr key={marca.id}>
+              <td>{marca.id}</td>
+              <td>{marca.nombre}</td>
+              <td>
+                <button className="btn-edit" onClick={() => handleEditMarca(index)}>Editar</button>
+                <button className="btn-delete" onClick={() => handleDeleteMarca(index)}>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {modalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>{editIndex !== null ? 'Editar Marca' : 'Agregar Marca'}</h3>
+            <input
+              type="text"
+              placeholder="Nombre de la marca"
+              value={newMarca}
+              onChange={(e) => setNewMarca(e.target.value)}
+            />
+            <div className="modal-actions">
+              <button onClick={handleAddMarca}>Guardar</button>
+              <button onClick={() => setModalOpen(false)}>Cancelar</button>
+            </div>
           </div>
-        ))}
-      </div>
-      <div className="buttons-container">
-        <button id="back-to-login" onClick={handleBackToLogin}>Regresar al Login</button>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default MarcasAdmin;
+export default MarcasCrud;
