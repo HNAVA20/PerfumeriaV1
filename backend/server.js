@@ -63,3 +63,124 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+// Rutas CRUD para Marcas
+
+// Obtener todas las marcas
+app.get("/marcas", (req, res) => {
+    db.query("SELECT * FROM marcas", (err, results) => {
+        if (err) {
+            console.error("Error al obtener marcas:", err);
+            res.status(500).json({ error: "Error al obtener marcas" });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+// Agregar una nueva marca
+app.post("/marcas", (req, res) => {
+    const { nombre_marca } = req.body;
+    if (!nombre_marca) {
+        return res.status(400).json({ error: "El nombre de la marca es requerido" });
+    }
+
+    db.query("INSERT INTO marcas (nombre_marca) VALUES (?)", [nombre_marca], (err, result) => {
+        if (err) {
+            console.error("Error al insertar marca:", err);
+            res.status(500).json({ error: "Error al insertar marca" });
+        } else {
+            res.json({ id: result.insertId, nombre_marca });
+        }
+    });
+});
+
+// Editar una marca
+app.put("/marcas/:id", (req, res) => {
+    const { id } = req.params;
+    const { nombre_marca } = req.body;
+
+    db.query("UPDATE marcas SET nombre_marca = ? WHERE id_marca = ?", [nombre_marca, id], (err) => {
+        if (err) {
+            console.error("Error al actualizar marca:", err);
+            res.status(500).json({ error: "Error al actualizar marca" });
+        } else {
+            res.json({ message: "Marca actualizada correctamente" });
+        }
+    });
+});
+
+// Eliminar una marca
+app.delete("/marcas/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.query("DELETE FROM marcas WHERE id_marca = ?", [id], (err) => {
+        if (err) {
+            console.error("Error al eliminar marca:", err);
+            res.status(500).json({ error: "Error al eliminar marca" });
+        } else {
+            res.json({ message: "Marca eliminada correctamente" });
+        }
+    });
+});
+
+// Rutas CRUD para Secciones
+
+// Obtener todas las secciones
+app.get("/secciones", (req, res) => {
+    db.query("SELECT * FROM secciones", (err, results) => {
+        if (err) {
+            console.error("Error al obtener secciones:", err);
+            res.status(500).json({ error: "Error al obtener secciones" });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+// Agregar una nueva sección
+app.post("/secciones", (req, res) => {
+    const { nombre_seccion } = req.body;
+    if (!nombre_seccion) {
+        return res.status(400).json({ error: "El nombre de la sección es requerido" });
+    }
+
+    db.query("INSERT INTO secciones (nombre_seccion) VALUES (?)", [nombre_seccion], (err, result) => {
+        if (err) {
+            console.error("Error al insertar sección:", err);
+            res.status(500).json({ error: "Error al insertar sección" });
+        } else {
+            console.log("Sección insertada:", result);
+            res.json({ id: result.insertId, nombre_seccion });
+        }
+    });
+});
+
+// Editar una sección
+app.put("/secciones/:id", (req, res) => {
+    const { id } = req.params;
+    const { nombre_seccion } = req.body;
+
+    db.query("UPDATE secciones SET nombre_seccion = ? WHERE id_seccion = ?", [nombre_seccion, id], (err) => {
+        if (err) {
+            console.error("Error al actualizar sección:", err);
+            res.status(500).json({ error: "Error al actualizar sección" });
+        } else {
+            res.json({ message: "Sección actualizada correctamente" });
+        }
+    });
+});
+
+// Eliminar una sección
+app.delete("/secciones/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.query("DELETE FROM secciones WHERE id_seccion = ?", [id], (err) => {
+        if (err) {
+            console.error("Error al eliminar sección:", err);
+            res.status(500).json({ error: "Error al eliminar sección" });
+        } else {
+            res.json({ message: "Sección eliminada correctamente" });
+        }
+    });
+});

@@ -1,42 +1,64 @@
-import React, { useState } from 'react';
-import '../styles/seccionesadmin.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/seccionesadmin.css";
 
-function SeccionesCrud() {
-  const [secciones, setSecciones] = useState([
-    { id: 1, nombre: 'Perfumería' },
-    { id: 2, nombre: 'Ofertas' },
-    { id: 3, nombre: 'Novedades' }
-  ]);
+const API_URL = "http://localhost:3000/secciones"; // URL del backend
 
+function SeccionesAdmin() {
+  const [secciones, setSecciones] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [newSeccion, setNewSeccion] = useState('');
-  const [editIndex, setEditIndex] = useState(null);
+  const [newSeccion, setNewSeccion] = useState("");
+  const [editId, setEditId] = useState(null);
 
-  const handleAddSeccion = () => {
-    if (newSeccion.trim()) {
-      if (editIndex !== null) {
-        const updatedSecciones = [...secciones];
-        updatedSecciones[editIndex].nombre = newSeccion;
-        setSecciones(updatedSecciones);
-        setEditIndex(null);
-      } else {
-        const newId = secciones.length > 0 ? secciones[secciones.length - 1].id + 1 : 1;
-        setSecciones([...secciones, { id: newId, nombre: newSeccion }]);
-      }
-      setNewSeccion('');
-      setModalOpen(false);
+  // Obtener secciones al cargar la página
+  useEffect(() => {
+    fetchSecciones();
+  }, []);
+
+  const fetchSecciones = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setSecciones(response.data);
+    } catch (error) {
+      console.error("Error al obtener secciones:", error);
     }
   };
 
-  const handleEditSeccion = (index) => {
-    setNewSeccion(secciones[index].nombre);
-    setEditIndex(index);
+  const handleAddSeccion = async () => {
+    if (newSeccion.trim()) {
+      try {
+        if (editId !== null) {
+          // Editar sección existente
+          await axios.put(`${API_URL}/${editId}`, { nombre_seccion: newSeccion });
+        } else {
+          // Agregar nueva sección
+          const response = await axios.post(API_URL, { nombre_seccion: newSeccion });
+          setSecciones([...secciones, response.data]);
+        }
+
+        setNewSeccion("");
+        setEditId(null);
+        setModalOpen(false);
+        fetchSecciones(); // Recargar secciones
+      } catch (error) {
+        console.error("Error al guardar sección:", error);
+      }
+    }
+  };
+
+  const handleEditSeccion = (seccion) => {
+    setNewSeccion(seccion.nombre_seccion);
+    setEditId(seccion.id_seccion);
     setModalOpen(true);
   };
 
-  const handleDeleteSeccion = (index) => {
-    const updatedSecciones = secciones.filter((_, i) => i !== index);
-    setSecciones(updatedSecciones);
+  const handleDeleteSeccion = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      fetchSecciones(); // Recargar secciones después de eliminar
+    } catch (error) {
+      console.error("Error al eliminar sección:", error);
+    }
   };
 
   return (
@@ -59,13 +81,13 @@ function SeccionesCrud() {
           </tr>
         </thead>
         <tbody>
-          {secciones.map((seccion, index) => (
-            <tr key={seccion.id}>
-              <td>{seccion.id}</td>
-              <td>{seccion.nombre}</td>
+          {secciones.map((seccion) => (
+            <tr key={seccion.id_seccion}>
+              <td>{seccion.id_seccion}</td>
+              <td>{seccion.nombre_seccion}</td>
               <td>
-                <button className="btn-edit" onClick={() => handleEditSeccion(index)}>Editar</button>
-                <button className="btn-delete" onClick={() => handleDeleteSeccion(index)}>Eliminar</button>
+                <button className="btn-edit" onClick={() => handleEditSeccion(seccion)}>Editar</button>
+                <button className="btn-delete" onClick={() => handleDeleteSeccion(seccion.id_seccion)}>Eliminar</button>
               </td>
             </tr>
           ))}
@@ -75,7 +97,7 @@ function SeccionesCrud() {
       {modalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <h3>{editIndex !== null ? 'Editar Sección' : 'Agregar Sección'}</h3>
+            <h3>{editId !== null ? "Editar Sección" : "Agregar Sección"}</h3>
             <input
               type="text"
               placeholder="Nombre de la sección"
@@ -93,4 +115,4 @@ function SeccionesCrud() {
   );
 }
 
-export default SeccionesCrud;
+export default SeccionesAdmin;

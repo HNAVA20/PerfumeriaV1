@@ -1,42 +1,64 @@
-import React, { useState } from 'react';
-import '../styles/MarcasAdmin.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../styles/MarcasAdmin.css";
+
+const API_URL = "http://localhost:3000/marcas"; // URL del backend
 
 function MarcasCrud() {
-  const [marcas, setMarcas] = useState([
-    { id: 1, nombre: 'Chanel' },
-    { id: 2, nombre: 'Dior' },
-    { id: 3, nombre: 'Gucci' }
-  ]);
-
+  const [marcas, setMarcas] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [newMarca, setNewMarca] = useState('');
-  const [editIndex, setEditIndex] = useState(null);
+  const [newMarca, setNewMarca] = useState("");
+  const [editId, setEditId] = useState(null);
 
-  const handleAddMarca = () => {
-    if (newMarca.trim()) {
-      if (editIndex !== null) {
-        const updatedMarcas = [...marcas];
-        updatedMarcas[editIndex].nombre = newMarca;
-        setMarcas(updatedMarcas);
-        setEditIndex(null);
-      } else {
-        const newId = marcas.length > 0 ? marcas[marcas.length - 1].id + 1 : 1;
-        setMarcas([...marcas, { id: newId, nombre: newMarca }]);
-      }
-      setNewMarca('');
-      setModalOpen(false);
+  // Obtener marcas al cargar la página
+  useEffect(() => {
+    fetchMarcas();
+  }, []);
+
+  const fetchMarcas = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setMarcas(response.data);
+    } catch (error) {
+      console.error("Error al obtener marcas:", error);
     }
   };
 
-  const handleEditMarca = (index) => {
-    setNewMarca(marcas[index].nombre);
-    setEditIndex(index);
+  const handleAddMarca = async () => {
+    if (newMarca.trim()) {
+      try {
+        if (editId !== null) {
+          // Editar marca existente
+          await axios.put(`${API_URL}/${editId}`, { nombre_marca: newMarca });
+        } else {
+          // Agregar nueva marca
+          const response = await axios.post(API_URL, { nombre_marca: newMarca });
+          setMarcas([...marcas, response.data]);
+        }
+
+        setNewMarca("");
+        setEditId(null);
+        setModalOpen(false);
+        fetchMarcas(); // Recargar marcas
+      } catch (error) {
+        console.error("Error al guardar marca:", error);
+      }
+    }
+  };
+
+  const handleEditMarca = (marca) => {
+    setNewMarca(marca.nombre_marca);
+    setEditId(marca.id_marca);
     setModalOpen(true);
   };
 
-  const handleDeleteMarca = (index) => {
-    const updatedMarcas = marcas.filter((_, i) => i !== index);
-    setMarcas(updatedMarcas);
+  const handleDeleteMarca = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      fetchMarcas(); // Recargar marcas después de eliminar
+    } catch (error) {
+      console.error("Error al eliminar marca:", error);
+    }
   };
 
   return (
@@ -59,13 +81,13 @@ function MarcasCrud() {
           </tr>
         </thead>
         <tbody>
-          {marcas.map((marca, index) => (
-            <tr key={marca.id}>
-              <td>{marca.id}</td>
-              <td>{marca.nombre}</td>
+          {marcas.map((marca) => (
+            <tr key={marca.id_marca}>
+              <td>{marca.id_marca}</td>
+              <td>{marca.nombre_marca}</td>
               <td>
-                <button className="btn-edit" onClick={() => handleEditMarca(index)}>Editar</button>
-                <button className="btn-delete" onClick={() => handleDeleteMarca(index)}>Eliminar</button>
+                <button className="btn-edit" onClick={() => handleEditMarca(marca)}>Editar</button>
+                <button className="btn-delete" onClick={() => handleDeleteMarca(marca.id_marca)}>Eliminar</button>
               </td>
             </tr>
           ))}
@@ -75,7 +97,7 @@ function MarcasCrud() {
       {modalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <h3>{editIndex !== null ? 'Editar Marca' : 'Agregar Marca'}</h3>
+            <h3>{editId !== null ? "Editar Marca" : "Agregar Marca"}</h3>
             <input
               type="text"
               placeholder="Nombre de la marca"
@@ -93,4 +115,4 @@ function MarcasCrud() {
   );
 }
 
-export default MarcasCrud;
+export default MarcasCrud;
