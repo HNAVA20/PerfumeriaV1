@@ -6,7 +6,7 @@ const categories = [
   { name: "Productos", className: "productos-card" },
   { name: "Secciones", className: "secciones-card" },
   { name: "Marcas", className: "marcas-card" },
-  { name: "Usuarios", className: "-card" },
+  { name: "Usuarios", className: "usuarios-card" },
 ];
 
 function RegistroAdmin() {
