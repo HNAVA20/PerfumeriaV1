@@ -1,8 +1,9 @@
 .footer {
-    background-color: rgb(65, 65, 65);
-    color: white;
-    padding: 20px 0;
-    text-align: center;
+  background-color: rgb(65, 65, 65);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 20px;
   }
   
   .footer-container {
@@ -62,7 +63,7 @@
   
   .footer-bottom {
     margin-bottom: -20px;
-    margin-top: 20px;
+    margin-top: 40px; /* Aumentado para mover el footer un poco más abajo */
     border-top: 1px solid #ffffff33;
     padding: 10px 0;
     font-size: 0.9rem;

@@ -4,11 +4,21 @@ import "../styles/productosadmin.css";
 function ProductosAdmin() {
   const [productos, setProductos] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [newProducto, setNewProducto] = useState({ nombre_producto: "", precio_producto: "" });
+  const [newProducto, setNewProducto] = useState({
+    nombre_producto: "",
+    precio_producto: "",
+    descripcion_producto: "",
+    aroma_producto: ""
+  });
   const [editId, setEditId] = useState(null);
 
   const handleAddProducto = () => {
-    if (newProducto.nombre_producto.trim() && newProducto.precio_producto.trim()) {
+    if (
+      newProducto.nombre_producto.trim() &&
+      newProducto.precio_producto.trim() &&
+      newProducto.descripcion_producto.trim() &&
+      newProducto.aroma_producto.trim()
+    ) {
       if (editId !== null) {
         // Editar producto existente
         setProductos(
@@ -24,14 +34,24 @@ function ProductosAdmin() {
         setProductos([...productos, { id_producto: newId, ...newProducto }]);
       }
 
-      setNewProducto({ nombre_producto: "", precio_producto: "" });
+      setNewProducto({
+        nombre_producto: "",
+        precio_producto: "",
+        descripcion_producto: "",
+        aroma_producto: ""
+      });
       setEditId(null);
       setModalOpen(false);
     }
   };
 
   const handleEditProducto = (producto) => {
-    setNewProducto({ nombre_producto: producto.nombre_producto, precio_producto: producto.precio_producto });
+    setNewProducto({
+      nombre_producto: producto.nombre_producto,
+      precio_producto: producto.precio_producto,
+      descripcion_producto: producto.descripcion_producto,
+      aroma_producto: producto.aroma_producto
+    });
     setEditId(producto.id_producto);
     setModalOpen(true);
   };
@@ -57,6 +77,8 @@ function ProductosAdmin() {
             <th>ID</th>
             <th>Nombre</th>
             <th>Precio</th>
+            <th>Descripción</th>
+            <th>Aroma</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -66,6 +88,8 @@ function ProductosAdmin() {
               <td>{producto.id_producto}</td>
               <td>{producto.nombre_producto}</td>
               <td>{producto.precio_producto}</td>
+              <td>{producto.descripcion_producto}</td>
+              <td>{producto.aroma_producto}</td>
               <td>
                 <button className="btn-edit" onClick={() => handleEditProducto(producto)}>Editar</button>
                 <button className="btn-delete" onClick={() => handleDeleteProducto(producto.id_producto)}>Eliminar</button>
@@ -90,6 +114,18 @@ function ProductosAdmin() {
               placeholder="Precio del producto"
               value={newProducto.precio_producto}
               onChange={(e) => setNewProducto({ ...newProducto, precio_producto: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Descripción del producto"
+              value={newProducto.descripcion_producto}
+              onChange={(e) => setNewProducto({ ...newProducto, descripcion_producto: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Aroma del producto"
+              value={newProducto.aroma_producto}
+              onChange={(e) => setNewProducto({ ...newProducto, aroma_producto: e.target.value })}
             />
             <div className="modal-actions">
               <button onClick={handleAddProducto}>Guardar</button>
