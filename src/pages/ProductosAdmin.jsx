@@ -15,16 +15,29 @@ function ProductosAdmin() {
     imagen_producto: "",
   });
   const [editId, setEditId] = useState(null);
+  const [imagenPreview, setImagenPreview] = useState(null);
 
   useEffect(() => {
     const fetchProductos = async () => {
-      const response = await fetch('/api/productos');
+      const response = await fetch("/api/productos");
       const data = await response.json();
       setProductos(data);
     };
 
     fetchProductos();
   }, []);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagenPreview(reader.result);
+        setNewProducto({ ...newProducto, imagen_producto: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="crud-container">
@@ -37,7 +50,7 @@ function ProductosAdmin() {
         <input type="text" placeholder="Buscar..." className="search-bar" />
       </div>
 
-      <div className="table-container"> {/* Contenedor con scroll */}
+      <div className="table-container">
         <table className="productos-table">
           <thead>
             <tr>
@@ -83,20 +96,22 @@ function ProductosAdmin() {
         <div className="modal">
           <div className="modal-content">
             <h3>{editId !== null ? "Editar Producto" : "Agregar Producto"}</h3>
-            <div className="modal-body"> {/* Contenedor con scroll */}
-              <input type="text" placeholder="Nombre del producto" value={newProducto.nombre_producto} />
-              <input type="text" placeholder="Precio del producto" value={newProducto.precio_producto} />
-              <input type="text" placeholder="Descripción del producto" value={newProducto.descripcion_producto} />
-              <input type="text" placeholder="Aroma del producto" value={newProducto.aroma_producto} />
-              <input type="number" placeholder="Cantidad del producto" value={newProducto.cantidad_producto} />
-              <select>
+            <div className="modal-body">
+              <input type="text" placeholder="Nombre del producto" value={newProducto.nombre_producto} onChange={(e) => setNewProducto({...newProducto, nombre_producto: e.target.value})} />
+              <input type="text" placeholder="Precio del producto" value={newProducto.precio_producto} onChange={(e) => setNewProducto({...newProducto, precio_producto: e.target.value})} />
+              <input type="text" placeholder="Descripción del producto" value={newProducto.descripcion_producto} onChange={(e) => setNewProducto({...newProducto, descripcion_producto: e.target.value})} />
+              <input type="text" placeholder="Aroma del producto" value={newProducto.aroma_producto} onChange={(e) => setNewProducto({...newProducto, aroma_producto: e.target.value})} />
+              <input type="number" placeholder="Cantidad del producto" value={newProducto.cantidad_producto} onChange={(e) => setNewProducto({...newProducto, cantidad_producto: e.target.value})} />
+              <select onChange={(e) => setNewProducto({...newProducto, marca_producto: e.target.value})}>
                 <option value="">Seleccionar Marca</option>
                 <option value="Marca 1">Marca 1</option>
               </select>
-              <select>
+              <select onChange={(e) => setNewProducto({...newProducto, seccion_producto: e.target.value})}>
                 <option value="">Seleccionar Sección</option>
                 <option value="Sección 1">Sección 1</option>
               </select>
+              <input type="file" accept="image/*" onChange={handleImageChange} />
+              {imagenPreview && <img src={imagenPreview} alt="Vista previa" width="100" />}
             </div>
             <div className="modal-actions">
               <button>Guardar</button>
