@@ -188,68 +188,6 @@ app.delete("/secciones/:id", (req, res) => {
     });
 });
 
-// Rutas CRUD para productos
-
-// Obtener todos los productos
-app.get("/productos", (req, res) => {
-    db.query("SELECT * FROM productos", (err, results) => {
-        if (err) {
-            console.error("Error al obtener productos:", err);
-            res.status(500).json({ error: "Error al obtener productos" });
-        } else {
-            res.json(results);
-        }
-    });
-});
-
-// Agregar un nuevo producto
-app.post("/productos", upload, (req, res) => {
-    const { nombre_producto, precio_producto, descripcion_producto, aroma_producto, cantidad_producto, marca_producto, seccion_producto } = req.body;
-    let imagen_producto = null;
-
-    if (req.file) {
-        imagen_producto = `/uploads/${req.file.filename}`; // Ruta de la imagen
-    } else {
-        console.log("No se ha recibido una imagen.");
-    }
-
-    const query = "INSERT INTO productos (nombre_producto, precio_producto, descripcion_producto, aroma_producto, cantidad_producto, marca_producto, seccion_producto, imagen_producto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    const values = [nombre_producto, precio_producto, descripcion_producto, aroma_producto, cantidad_producto, marca_producto, seccion_producto, imagen_producto];
-
-    db.query(query, values, (err, result) => {
-        if (err) {
-            console.error("Error al insertar producto:", err);
-            return res.status(500).json({ error: "Error al insertar producto", details: err.message });
-        } else {
-            res.json({
-                id: result.insertId,
-                nombre_producto,
-                precio_producto,
-                descripcion_producto,
-                aroma_producto,
-                cantidad_producto,
-                marca_producto,
-                seccion_producto,
-                imagen_producto
-            });
-        }
-    });
-});
-
-// Eliminar un producto
-app.delete("/productos/:id", (req, res) => {
-    const { id } = req.params;
-
-    db.query("DELETE FROM productos WHERE id_producto = ?", [id], (err) => {
-        if (err) {
-            console.error("Error al eliminar producto:", err);
-            res.status(500).json({ error: "Error al eliminar producto" });
-        } else {
-            res.json({ message: "Producto eliminado correctamente" });
-        }
-    });
-});
-
 // Inicia el servidor en el puerto 3000
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
