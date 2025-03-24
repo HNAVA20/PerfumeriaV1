@@ -11,19 +11,23 @@ app.use(express.json()); // Para leer JSON del frontend
 app.use(cors()); // Habilita CORS si el frontend está en otro dominio
 
 // Configuración a conexión a MySQL
-const db = mysql.createConnection({
-    host: 'srv1009.hstgr.io', // O usa '193.203.166.234'
-    user: 'u465901502_root', // Cambia esto por tu usuario
-    password: '@DivinaTentacion2025', // La contraseña de la BD
-    database: 'u465901502_perfumeria', // Nombre de la BD
-    port: process.env.DB_PORT || 3306
+const db = mysql.createPool({
+    host: 'srv1009.hstgr.io',
+    user: 'u465901502_root',
+    password: '@DivinaTentacion2025',
+    database: 'u465901502_perfumeria',
+    port: process.env.DB_PORT || 3306,
+    connectionLimit: 10 // número máximo de conexiones simultáneas
 });
 
-db.connect(err => {
+// No necesitas db.connect(), el pool gestiona esto automáticamente.
+
+// Ejemplo de uso:
+db.query("SELECT 1", (err) => {
     if (err) {
         console.error("Error conectando con MySQL:", err);
     } else {
-        console.log("Conectado a MySQL en el puerto", process.env.DB_PORT || 3306);
+        console.log("Conectado correctamente al pool de MySQL");
     }
 });
 
@@ -68,7 +72,9 @@ app.listen(PORT, () => {
 
 // Obtener todas las marcas
 app.get("/marcas", (req, res) => {
-    db.query("SELECT * FROM marca", (err, results) => {
+    const query = "SELECT id_marca, nombre_marca FROM marca";
+    
+    db.query(query, (err, results) => {
         if (err) {
             console.error("Error al obtener marcas:", err);
             res.status(500).json({ error: "Error al obtener marcas" });
@@ -128,7 +134,9 @@ app.delete("/marcas/:id", (req, res) => {
 
 // Obtener todas las secciones
 app.get("/secciones", (req, res) => {
-    db.query("SELECT * FROM secciones", (err, results) => {
+    const query = "SELECT id_seccion, nombre_seccion FROM secciones";
+    
+    db.query(query, (err, results) => {
         if (err) {
             console.error("Error al obtener secciones:", err);
             res.status(500).json({ error: "Error al obtener secciones" });
@@ -137,7 +145,6 @@ app.get("/secciones", (req, res) => {
         }
     });
 });
-
 // Agregar una nueva sección
 app.post("/secciones", (req, res) => {
     const { nombre_seccion } = req.body;
@@ -185,16 +192,79 @@ app.delete("/secciones/:id", (req, res) => {
     });
 });
 
-//Rutas CRUD para peoductos
+//Rutas CRUD para productos
 
-//Obtener todos los usuarios
+// Obtener todos los productos
+// Cambia temporalmente la ruta para depurar:
 app.get("/productos", (req, res) => {
-    db.query("SELECT * FROM productos", (err, results) => {
+    const query = `
+        SELECT p.id_producto, p.nombre_producto, p.descripcion, p.aroma, p.precio, p.cantidad, m.nombre_marca AS marca, s.nombre_seccion AS seccion, p.imagen FROM productos p LEFT JOIN marca m ON p.id_mar = m.id_marca LEFT JOIN secciones s ON p.id_seccion = s.id_seccion LIMIT 0, 25`;
+
+    db.query(query, (err, results) => {
         if (err) {
             console.error("Error al obtener productos:", err);
-            res.status(500).json({ error: "Error al obtener productos" });
+            res.status(500).json({ error: err.message });  // devuelve el mensaje exacto del error
         } else {
             res.json(results);
+        }
+    });
+});
+
+// Agregar un nuevo producto
+app.post("/productos", (req, res) => {
+    const { nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen } = req.body;
+
+    if (!nombre_producto || !precio || !id_mar || !id_seccion) {
+        return res.status(400).json({ error: "Faltan campos obligatorios" });
+    }
+
+    const query = `
+        INSERT INTO productos (nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(query, [nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen], (err, result) => {
+        if (err) {
+            console.error("Error al agregar producto:", err);
+            res.status(500).json({ error: "Error al agregar producto" });
+        } else {
+            res.json({ message: "Producto agregado", id: result.insertId });
+        }
+    });
+});
+
+// Editar un producto
+app.put("/productos/:id", (req, res) => {
+    const { id } = req.params;
+    const { nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen } = req.body;
+
+    const query = `
+        UPDATE productos 
+        SET nombre_producto = ?, descripcion = ?, aroma = ?, precio = ?, 
+            cantidad = ?, id_mar = ?, id_seccion = ?, imagen = ?
+        WHERE id_producto = ?
+    `;
+
+    db.query(query, [nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen, id], (err) => {
+        if (err) {
+            console.error("Error al actualizar producto:", err);
+            res.status(500).json({ error: "Error al actualizar producto" });
+        } else {
+            res.json({ message: "Producto actualizado correctamente" });
+        }
+    });
+});
+
+// Eliminar un producto
+app.delete("/productos/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.query("DELETE FROM productos WHERE id_producto = ?", [id], (err) => {
+        if (err) {
+            console.error("Error al eliminar producto:", err);
+            res.status(500).json({ error: "Error al eliminar producto" });
+        } else {
+            res.json({ message: "Producto eliminado correctamente" });
         }
     });
 });
