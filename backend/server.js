@@ -12,10 +12,10 @@ app.use(cors()); // Habilita CORS si el frontend está en otro dominio
 
 // Configuración a conexión a MySQL
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "perfumeria",
+    host: 'srv1009.hstgr.io', // O usa '193.203.166.234'
+    user: 'u465901502_root', // Cambia esto por tu usuario
+    password: '@DivinaTentacion2025', // La contraseña de la BD
+    database: 'u465901502_perfumeria', // Nombre de la BD
     port: process.env.DB_PORT || 3306
 });
 
