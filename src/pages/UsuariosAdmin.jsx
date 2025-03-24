@@ -60,15 +60,7 @@ function UsuariosAdmin() {
   };
 
   const handleEditUsuario = (usuario) => {
-    setNewUsuario({ 
-      nombre: usuario.nombre, 
-      primerApellido: usuario.primerApellido, 
-      segundoApellido: usuario.segundoApellido, 
-      usuario: usuario.usuario, 
-      email: usuario.email, 
-      telefono: usuario.telefono, 
-      contraseña: usuario.contraseña 
-    });
+    setNewUsuario(usuario);
     setEditId(usuario.id);
     setModalOpen(true);
   };
@@ -91,49 +83,53 @@ function UsuariosAdmin() {
         </button>
         <input type="text" placeholder="Buscar..." className="search-bar" />
       </div>
-      <table className="usuarios-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Primer Apellido</th>
-            <th>Segundo Apellido</th>
-            <th>Usuario</th>
-            <th>Email</th>
-            <th>Teléfono</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {usuarios.map((usuario) => (
-            <tr key={usuario.id}>
-              <td>{usuario.id}</td>
-              <td>{usuario.nombre}</td>
-              <td>{usuario.primerApellido}</td>
-              <td>{usuario.segundoApellido}</td>
-              <td>{usuario.usuario}</td>
-              <td>{usuario.email}</td>
-              <td>{usuario.telefono}</td>
-              <td>
-                <button className="btn-edit" onClick={() => handleEditUsuario(usuario)}>Editar</button>
-                <button className="btn-delete" onClick={() => handleDeleteUsuario(usuario.id)}>Eliminar</button>
-              </td>
+      <div className="table-container"> {/* Contenedor con scroll */}
+        <table className="usuarios-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Primer Apellido</th>
+              <th>Segundo Apellido</th>
+              <th>Usuario</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {usuarios.map((usuario) => (
+              <tr key={usuario.id}>
+                <td>{usuario.id}</td>
+                <td>{usuario.nombre}</td>
+                <td>{usuario.primerApellido}</td>
+                <td>{usuario.segundoApellido}</td>
+                <td>{usuario.usuario}</td>
+                <td>{usuario.email}</td>
+                <td>{usuario.telefono}</td>
+                <td>
+                  <button className="btn-edit" onClick={() => handleEditUsuario(usuario)}>Editar</button>
+                  <button className="btn-delete" onClick={() => handleDeleteUsuario(usuario.id)}>Eliminar</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {modalOpen && (
         <div className="modal">
           <div className="modal-content">
             <h3>{editId !== null ? "Editar Usuario" : "Agregar Usuario"}</h3>
-            <input type="text" placeholder="Nombre" value={newUsuario.nombre} onChange={(e) => setNewUsuario({ ...newUsuario, nombre: e.target.value })} />
-            <input type="text" placeholder="Primer Apellido" value={newUsuario.primerApellido} onChange={(e) => setNewUsuario({ ...newUsuario, primerApellido: e.target.value })} />
-            <input type="text" placeholder="Segundo Apellido" value={newUsuario.segundoApellido} onChange={(e) => setNewUsuario({ ...newUsuario, segundoApellido: e.target.value })} />
-            <input type="text" placeholder="Usuario" value={newUsuario.usuario} onChange={(e) => setNewUsuario({ ...newUsuario, usuario: e.target.value })} />
-            <input type="email" placeholder="Email" value={newUsuario.email} onChange={(e) => setNewUsuario({ ...newUsuario, email: e.target.value })} />
-            <input type="text" placeholder="Teléfono" value={newUsuario.telefono} onChange={(e) => setNewUsuario({ ...newUsuario, telefono: e.target.value })} />
-            <input type="password" placeholder="Contraseña" value={newUsuario.contraseña} onChange={(e) => setNewUsuario({ ...newUsuario, contraseña: e.target.value })} />
+            <div className="modal-body"> {/* Contenedor con scroll */}
+              <input type="text" placeholder="Nombre" value={newUsuario.nombre} onChange={(e) => setNewUsuario({ ...newUsuario, nombre: e.target.value })} />
+              <input type="text" placeholder="Primer Apellido" value={newUsuario.primerApellido} onChange={(e) => setNewUsuario({ ...newUsuario, primerApellido: e.target.value })} />
+              <input type="text" placeholder="Segundo Apellido" value={newUsuario.segundoApellido} onChange={(e) => setNewUsuario({ ...newUsuario, segundoApellido: e.target.value })} />
+              <input type="text" placeholder="Usuario" value={newUsuario.usuario} onChange={(e) => setNewUsuario({ ...newUsuario, usuario: e.target.value })} />
+              <input type="email" placeholder="Email" value={newUsuario.email} onChange={(e) => setNewUsuario({ ...newUsuario, email: e.target.value })} />
+              <input type="text" placeholder="Teléfono" value={newUsuario.telefono} onChange={(e) => setNewUsuario({ ...newUsuario, telefono: e.target.value })} />
+              <input type="password" placeholder="Contraseña" value={newUsuario.contraseña} onChange={(e) => setNewUsuario({ ...newUsuario, contraseña: e.target.value })} />
+            </div>
             <div className="modal-actions">
               <button onClick={handleAddUsuario}>Guardar</button>
               <button onClick={() => setModalOpen(false)}>Cancelar</button>

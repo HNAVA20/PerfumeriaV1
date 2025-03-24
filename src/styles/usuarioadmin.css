@@ -167,3 +167,13 @@ tr:hover {
 .modal-actions button:last-child:hover {
     background-color: #5a6268;
 }
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .modal-body {
+    max-height: 300px;
+    overflow-y: auto;
+  }
