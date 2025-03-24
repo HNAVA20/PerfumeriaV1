@@ -277,3 +277,43 @@ app.delete("/productos/:id", (req, res) => {
         }
     });
 });
+
+//Rutas CRUD para usuarios
+// Obtener todos los usuarios
+app.get("/usuarios", (req, res) => {
+    db.query("SELECT * FROM usuarios", (err, results) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json(results);
+    });
+  });
+  
+  // Agregar usuario
+  app.post("/usuarios", (req, res) => {
+    const { nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol } = req.body;
+    const query = `INSERT INTO usuarios (nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    db.query(query, [nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol], (err, result) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ id: result.insertId });
+    });
+  });
+  
+  // Editar usuario
+  app.put("/usuarios/:id", (req, res) => {
+    const { id } = req.params;
+    const { nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol } = req.body;
+    const query = `UPDATE usuarios SET nombres=?, primer_apellido=?, segundo_apellido=?, usuario=?, email=?, telefono=?, pass=?, id_rol=? WHERE id=?`;
+    db.query(query, [nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol, id], (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ message: "Usuario actualizado" });
+    });
+  });
+  
+  // Eliminar usuario
+  app.delete("/usuarios/:id", (req, res) => {
+    db.query("DELETE FROM usuarios WHERE id=?", [req.params.id], (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ message: "Usuario eliminado" });
+    });
+  });
+
+//Rutas CRUD para roles

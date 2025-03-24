@@ -2,24 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/usuarioadmin.css";
 
-const API_URL = ""; // URL del backend
+const API_URL = "http://localhost:3000/usuarios";
 
 function UsuariosAdmin() {
   const [usuarios, setUsuarios] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [newUsuario, setNewUsuario] = useState({ 
-    nombre: "", 
-    primerApellido: "", 
-    segundoApellido: "", 
+    nombres: "", 
+    primer_apellido: "", 
+    segundo_apellido: "", 
     usuario: "", 
     email: "", 
     telefono: "", 
-    contraseña: "" 
+    pass: "",
+    id_rol: ""
   });
   const [editId, setEditId] = useState(null);
 
   useEffect(() => {
     fetchUsuarios();
+    fetchRoles();
   }, []);
 
   const fetchUsuarios = async () => {
@@ -31,31 +34,31 @@ function UsuariosAdmin() {
     }
   };
 
-  const handleAddUsuario = async () => {
-    if (newUsuario.nombre.trim() && newUsuario.email.trim()) {
-      try {
-        if (editId !== null) {
-          await axios.put(`${API_URL}/${editId}`, newUsuario);
-        } else {
-          const response = await axios.post(API_URL, newUsuario);
-          setUsuarios([...usuarios, response.data]);
-        }
+  const fetchRoles = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/roles");
+      setRoles(response.data);
+    } catch (error) {
+      console.error("Error al obtener roles:", error);
+    }
+  };
 
-        setNewUsuario({ 
-          nombre: "", 
-          primerApellido: "", 
-          segundoApellido: "", 
-          usuario: "", 
-          email: "", 
-          telefono: "", 
-          contraseña: "" 
-        });
-        setEditId(null);
-        setModalOpen(false);
-        fetchUsuarios();
-      } catch (error) {
-        console.error("Error al guardar usuario:", error);
+  const handleAddUsuario = async () => {
+    try {
+      if (editId !== null) {
+        await axios.put(`${API_URL}/${editId}`, newUsuario);
+      } else {
+        await axios.post(API_URL, newUsuario);
       }
+      setNewUsuario({ 
+        nombres: "", primer_apellido: "", segundo_apellido: "", usuario: "", 
+        email: "", telefono: "", pass: "", id_rol: "" 
+      });
+      setEditId(null);
+      setModalOpen(false);
+      fetchUsuarios();
+    } catch (error) {
+      console.error("Error al guardar usuario:", error);
     }
   };
 
@@ -83,12 +86,12 @@ function UsuariosAdmin() {
         </button>
         <input type="text" placeholder="Buscar..." className="search-bar" />
       </div>
-      <div className="table-container"> {/* Contenedor con scroll */}
+      <div className="table-container">
         <table className="usuarios-table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
+              <th>Nombres</th>
               <th>Primer Apellido</th>
               <th>Segundo Apellido</th>
               <th>Usuario</th>
@@ -101,9 +104,9 @@ function UsuariosAdmin() {
             {usuarios.map((usuario) => (
               <tr key={usuario.id}>
                 <td>{usuario.id}</td>
-                <td>{usuario.nombre}</td>
-                <td>{usuario.primerApellido}</td>
-                <td>{usuario.segundoApellido}</td>
+                <td>{usuario.nombres}</td>
+                <td>{usuario.primer_apellido}</td>
+                <td>{usuario.segundo_apellido}</td>
                 <td>{usuario.usuario}</td>
                 <td>{usuario.email}</td>
                 <td>{usuario.telefono}</td>
@@ -121,14 +124,18 @@ function UsuariosAdmin() {
         <div className="modal">
           <div className="modal-content">
             <h3>{editId !== null ? "Editar Usuario" : "Agregar Usuario"}</h3>
-            <div className="modal-body"> {/* Contenedor con scroll */}
-              <input type="text" placeholder="Nombre" value={newUsuario.nombre} onChange={(e) => setNewUsuario({ ...newUsuario, nombre: e.target.value })} />
-              <input type="text" placeholder="Primer Apellido" value={newUsuario.primerApellido} onChange={(e) => setNewUsuario({ ...newUsuario, primerApellido: e.target.value })} />
-              <input type="text" placeholder="Segundo Apellido" value={newUsuario.segundoApellido} onChange={(e) => setNewUsuario({ ...newUsuario, segundoApellido: e.target.value })} />
-              <input type="text" placeholder="Usuario" value={newUsuario.usuario} onChange={(e) => setNewUsuario({ ...newUsuario, usuario: e.target.value })} />
-              <input type="email" placeholder="Email" value={newUsuario.email} onChange={(e) => setNewUsuario({ ...newUsuario, email: e.target.value })} />
-              <input type="text" placeholder="Teléfono" value={newUsuario.telefono} onChange={(e) => setNewUsuario({ ...newUsuario, telefono: e.target.value })} />
-              <input type="password" placeholder="Contraseña" value={newUsuario.contraseña} onChange={(e) => setNewUsuario({ ...newUsuario, contraseña: e.target.value })} />
+            <div className="modal-body">
+              <input type="text" placeholder="Nombres" value={newUsuario.nombres} onChange={e => setNewUsuario({...newUsuario, nombres: e.target.value})} />
+              <input type="text" placeholder="Primer Apellido" value={newUsuario.primer_apellido} onChange={e => setNewUsuario({...newUsuario, primer_apellido: e.target.value})} />
+              <input type="text" placeholder="Segundo Apellido" value={newUsuario.segundo_apellido} onChange={e => setNewUsuario({...newUsuario, segundo_apellido: e.target.value})} />
+              <input type="text" placeholder="Usuario" value={newUsuario.usuario} onChange={e => setNewUsuario({...newUsuario, usuario: e.target.value})} />
+              <input type="email" placeholder="Email" value={newUsuario.email} onChange={e => setNewUsuario({...newUsuario, email: e.target.value})} />
+              <input type="text" placeholder="Teléfono" value={newUsuario.telefono} onChange={e => setNewUsuario({...newUsuario, telefono: e.target.value})} />
+              <input type="password" placeholder="Contraseña" value={newUsuario.pass} onChange={e => setNewUsuario({...newUsuario, pass: e.target.value})} />
+              <select value={newUsuario.id_rol} onChange={e => setNewUsuario({...newUsuario, id_rol: e.target.value})}>
+                <option value="">Seleccionar Rol</option>
+                {roles.map(rol => <option key={rol.id_rol} value={rol.id_rol}>{rol.nombre_rol}</option>)}
+              </select>
             </div>
             <div className="modal-actions">
               <button onClick={handleAddUsuario}>Guardar</button>
