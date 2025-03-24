@@ -23,15 +23,10 @@ const db = mysql.createPool({
     connectionLimit: 10 // número máximo de conexiones simultáneas
 });
 
-<<<<<<< HEAD
 // No necesitas db.connect(), el pool gestiona esto automáticamente.
 
-// Ejemplo de uso:
-db.query("SELECT 1", (err) => {
-=======
 // Verificar la conexión a la base de datos
-db.connect((err) => {
->>>>>>> 7f99c8c244a18406ae1e4652e8062d2749ae255c
+db.query("SELECT 1", (err) => {
     if (err) {
         console.error("Error conectando con MySQL:", err);
     } else {
@@ -75,6 +70,13 @@ const upload = multer({
     dest: "uploads/", // Carpeta donde se guardarán las imágenes
     limits: { fileSize: 10 * 1024 * 1024 }, // Limitar el tamaño de las imágenes (10MB)
 }).single("imagen_producto"); // 'imagen_producto' es el campo del formulario para la imagen
+
+
+// Inicia el servidor en el puerto 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
 
 // Rutas CRUD para Marcas
 
@@ -165,6 +167,7 @@ app.post("/secciones", (req, res) => {
             console.error("Error al insertar sección:", err);
             res.status(500).json({ error: "Error al insertar sección" });
         } else {
+            console.log("Sección insertada:", result);
             res.json({ id: result.insertId, nombre_seccion });
         }
     });
@@ -199,11 +202,9 @@ app.delete("/secciones/:id", (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 //Rutas CRUD para productos
 
 // Obtener todos los productos
-// Cambia temporalmente la ruta para depurar:
 app.get("/productos", (req, res) => {
     const query = `
         SELECT p.id_producto, p.nombre_producto, p.descripcion, p.aroma, p.precio, p.cantidad, m.nombre_marca AS marca, s.nombre_seccion AS seccion, p.imagen FROM productos p LEFT JOIN marca m ON p.id_mar = m.id_marca LEFT JOIN secciones s ON p.id_seccion = s.id_seccion LIMIT 0, 25`;
@@ -216,12 +217,6 @@ app.get("/productos", (req, res) => {
             res.json(results);
         }
     });
-=======
-// Inicia el servidor en el puerto 3000
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
->>>>>>> 7f99c8c244a18406ae1e4652e8062d2749ae255c
 });
 
 // Agregar un nuevo producto
