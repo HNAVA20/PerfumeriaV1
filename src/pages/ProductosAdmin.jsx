@@ -8,7 +8,8 @@ function ProductosAdmin() {
     nombre_producto: "",
     precio_producto: "",
     descripcion_producto: "",
-    aroma_producto: ""
+    aroma_producto: "",
+    cantidad_producto: ""  // Campo cantidad
   });
   const [editId, setEditId] = useState(null);
 
@@ -17,7 +18,8 @@ function ProductosAdmin() {
       newProducto.nombre_producto.trim() &&
       newProducto.precio_producto.trim() &&
       newProducto.descripcion_producto.trim() &&
-      newProducto.aroma_producto.trim()
+      newProducto.aroma_producto.trim() &&
+      newProducto.cantidad_producto.trim() // Validación de cantidad
     ) {
       if (editId !== null) {
         // Editar producto existente
@@ -38,7 +40,8 @@ function ProductosAdmin() {
         nombre_producto: "",
         precio_producto: "",
         descripcion_producto: "",
-        aroma_producto: ""
+        aroma_producto: "",
+        cantidad_producto: ""  // Limpiar cantidad
       });
       setEditId(null);
       setModalOpen(false);
@@ -50,7 +53,8 @@ function ProductosAdmin() {
       nombre_producto: producto.nombre_producto,
       precio_producto: producto.precio_producto,
       descripcion_producto: producto.descripcion_producto,
-      aroma_producto: producto.aroma_producto
+      aroma_producto: producto.aroma_producto,
+      cantidad_producto: producto.cantidad_producto  // Cargar cantidad
     });
     setEditId(producto.id_producto);
     setModalOpen(true);
@@ -79,6 +83,7 @@ function ProductosAdmin() {
             <th>Precio</th>
             <th>Descripción</th>
             <th>Aroma</th>
+            <th>Cantidad</th> {/* Mostrar cantidad en la tabla */}
             <th>Acciones</th>
           </tr>
         </thead>
@@ -90,6 +95,7 @@ function ProductosAdmin() {
               <td>{producto.precio_producto}</td>
               <td>{producto.descripcion_producto}</td>
               <td>{producto.aroma_producto}</td>
+              <td>{producto.cantidad_producto}</td> {/* Mostrar cantidad en la tabla */}
               <td>
                 <button className="btn-edit" onClick={() => handleEditProducto(producto)}>Editar</button>
                 <button className="btn-delete" onClick={() => handleDeleteProducto(producto.id_producto)}>Eliminar</button>
@@ -126,6 +132,12 @@ function ProductosAdmin() {
               placeholder="Aroma del producto"
               value={newProducto.aroma_producto}
               onChange={(e) => setNewProducto({ ...newProducto, aroma_producto: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Cantidad del producto"
+              value={newProducto.cantidad_producto}
+              onChange={(e) => setNewProducto({ ...newProducto, cantidad_producto: e.target.value })}
             />
             <div className="modal-actions">
               <button onClick={handleAddProducto}>Guardar</button>
