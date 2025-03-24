@@ -124,8 +124,9 @@ tr:hover {
     color: #333;
 }
 
-.modal-content input {
-    width: 100%; /* Asegura que los inputs ocupen todo el ancho disponible */
+.modal-content input,
+.modal-content select {  /* Estilo para inputs y selects */
+    width: 100%; /* Asegura que los inputs y selects ocupen todo el ancho disponible */
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -134,6 +135,7 @@ tr:hover {
     box-sizing: border-box; /* Evita que el padding afecte el ancho total */
 }
 
+/* Botones del modal */
 .modal-actions {
     display: flex;
     justify-content: space-between;
