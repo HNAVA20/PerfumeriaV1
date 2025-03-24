@@ -184,3 +184,17 @@ app.delete("/secciones/:id", (req, res) => {
         }
     });
 });
+
+//Rutas CRUD para peoductos
+
+//Obtener todos los usuarios
+app.get("/productos", (req, res) => {
+    db.query("SELECT * FROM productos", (err, results) => {
+        if (err) {
+            console.error("Error al obtener productos:", err);
+            res.status(500).json({ error: "Error al obtener productos" });
+        } else {
+            res.json(results);
+        }
+    });
+});

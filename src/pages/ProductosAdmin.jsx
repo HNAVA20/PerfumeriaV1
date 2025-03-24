@@ -113,6 +113,7 @@ function ProductosAdmin() {
               <input type="file" accept="image/*" onChange={handleImageChange} />
               {imagenPreview && <img src={imagenPreview} alt="Vista previa" width="100" />}
             </div>
+            
             <div className="modal-actions">
               <button>Guardar</button>
               <button onClick={() => setModalOpen(false)}>Cancelar</button>
