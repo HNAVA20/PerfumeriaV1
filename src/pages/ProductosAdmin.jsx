@@ -7,6 +7,8 @@ function ProductosAdmin() {
   const [productos, setProductos] = useState([]);
   const [marcas, setMarcas] = useState([]);
   const [secciones, setSecciones] = useState([]);
+  const [marcas, setMarcas] = useState([]);
+  const [secciones, setSecciones] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [newProducto, setNewProducto] = useState({
     nombre_producto: "",
@@ -131,27 +133,37 @@ function ProductosAdmin() {
             </tr>
           </thead>
           <tbody>
-              {productos.map((producto) => (
-                <tr key={producto.id_producto}>
-                  <td>{producto.id_producto}</td>
-                  <td>{producto.nombre_producto}</td>
-                  <td>{producto.precio}</td>
-                  <td>{producto.descripcion}</td>
-                  <td>{producto.aroma}</td>
-                  <td>{producto.cantidad}</td>
-                  <td>{producto.marca}</td>
-                  <td>{producto.seccion}</td>
-                  <td>
-                    {producto.imagen && (
-                      <img src={producto.imagen} alt={producto.nombre_producto} width="50" />
-                    )}
-                  </td>
-                  <td>
-                    <button className="btn-edit">Editar</button>
-                    <button className="btn-delete">Eliminar</button>
-                  </td>
-                </tr>
-              ))}
+              {Array.isArray(productos) && productos.length > 0 ? (
+              productos.map((producto) => (
+                  <tr key={producto.id_producto}>
+                    <td>{producto.id_producto}</td>
+                    <td>{producto.nombre_producto}</td>
+                    <td>{producto.precio}</td>
+                    <td>{producto.descripcion}</td>
+                    <td>{producto.aroma}</td>
+                    <td>{producto.cantidad}</td>
+                    <td>{producto.marca}</td>
+                    <td>{producto.seccion}</td>
+                    <td>
+                      {producto.imagen && (
+                        <img
+                        src={producto.imagen}
+                        alt={producto.nombre_producto}
+                        width="50"
+                      />
+                      )}
+                    </td>
+                    <td>
+                      <button className="btn-edit">Editar</button>
+                      <button className="btn-delete">Eliminar</button>
+                    </td>
+                  </tr>
+                ))
+            ) : (
+              <tr>
+                <td colSpan="10">No se encontraron productos.</td>
+              </tr>
+            )}
             </tbody>
         </table>
       </div>
@@ -203,6 +215,11 @@ function ProductosAdmin() {
                     {marca.nombre_marca}
                   </option>
                 ))}
+                {marcas.map((marca) => (
+                  <option key={marca.id_marca} value={marca.id_marca}>
+                    {marca.nombre_marca}
+                  </option>
+                ))}
               </select>
 
               {/* Select dinámico para Secciones */}
@@ -216,11 +233,17 @@ function ProductosAdmin() {
                     {seccion.nombre_seccion}
                   </option>
                 ))}
+                {secciones.map((seccion) => (
+                  <option key={seccion.id_seccion} value={seccion.id_seccion}>
+                    {seccion.nombre_seccion}
+                  </option>
+                ))}
               </select>
 
               <input type="file" accept="image/*" onChange={handleImageChange} />
               {imagenPreview && <img src={imagenPreview} alt="Vista previa" width="100" />}
             </div>
+
 
             <div className="modal-actions">
               <button onClick={guardarProducto}>Guardar</button>

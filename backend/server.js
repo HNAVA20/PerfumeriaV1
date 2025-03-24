@@ -3,12 +3,15 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
 const nodemailer = require("nodemailer");
+const multer = require("multer");
+const path = require("path");
 
 const app = express();
 
-
+// Middleware
 app.use(express.json()); // Para leer JSON del frontend
 app.use(cors()); // Habilita CORS si el frontend está en otro dominio
+app.use("/uploads", express.static("uploads")); // Para servir las imágenes desde la carpeta 'uploads'
 
 // Configuración a conexión a MySQL
 const db = mysql.createPool({
@@ -20,10 +23,15 @@ const db = mysql.createPool({
     connectionLimit: 10 // número máximo de conexiones simultáneas
 });
 
+<<<<<<< HEAD
 // No necesitas db.connect(), el pool gestiona esto automáticamente.
 
 // Ejemplo de uso:
 db.query("SELECT 1", (err) => {
+=======
+// Verificar la conexión a la base de datos
+db.connect((err) => {
+>>>>>>> 7f99c8c244a18406ae1e4652e8062d2749ae255c
     if (err) {
         console.error("Error conectando con MySQL:", err);
     } else {
@@ -62,11 +70,11 @@ app.post("/enviar-correo", (req, res) => {
     });
 });
 
-// Inicia el servidor en el puerto 3000
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+// Configuración de multer para manejo de imágenes
+const upload = multer({
+    dest: "uploads/", // Carpeta donde se guardarán las imágenes
+    limits: { fileSize: 10 * 1024 * 1024 }, // Limitar el tamaño de las imágenes (10MB)
+}).single("imagen_producto"); // 'imagen_producto' es el campo del formulario para la imagen
 
 // Rutas CRUD para Marcas
 
@@ -157,7 +165,6 @@ app.post("/secciones", (req, res) => {
             console.error("Error al insertar sección:", err);
             res.status(500).json({ error: "Error al insertar sección" });
         } else {
-            console.log("Sección insertada:", result);
             res.json({ id: result.insertId, nombre_seccion });
         }
     });
@@ -192,6 +199,7 @@ app.delete("/secciones/:id", (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 //Rutas CRUD para productos
 
 // Obtener todos los productos
@@ -208,6 +216,12 @@ app.get("/productos", (req, res) => {
             res.json(results);
         }
     });
+=======
+// Inicia el servidor en el puerto 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+>>>>>>> 7f99c8c244a18406ae1e4652e8062d2749ae255c
 });
 
 // Agregar un nuevo producto
