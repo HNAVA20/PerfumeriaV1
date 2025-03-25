@@ -24,6 +24,7 @@ import ModificarProductoAdmin from './pages/ModificarProductoAdmin.jsx';
 import AgregarSeccionAdmin from './pages/AgregarSeccionAdmin.jsx';
 import AgregarMarcasAdmin from './pages/AgregarMarcasAdmin.jsx';
 import AgregarUsuariosAdmin from './pages/AgregarUsuariosAdmin.jsx';
+import RolesAdmin from './pages/RolesAdmin.jsx';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route path='/agregarseccionadmin' element={<AgregarSeccionAdmin/>} />
         <Route path='/agregarmarcasadmin' element={<AgregarMarcasAdmin/>} />
         <Route path='/agregarusuariosadmin' element={<AgregarUsuariosAdmin/>} />
+        <Route path='/rolesadmin' element={<RolesAdmin/>} />
       </Routes>
       <Footer />
     </BrowserRouter>
