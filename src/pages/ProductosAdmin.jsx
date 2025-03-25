@@ -19,6 +19,13 @@ function ProductosAdmin() {
   });
   const [imagenPreview, setImagenPreview] = useState(null);
 
+  // Cargar productos, marcas y secciones al iniciar
+  useEffect(() => {
+    fetchProductos();
+    fetchMarcas();
+    fetchSecciones();
+  }, []);
+
   const fetchProductos = async () => {
     try {
       const response = await axios.get("http://localhost:3000/productos");
@@ -28,9 +35,23 @@ function ProductosAdmin() {
     }
   };
 
-  useEffect(() => {
-    fetchProductos();
-  }, []);
+  const fetchMarcas = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/marcas"); // Asegúrate de que esta ruta existe en tu backend
+      setMarcas(response.data);
+    } catch (error) {
+      console.error("Error al obtener marcas:", error);
+    }
+  };
+
+  const fetchSecciones = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/secciones"); // Asegúrate de que esta ruta existe en tu backend
+      setSecciones(response.data);
+    } catch (error) {
+      console.error("Error al obtener secciones:", error);
+    }
+  };
 
   return (
     <div className="crud-container">
@@ -42,8 +63,7 @@ function ProductosAdmin() {
         <input type="text" placeholder="Buscar..." className="search-bar" />
       </div>
 
-      {/* Contenedor con Scroll */}
-      <div className="productos-table-container"> 
+      <div className="productos-table-container">
         <table className="productos-table">
           <thead>
             <tr>
@@ -75,7 +95,6 @@ function ProductosAdmin() {
         </table>
       </div>
 
-      {/* Modal con Scroll */}
       {modalOpen && (
         <div className="modal">
           <div className="modal-content">
@@ -86,12 +105,17 @@ function ProductosAdmin() {
               <input type="text" placeholder="Descripción" value={newProducto.descripcion_producto} onChange={e => setNewProducto({...newProducto, descripcion_producto: e.target.value})}/>
               <input type="text" placeholder="Aroma" value={newProducto.aroma_producto} onChange={e => setNewProducto({...newProducto, aroma_producto: e.target.value})}/>
               <input type="number" placeholder="Cantidad" value={newProducto.cantidad_producto} onChange={e => setNewProducto({...newProducto, cantidad_producto: e.target.value})}/>
-              <select onChange={e => setNewProducto({...newProducto, marca_producto: e.target.value})}>
-                <option value="">Marca</option>{marcas.map(m => <option key={m.id_marca} value={m.id_marca}>{m.nombre_marca}</option>)}
+
+              <select value={newProducto.marca_producto} onChange={e => setNewProducto({...newProducto, marca_producto: e.target.value})}>
+                <option value="">Selecciona una Marca</option>
+                {marcas.map(m => <option key={m.id_marca} value={m.id_marca}>{m.nombre_marca}</option>)}
               </select>
-              <select onChange={e => setNewProducto({...newProducto, seccion_producto: e.target.value})}>
-                <option value="">Sección</option>{secciones.map(s => <option key={s.id_seccion} value={s.id_seccion}>{s.nombre_seccion}</option>)}
+
+              <select value={newProducto.seccion_producto} onChange={e => setNewProducto({...newProducto, seccion_producto: e.target.value})}>
+                <option value="">Selecciona una Sección</option>
+                {secciones.map(s => <option key={s.id_seccion} value={s.id_seccion}>{s.nombre_seccion}</option>)}
               </select>
+
               <input type="file" onChange={(e) => {
                 const file = e.target.files[0];
                 if (file) {
