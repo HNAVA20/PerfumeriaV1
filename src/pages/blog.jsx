@@ -1,47 +1,32 @@
-import React from "react";
-import '../styles/blog.css';
-import '../componentes/NavBar.jsx';
-import Breadcrumbs from "../componentes/Breadcrumb.jsx";
-import BackToHomeButton from "../componentes/BackToHomeButton.jsx";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import img1 from "../imagenes/imagenesblog/perfumefloral.png";
+import img2 from "../imagenes/imagenesblog/perfumes2025.png";
+import img3 from "../imagenes/imagenesblog/perfumevainilla.png";
+import "../styles/blog.css";
 
-const articles = [
-  {
-    title: "Dulzura y sofisticación",
-    content: "Imagina un sueño que comienza en las cálidas y dulces notas florales de la vainilla, una flor exótica que se asocia con la suavidad y la sensualidad. La vainilla es originaria de México, siendo u...",
-    image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cosmopolitan.com%2Fes%2Fbelleza%2Fnovedades-belleza%2Fg43828868%2Fmejores-perfumes-vainilla-mujer%2F&psig=AOvVaw3zEOb66e1fcrlyKTiXlF5g&ust=1741122156166000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPDh39Ln7osDFQAAAAAdAAAAABAE"
-  },
-  {
-    title: "Nuevos Propósitos Olfativos para el 2025",
-    content: "Queremos mostrarte nuestra selección de aromas para este nuevo año",
-    image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Felpais.com%2Fsmoda%2Fbelleza%2F11-fragancias-para-ser-la-reina-de-la-fiesta.html&psig=AOvVaw0g6miR1hh36RJE2jPgFeAD&ust=1741122419235000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDwrM3o7osDFQAAAAAdAAAAABAE"
-  },
-  {
-    title: "Florales: El aroma de la naturaleza",
-    content: "Descubre el aroma que despierta tus sentidos y revela lo más profundo de tu ser.",
-    image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.amazon.com%2F-%2Fes%2FFloral-Perfume-floral-Parfum-l%25C3%25ADquidas%2Fdp%2FB0CL8YYDVF&psig=AOvVaw1wGyTvkqF-Vi36idTU6aKx&ust=1741122243058000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKDsi_nn7osDFQAAAAAdAAAAABAZ"
-  }
-];
+function Perfumes() {
+    const navigate = useNavigate();
+    const [categories, setCategories] = useState([
+        { name: "Dulzura y sofisticación", image: img3, path: "/dulzura" },
+        { name: "Nuevos Propósitos Olfativos 2025", image: img2, path: "/propositos2025" },
+        { name: "Florales: El aroma de la naturaleza", image: img1, path: "/florales" }
+    ]);
 
-const Blog = () => {
-  return (
-    <div>
-      <Breadcrumbs />
-      <div className="container">
-        <h1 className="title">Blog de Perfumería</h1>
-        <div className="articles-grid">
-          {articles.map((article, index) => (
-            <div key={index} className="article">
-              <img src={article.image} alt={article.title} className="article-image" />
-              <h2 className="article-title">{article.title}</h2>
-              <p className="article-content">{article.content}</p>
-              <a href="#" className="read-more">Leer más</a>
+    return (
+        <div className="container">
+            <h1 className="title">Explora Nuestro Blog</h1>
+            <div className="articles-grid">
+                {categories.map((category, index) => (
+                    <div key={index} className="article" onClick={() => navigate(category.path)}>
+                        <img src={category.image} alt={category.name} className="article-image" />
+                        <h2 className="article-title">{category.name}</h2>
+                        <a href={category.path} className="read-more">Leer más</a>
+                    </div>
+                ))}
             </div>
-          ))}
         </div>
-      </div>
-      <BackToHomeButton />
-    </div>
-  );
-};
+    );
+}
 
-export default Blog;
+export default Perfumes;
