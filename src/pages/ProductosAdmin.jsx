@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/productosadmin.css";
+import "../styles/productosadmin.css"; // Asegúrate de que este archivo esté importado
 
 function ProductosAdmin() {
   const [productos, setProductos] = useState([]);
@@ -67,8 +67,16 @@ function ProductosAdmin() {
         <table className="productos-table">
           <thead>
             <tr>
-              <th>ID</th><th>Nombre</th><th>Precio</th><th>Descripción</th><th>Aroma</th>
-              <th>Cantidad</th><th>Marca</th><th>Sección</th><th>Imagen</th><th>Acciones</th>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Descripción</th>
+              <th>Aroma</th>
+              <th>Cantidad</th>
+              <th>Marca</th>
+              <th>Sección</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -100,38 +108,84 @@ function ProductosAdmin() {
           <div className="modal-content">
             <h3>Agregar Producto</h3>
             <div className="modal-body">
-              <input type="text" placeholder="Nombre" value={newProducto.nombre_producto} onChange={e => setNewProducto({...newProducto, nombre_producto: e.target.value})}/>
-              <input type="number" placeholder="Precio" value={newProducto.precio_producto} onChange={e => setNewProducto({...newProducto, precio_producto: e.target.value})}/>
-              <input type="text" placeholder="Descripción" value={newProducto.descripcion_producto} onChange={e => setNewProducto({...newProducto, descripcion_producto: e.target.value})}/>
-              <input type="text" placeholder="Aroma" value={newProducto.aroma_producto} onChange={e => setNewProducto({...newProducto, aroma_producto: e.target.value})}/>
-              <input type="number" placeholder="Cantidad" value={newProducto.cantidad_producto} onChange={e => setNewProducto({...newProducto, cantidad_producto: e.target.value})}/>
+              <input
+                type="text"
+                placeholder="Nombre"
+                value={newProducto.nombre_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, nombre_producto: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder="Precio"
+                value={newProducto.precio_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, precio_producto: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Descripción"
+                value={newProducto.descripcion_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, descripcion_producto: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Aroma"
+                value={newProducto.aroma_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, aroma_producto: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder="Cantidad"
+                value={newProducto.cantidad_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, cantidad_producto: e.target.value })}
+              />
 
-              <select value={newProducto.marca_producto} onChange={e => setNewProducto({...newProducto, marca_producto: e.target.value})}>
+              <select
+                value={newProducto.marca_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, marca_producto: e.target.value })}
+              >
                 <option value="">Selecciona una Marca</option>
-                {marcas.map(m => <option key={m.id_marca} value={m.id_marca}>{m.nombre_marca}</option>)}
+                {marcas.map((m) => (
+                  <option key={m.id_marca} value={m.id_marca}>
+                    {m.nombre_marca}
+                  </option>
+                ))}
               </select>
 
-              <select value={newProducto.seccion_producto} onChange={e => setNewProducto({...newProducto, seccion_producto: e.target.value})}>
+              <select
+                value={newProducto.seccion_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, seccion_producto: e.target.value })}
+              >
                 <option value="">Selecciona una Sección</option>
-                {secciones.map(s => <option key={s.id_seccion} value={s.id_seccion}>{s.nombre_seccion}</option>)}
+                {secciones.map((s) => (
+                  <option key={s.id_seccion} value={s.id_seccion}>
+                    {s.nombre_seccion}
+                  </option>
+                ))}
               </select>
 
-              <input type="file" onChange={(e) => {
-                const file = e.target.files[0];
-                if (file) {
-                  const reader = new FileReader();
-                  reader.onloadend = () => {
-                    setImagenPreview(reader.result);
-                    setNewProducto({ ...newProducto, imagen_producto: reader.result });
-                  };
-                  reader.readAsDataURL(file);
-                }
-              }}/>
-              {imagenPreview && <img src={imagenPreview} alt="Preview" width="100"/>}
+              <input
+                type="file"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setImagenPreview(reader.result);
+                      setNewProducto({ ...newProducto, imagen_producto: reader.result });
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+              />
+              {imagenPreview && <img src={imagenPreview} alt="Preview" width="100" />}
             </div>
             <div className="modal-footer">
-              <button onClick={() => { /* Aquí podrías guardar el producto */ }}>Guardar</button>
-              <button onClick={() => setModalOpen(false)}>Cancelar</button>
+              <button className="btn-save" onClick={() => { /* Aquí podrías guardar el producto */ }}>
+                Guardar
+              </button>
+              <button className="btn-cancel" onClick={() => setModalOpen(false)}>
+                Cancelar
+              </button>
             </div>
           </div>
         </div>
