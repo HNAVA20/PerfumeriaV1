@@ -7,6 +7,7 @@ const categories = [
   { name: "Secciones", className: "secciones-card" },
   { name: "Marcas", className: "marcas-card" },
   { name: "Usuarios", className: "usuarios-card" },
+  {name: "Roles", className: "roles-card"},
 ];
 
 function RegistroAdmin() {
@@ -29,6 +30,9 @@ function RegistroAdmin() {
     if (categoryName === 'Usuarios') {
       navigate('/UsuariosAdmin');
     }
+    if (categoryName === 'Roles') {
+      navigate('/Rolesadmin');
+    }
   };
 
   return (
@@ -47,7 +51,7 @@ function RegistroAdmin() {
         ))}
       </div>
       <div className="buttons-container">
-        <button id="back-to-login" onClick={handleBackToLogin}>Regresar al Login</button>
+        <button id="back-to-login" onClick={handleBackToLogin}>Cerrar sesión</button>
       </div>
     </div>
   );
