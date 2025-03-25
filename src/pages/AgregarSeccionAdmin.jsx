@@ -22,12 +22,12 @@ function RegistroSeccion() {
     return (
         <div className="registro-container">
             <form onSubmit={handleSubmit}>
-                <h1>Agregar Seccion</h1>
+                <h1>Agregar Sección</h1>
                 <input
                     type="text"
                     name="nombre_seccion"
-                    placeholder="Nombre de la seccion"
-                    value={formulario.nombre_producto}
+                    placeholder="Nombre de la sección"
+                    value={formulario.nombre_seccion}
                     onChange={handleChange}
                     required
                 />

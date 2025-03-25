@@ -16,6 +16,7 @@ function SeccionesAdmin() {
   const [secciones, setSecciones] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchSecciones();
@@ -65,6 +66,15 @@ function SeccionesAdmin() {
     }
   };
 
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filtrar las secciones según la búsqueda
+  const filteredSecciones = secciones.filter((seccion) =>
+    seccion.nombre_seccion.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="crud-container">
       <h2>CRUD de Secciones</h2>
@@ -73,7 +83,13 @@ function SeccionesAdmin() {
         <button className="btn-add" onClick={() => setModalOpen(true)}>
           + Agregar Sección
         </button>
-        <input type="text" placeholder="Buscar..." className="search-bar" />
+        <input
+          type="text"
+          placeholder="Buscar..."
+          className="search-bar"
+          value={searchQuery}
+          onChange={handleSearch}
+        />
       </div>
 
       <button className="btn-back" onClick={() => window.history.back()}>
@@ -89,7 +105,7 @@ function SeccionesAdmin() {
           </tr>
         </thead>
         <tbody>
-          {secciones.map((seccion) => (
+          {filteredSecciones.map((seccion) => (
             <tr key={seccion.id_seccion}>
               <td>{seccion.id_seccion}</td>
               <td>{seccion.nombre_seccion}</td>
