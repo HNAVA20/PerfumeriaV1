@@ -1,71 +1,82 @@
+/* Estilos elegantes para el footer con fondo gris oscuro y texto blanco */
 .footer {
-  background-color: rgb(65, 65, 65);
-  color: white;
-  padding: 20px 0;
+  background: #2c2c2c; /* Gris oscuro */
+  color: #fff;
+  padding: 40px 0;
   text-align: center;
-  
-  }
-  
-  .footer-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  .footer-section {
-    flex: 1;
-    margin: 10px;
-    min-width: 250px;
-  }
-  
-  .footer-section h3 {
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-  }
-  
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-section ul li {
-    margin: 8px 0;
-  }
-  
-  .footer-section ul li a {
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
-  }
-  
-  .footer-section ul li a:hover {
-    text-decoration: underline;
-  }
-  
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .social-icons a {
-    color: white;
-    font-size: 1.5rem;
-    transition: 0.3s;
-  }
-  
-  .social-icons a:hover {
-    color: #f8b400;
-  }
-  
-  .footer-bottom {
-    margin-bottom: -20px;
-    margin-top: 40px; /* Aumentado para mover el footer un poco más abajo */
-    border-top: 1px solid #ffffff33;
-    padding: 10px 0;
-    font-size: 0.9rem;
-  }
-  
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin: 20px;
+}
+
+.footer-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #fff;
+  display: inline-block;
+  padding-bottom: 5px;
+  color: #fff;
+}
+
+.footer-section p,
+.footer-section ul {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 5px 0;
+  color: #fff;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 8px 0;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #f1c40f;
+}
+
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0 10px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+  color: #f1c40f;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-top: 10px;
+  color: #fff;
+}
