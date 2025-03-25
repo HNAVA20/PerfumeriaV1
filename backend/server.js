@@ -304,6 +304,7 @@ app.delete("/productos/:id", (req, res) => {
   // Agregar usuario
   const CryptoJS = require("crypto-js");
   const SECRET_KEY = "MiClaveSecreta123";
+
   
   app.post("/usuarios", (req, res) => {
     const {
@@ -438,8 +439,64 @@ app.delete("/productos/:id", (req, res) => {
         });
     });
 
+        //Login
+        app.post("/login", (req, res) => {
+            const { usuario, pass } = req.body;
+          
+            if (!usuario || !pass) {
+              return res.status(400).json({ error: "Usuario y contraseña son requeridos" });
+            }
+          
+            const query = `
+              SELECT u.id, u.usuario, u.pass, u.nombres, u.email, u.id_rol, r.nombre_rol
+              FROM usuarios u
+              LEFT JOIN roles r ON u.id_rol = r.id_rol
+              WHERE u.usuario = ?
+            `;
+          
+            db.query(query, [usuario], (err, results) => {
+              if (err) {
+                console.error("❌ Error al buscar usuario:", err);
+                return res.status(500).json({ error: "Error interno del servidor" });
+              }
+          
+              if (results.length === 0) {
+                return res.status(401).json({ error: "Usuario no encontrado" });
+              }
+          
+              const user = results[0];
+          
+              try {
+                const passDesencriptada = CryptoJS.AES.decrypt(user.pass, SECRET_KEY).toString(CryptoJS.enc.Utf8);
+
+                console.log("🔐 Contraseña recibida:", pass);
+                console.log("🔓 Contraseña desencriptada:", passDesencriptada);
+          
+                if (passDesencriptada !== pass) {
+                  return res.status(401).json({ error: "Contraseña incorrecta" });
+                }
+          
+                // Éxito
+                res.json({
+                  id: user.id,
+                  usuario: user.usuario,
+                  nombres: user.nombres,
+                  email: user.email,
+                  id_rol: user.id_rol,
+                  nombre_rol: user.nombre_rol
+                });
+              } catch (error) {
+                console.error("❌ Error al desencriptar contraseña:", error);
+                res.status(500).json({ error: "Error al procesar contraseña" });
+              }
+            });
+          });
+
     // Inicia el servidor en el puerto 3000
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
+
+
+      
