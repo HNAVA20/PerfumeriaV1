@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import "../styles/MarcasAdmin.css";
+
+// Definir esquema de validación con Yup
+const schema = yup.object().shape({
+  nombre_marca: yup
+    .string()
+    .min(2, "El nombre debe tener al menos 2 caracteres")
+    .max(50, "El nombre no puede superar los 50 caracteres")
+    .required("El nombre de la marca es obligatorio"),
+});
 
 const API_URL = "http://localhost:3000/marcas"; // URL del backend
 
 function MarcasCrud() {
   const [marcas, setMarcas] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [newMarca, setNewMarca] = useState("");
   const [editId, setEditId] = useState(null);
 
-  // Obtener marcas al cargar la página
   useEffect(() => {
     fetchMarcas();
   }, []);
@@ -24,30 +33,29 @@ function MarcasCrud() {
     }
   };
 
-  const handleAddMarca = async () => {
-    if (newMarca.trim()) {
+  const formik = useFormik({
+    initialValues: { nombre_marca: "" },
+    validationSchema: schema,
+    onSubmit: async (values, { resetForm }) => {
       try {
         if (editId !== null) {
-          // Editar marca existente
-          await axios.put(`${API_URL}/${editId}`, { nombre_marca: newMarca });
+          await axios.put(`${API_URL}/${editId}`, values);
         } else {
-          // Agregar nueva marca
-          const response = await axios.post(API_URL, { nombre_marca: newMarca });
+          const response = await axios.post(API_URL, values);
           setMarcas([...marcas, response.data]);
         }
-
-        setNewMarca("");
+        resetForm();
         setEditId(null);
         setModalOpen(false);
-        fetchMarcas(); // Recargar marcas
+        fetchMarcas();
       } catch (error) {
         console.error("Error al guardar marca:", error);
       }
-    }
-  };
+    },
+  });
 
   const handleEditMarca = (marca) => {
-    setNewMarca(marca.nombre_marca);
+    formik.setValues({ nombre_marca: marca.nombre_marca });
     setEditId(marca.id_marca);
     setModalOpen(true);
   };
@@ -55,7 +63,7 @@ function MarcasCrud() {
   const handleDeleteMarca = async (id) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
-      fetchMarcas(); // Recargar marcas después de eliminar
+      fetchMarcas();
     } catch (error) {
       console.error("Error al eliminar marca:", error);
     }
@@ -64,7 +72,6 @@ function MarcasCrud() {
   return (
     <div className="crud-container">
       <h2>CRUD de Marcas</h2>
-
       <div className="toolbar">
         <button className="btn-add" onClick={() => setModalOpen(true)}>
           + Agregar Marca
@@ -86,8 +93,12 @@ function MarcasCrud() {
               <td>{marca.id_marca}</td>
               <td>{marca.nombre_marca}</td>
               <td>
-                <button className="btn-edit" onClick={() => handleEditMarca(marca)}>Editar</button>
-                <button className="btn-delete" onClick={() => handleDeleteMarca(marca.id_marca)}>Eliminar</button>
+                <button className="btn-edit" onClick={() => handleEditMarca(marca)}>
+                  Editar
+                </button>
+                <button className="btn-delete" onClick={() => handleDeleteMarca(marca.id_marca)}>
+                  Eliminar
+                </button>
               </td>
             </tr>
           ))}
@@ -98,16 +109,31 @@ function MarcasCrud() {
         <div className="modal">
           <div className="modal-content">
             <h3>{editId !== null ? "Editar Marca" : "Agregar Marca"}</h3>
-            <input
-              type="text"
-              placeholder="Nombre de la marca"
-              value={newMarca}
-              onChange={(e) => setNewMarca(e.target.value)}
-            />
-            <div className="modal-actions">
-              <button onClick={handleAddMarca}>Guardar</button>
-              <button onClick={() => setModalOpen(false)}>Cancelar</button>
-            </div>
+            <form onSubmit={formik.handleSubmit}>
+              <input
+                type="text"
+                name="nombre_marca"
+                placeholder="Nombre de la marca"
+                value={formik.values.nombre_marca}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={
+                  formik.touched.nombre_marca && formik.errors.nombre_marca
+                    ? "input-error"
+                    : ""
+                }
+              />
+              {formik.touched.nombre_marca && formik.errors.nombre_marca && (
+                <div className="error-message">{formik.errors.nombre_marca}</div>
+              )}
+
+              <div className="modal-actions">
+                <button type="submit">Guardar</button>
+                <button type="button" onClick={() => setModalOpen(false)}>
+                  Cancelar
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
