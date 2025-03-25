@@ -148,6 +148,7 @@ function UsuariosAdmin() {
           </div>
         </div>
       )}
+      <button className="btn-back" onClick={() => window.history.back()}>Regresar</button>
     </div>
   );
 }

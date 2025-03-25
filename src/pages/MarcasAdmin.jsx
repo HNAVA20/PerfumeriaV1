@@ -69,6 +69,10 @@ function MarcasCrud() {
     }
   };
 
+  const handleBack = () => {
+    window.history.back();
+  };
+
   return (
     <div className="crud-container">
       <h2>CRUD de Marcas</h2>
@@ -137,6 +141,10 @@ function MarcasCrud() {
           </div>
         </div>
       )}
+
+      <button className="btn-back" onClick={handleBack}>
+        ← Regresar
+      </button>
     </div>
   );
 }

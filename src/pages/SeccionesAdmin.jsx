@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../styles/seccionesadmin.css";
 
-const API_URL = "http://localhost:3000/secciones"; // URL del backend
+const API_URL = "http://localhost:3000/secciones";
 
 const validationSchema = Yup.object().shape({
   nombre_seccion: Yup.string()
@@ -17,7 +17,6 @@ function SeccionesAdmin() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  // Obtener secciones al cargar la página
   useEffect(() => {
     fetchSecciones();
   }, []);
@@ -77,6 +76,10 @@ function SeccionesAdmin() {
         <input type="text" placeholder="Buscar..." className="search-bar" />
       </div>
 
+      <button className="btn-back" onClick={() => window.history.back()}>
+        ← Regresar
+      </button>
+
       <table className="secciones-table">
         <thead>
           <tr>
@@ -91,8 +94,12 @@ function SeccionesAdmin() {
               <td>{seccion.id_seccion}</td>
               <td>{seccion.nombre_seccion}</td>
               <td>
-                <button className="btn-edit" onClick={() => handleEditSeccion(seccion)}>Editar</button>
-                <button className="btn-delete" onClick={() => handleDeleteSeccion(seccion.id_seccion)}>Eliminar</button>
+                <button className="btn-edit" onClick={() => handleEditSeccion(seccion)}>
+                  Editar
+                </button>
+                <button className="btn-delete" onClick={() => handleDeleteSeccion(seccion.id_seccion)}>
+                  Eliminar
+                </button>
               </td>
             </tr>
           ))}

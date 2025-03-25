@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/rolesadmin.css";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:3000/roles"; // URL del backend
 
@@ -9,6 +10,7 @@ function RolesAdmin() {
   const [modalOpen, setModalOpen] = useState(false);
   const [newRole, setNewRole] = useState("");
   const [editId, setEditId] = useState(null);
+  const navigate = useNavigate();
 
   // Obtener roles al cargar la página
   useEffect(() => {
@@ -86,8 +88,12 @@ function RolesAdmin() {
               <td>{role.id_rol}</td>
               <td>{role.nombre_rol}</td>
               <td>
-                <button className="btn-edit" onClick={() => handleEditRole(role)}>Editar</button>
-                <button className="btn-delete" onClick={() => handleDeleteRole(role.id_rol)}>Eliminar</button>
+                <button className="btn-edit" onClick={() => handleEditRole(role)}>
+                  Editar
+                </button>
+                <button className="btn-delete" onClick={() => handleDeleteRole(role.id_rol)}>
+                  Eliminar
+                </button>
               </td>
             </tr>
           ))}
@@ -111,6 +117,10 @@ function RolesAdmin() {
           </div>
         </div>
       )}
+
+      <button className="btn-back" onClick={() => navigate(-1)}>
+        ⬅ Regresar
+      </button>
     </div>
   );
 }

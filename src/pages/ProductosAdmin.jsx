@@ -19,7 +19,6 @@ function ProductosAdmin() {
   });
   const [imagenPreview, setImagenPreview] = useState(null);
 
-  // Cargar productos, marcas y secciones al iniciar
   useEffect(() => {
     fetchProductos();
     fetchMarcas();
@@ -37,7 +36,7 @@ function ProductosAdmin() {
 
   const fetchMarcas = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/marcas"); // Asegúrate de que esta ruta existe en tu backend
+      const response = await axios.get("http://localhost:3000/marcas");
       setMarcas(response.data);
     } catch (error) {
       console.error("Error al obtener marcas:", error);
@@ -46,15 +45,22 @@ function ProductosAdmin() {
 
   const fetchSecciones = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/secciones"); // Asegúrate de que esta ruta existe en tu backend
+      const response = await axios.get("http://localhost:3000/secciones");
       setSecciones(response.data);
     } catch (error) {
       console.error("Error al obtener secciones:", error);
     }
   };
 
+  const handleBack = () => {
+    window.history.back();
+  };
+
   return (
     <div className="crud-container">
+      <button className="btn-back" onClick={handleBack}>
+        ← Regresar
+      </button>
       <h2>CRUD de Productos</h2>
       <div className="toolbar">
         <button className="btn-add" onClick={() => setModalOpen(true)}>
@@ -62,7 +68,7 @@ function ProductosAdmin() {
         </button>
         <input type="text" placeholder="Buscar..." className="search-bar" />
       </div>
-
+      
       <div className="productos-table-container">
         <table className="productos-table">
           <thead>
@@ -102,94 +108,6 @@ function ProductosAdmin() {
           </tbody>
         </table>
       </div>
-
-      {modalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Agregar Producto</h3>
-            <div className="modal-body">
-              <input
-                type="text"
-                placeholder="Nombre"
-                value={newProducto.nombre_producto}
-                onChange={(e) => setNewProducto({ ...newProducto, nombre_producto: e.target.value })}
-              />
-              <input
-                type="number"
-                placeholder="Precio"
-                value={newProducto.precio_producto}
-                onChange={(e) => setNewProducto({ ...newProducto, precio_producto: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Descripción"
-                value={newProducto.descripcion_producto}
-                onChange={(e) => setNewProducto({ ...newProducto, descripcion_producto: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Aroma"
-                value={newProducto.aroma_producto}
-                onChange={(e) => setNewProducto({ ...newProducto, aroma_producto: e.target.value })}
-              />
-              <input
-                type="number"
-                placeholder="Cantidad"
-                value={newProducto.cantidad_producto}
-                onChange={(e) => setNewProducto({ ...newProducto, cantidad_producto: e.target.value })}
-              />
-
-              <select
-                value={newProducto.marca_producto}
-                onChange={(e) => setNewProducto({ ...newProducto, marca_producto: e.target.value })}
-              >
-                <option value="">Selecciona una Marca</option>
-                {marcas.map((m) => (
-                  <option key={m.id_marca} value={m.id_marca}>
-                    {m.nombre_marca}
-                  </option>
-                ))}
-              </select>
-
-              <select
-                value={newProducto.seccion_producto}
-                onChange={(e) => setNewProducto({ ...newProducto, seccion_producto: e.target.value })}
-              >
-                <option value="">Selecciona una Sección</option>
-                {secciones.map((s) => (
-                  <option key={s.id_seccion} value={s.id_seccion}>
-                    {s.nombre_seccion}
-                  </option>
-                ))}
-              </select>
-
-              <input
-                type="file"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setImagenPreview(reader.result);
-                      setNewProducto({ ...newProducto, imagen_producto: reader.result });
-                    };
-                    reader.readAsDataURL(file);
-                  }
-                }}
-              />
-              {imagenPreview && <img src={imagenPreview} alt="Preview" width="100" />}
-            </div>
-            <div className="modal-footer">
-              <button className="btn-save" onClick={() => { /* Aquí podrías guardar el producto */ }}>
-                Guardar
-              </button>
-              <button className="btn-cancel" onClick={() => setModalOpen(false)}>
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

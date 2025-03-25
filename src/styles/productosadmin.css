@@ -239,3 +239,21 @@ tr:hover {
     justify-content: space-between;
   }
   
+  .btn-back {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+  
+  .btn-back:hover {
+    background-color: #0056b3;
+  }
+  
