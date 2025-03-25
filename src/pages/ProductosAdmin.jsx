@@ -56,11 +56,35 @@ function ProductosAdmin() {
     window.history.back();
   };
 
+  const handleAddProducto = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("nombre_producto", newProducto.nombre_producto);
+      formData.append("precio_producto", newProducto.precio_producto);
+      formData.append("descripcion_producto", newProducto.descripcion_producto);
+      formData.append("aroma_producto", newProducto.aroma_producto);
+      formData.append("cantidad_producto", newProducto.cantidad_producto);
+      formData.append("marca_producto", newProducto.marca_producto);
+      formData.append("seccion_producto", newProducto.seccion_producto);
+      formData.append("imagen_producto", newProducto.imagen_producto);
+
+      const response = await axios.post("http://localhost:3000/productos", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 201) {
+        fetchProductos(); // Actualiza la lista de productos
+        setModalOpen(false); // Cierra el modal
+      }
+    } catch (error) {
+      console.error("Error al agregar el producto:", error);
+    }
+  };
+
   return (
     <div className="crud-container">
-      <button className="btn-back" onClick={handleBack}>
-        ← Regresar
-      </button>
       <h2>CRUD de Productos</h2>
       <div className="toolbar">
         <button className="btn-add" onClick={() => setModalOpen(true)}>
@@ -68,7 +92,82 @@ function ProductosAdmin() {
         </button>
         <input type="text" placeholder="Buscar..." className="search-bar" />
       </div>
-      
+
+      {modalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Agregar Producto</h3>
+            <div className="modal-body">
+              <input
+                type="text"
+                placeholder="Nombre del Producto"
+                value={newProducto.nombre_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, nombre_producto: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder="Precio"
+                value={newProducto.precio_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, precio_producto: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Descripción"
+                value={newProducto.descripcion_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, descripcion_producto: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Aroma"
+                value={newProducto.aroma_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, aroma_producto: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder="Cantidad"
+                value={newProducto.cantidad_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, cantidad_producto: e.target.value })}
+              />
+              <select
+                value={newProducto.marca_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, marca_producto: e.target.value })}
+              >
+                <option value="">Seleccionar Marca</option>
+                {marcas.map((marca) => (
+                  <option key={marca.id_marca} value={marca.id_marca}>
+                    {marca.nombre_marca}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={newProducto.seccion_producto}
+                onChange={(e) => setNewProducto({ ...newProducto, seccion_producto: e.target.value })}
+              >
+                <option value="">Seleccionar Sección</option>
+                {secciones.map((seccion) => (
+                  <option key={seccion.id_seccion} value={seccion.id_seccion}>
+                    {seccion.nombre_seccion}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="file"
+                placeholder="Imagen del Producto"
+                onChange={(e) => {
+                  setImagenPreview(URL.createObjectURL(e.target.files[0]));
+                  setNewProducto({ ...newProducto, imagen_producto: e.target.files[0] });
+                }}
+              />
+              {imagenPreview && <img src={imagenPreview} alt="Imagen previa" width="100" />}
+            </div>
+            <div className="modal-actions">
+              <button onClick={handleAddProducto}>Guardar Producto</button>
+              <button onClick={() => setModalOpen(false)}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="productos-table-container">
         <table className="productos-table">
           <thead>
