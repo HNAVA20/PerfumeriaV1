@@ -134,7 +134,11 @@ function UsuariosAdmin() {
               <input type="password" placeholder="Contraseña" value={newUsuario.pass} onChange={e => setNewUsuario({...newUsuario, pass: e.target.value})} />
               <select value={newUsuario.id_rol} onChange={e => setNewUsuario({...newUsuario, id_rol: e.target.value})}>
                 <option value="">Seleccionar Rol</option>
-                {roles.map(rol => <option key={rol.id_rol} value={rol.id_rol}>{rol.nombre_rol}</option>)}
+                {roles.map(rol => (
+                  <option key={rol.id_rol} value={rol.id_rol}>
+                    {rol.nombre_rol}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="modal-actions">

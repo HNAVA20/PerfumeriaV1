@@ -280,21 +280,66 @@ app.delete("/productos/:id", (req, res) => {
 
 //Rutas CRUD para usuarios
 // Obtener todos los usuarios
-app.get("/usuarios", (req, res) => {
-    db.query("SELECT * FROM usuarios", (err, results) => {
+  app.get("/usuarios/:id", (req, res) => {
+    const idUsuario = req.params.id;
+    const query = `
+    SELECT 
+      u.id,
+      u.nombres,
+      u.primer_apellido,
+      u.segundo_apellido,
+      u.usuario,
+      u.email,
+      u.telefono,
+      u.id_rol,
+      r.nombre_rol
+    FROM usuarios u
+    LEFT JOIN roles r ON u.id_rol = r.id_rol
+  `;
+  
+    db.query(query, [idUsuario], (err, results) => {
       if (err) return res.status(500).json({ error: err.message });
-      res.json(results);
+      if (results.length === 0) return res.status(404).json({ error: "Usuario no encontrado." });
+  
+      const usuario = results[0];
+  
+      usuario.telefono = CryptoJS.AES.decrypt(usuario.telefono, SECRET_KEY).toString(CryptoJS.enc.Utf8);
+      usuario.pass = CryptoJS.AES.decrypt(usuario.pass, SECRET_KEY).toString(CryptoJS.enc.Utf8);
+  
+      res.json(usuario);
     });
   });
   
+
+  
   // Agregar usuario
+  const CryptoJS = require('crypto-js');
+
+  // Clave secreta (guarda de forma segura esta clave en variables de entorno)
+  const SECRET_KEY = "MiClaveSecreta123";
+  
+  // Ruta para agregar usuario
   app.post("/usuarios", (req, res) => {
     const { nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol } = req.body;
-    const query = `INSERT INTO usuarios (nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-    db.query(query, [nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol], (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ id: result.insertId });
-    });
+  
+    // Encriptar datos sensibles antes de almacenarlos
+    const telefonoEncriptado = CryptoJS.AES.encrypt(telefono, SECRET_KEY).toString();
+    const passEncriptada = CryptoJS.AES.encrypt(pass, SECRET_KEY).toString();
+  
+    const query = `
+      INSERT INTO usuarios (
+        nombres, primer_apellido, segundo_apellido, usuario, email, telefono, pass, id_rol
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+  
+    db.query(
+      query, 
+      [nombres, primer_apellido, segundo_apellido, usuario, email, telefonoEncriptado, passEncriptada, id_rol],
+      (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ id: result.insertId });
+      }
+    );
   });
   
   // Editar usuario
