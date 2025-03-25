@@ -87,11 +87,16 @@ function ProductosAdmin() {
     <div className="crud-container">
       <h2>CRUD de Productos</h2>
       <div className="toolbar">
+        
         <button className="btn-add" onClick={() => setModalOpen(true)}>
           + Agregar Producto
         </button>
         <input type="text" placeholder="Buscar..." className="search-bar" />
       </div>
+
+      <button className="btn-back" onClick={() => window.history.back()}>
+        ← Regresar
+      </button>
 
       {modalOpen && (
         <div className="modal">
