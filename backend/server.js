@@ -71,13 +71,6 @@ const upload = multer({
     limits: { fileSize: 10 * 1024 * 1024 }, // Limitar el tamaño de las imágenes (10MB)
 }).single("imagen_producto"); // 'imagen_producto' es el campo del formulario para la imagen
 
-
-// Inicia el servidor en el puerto 3000
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
-
 // Rutas CRUD para Marcas
 
 // Obtener todas las marcas
@@ -361,4 +354,71 @@ app.delete("/productos/:id", (req, res) => {
     });
   });
 
-//Rutas CRUD para roles
+    //Rutas CRUD para roles
+    // Obtener todos los roles
+    app.get("/roles", (req, res) => {
+        const query = "SELECT * FROM roles";
+        db.query(query, (err, results) => {
+            if (err) {
+                console.error("Error al obtener roles:", err);
+                res.status(500).json({ error: "Error al obtener roles" });
+            } else {
+                res.json(results);
+            }
+        });
+    });
+
+    // Agregar un nuevo rol
+    app.post("/roles", (req, res) => {
+        const { nombre_rol } = req.body;
+        if (!nombre_rol) {
+            return res.status(400).json({ error: "El nombre del rol es requerido" });
+        }
+
+        const query = "INSERT INTO roles (nombre_rol) VALUES (?)";
+        db.query(query, [nombre_rol], (err, result) => {
+            if (err) {
+                console.error("Error al insertar rol:", err);
+                res.status(500).json({ error: "Error al insertar rol" });
+            } else {
+                res.json({ id_rol: result.insertId, nombre_rol });
+            }
+        });
+    });
+
+    // Editar un rol
+    app.put("/roles/:id", (req, res) => {
+        const { id } = req.params;
+        const { nombre_rol } = req.body;
+        const query = "UPDATE roles SET nombre_rol = ? WHERE id_rol = ?";
+
+        db.query(query, [nombre_rol, id], (err) => {
+            if (err) {
+                console.error("Error al actualizar rol:", err);
+                res.status(500).json({ error: "Error al actualizar rol" });
+            } else {
+                res.json({ message: "Rol actualizado correctamente" });
+            }
+        });
+    });
+
+    // Eliminar un rol
+    app.delete("/roles/:id", (req, res) => {
+        const { id } = req.params;
+        const query = "DELETE FROM roles WHERE id_rol = ?";
+
+        db.query(query, [id], (err) => {
+            if (err) {
+                console.error("Error al eliminar rol:", err);
+                res.status(500).json({ error: "Error al eliminar rol" });
+            } else {
+                res.json({ message: "Rol eliminado correctamente" });
+            }
+        });
+    });
+
+    // Inicia el servidor en el puerto 3000
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
