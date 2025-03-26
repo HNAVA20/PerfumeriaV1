@@ -3,43 +3,71 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/vistaadministrador.css';
 
 const categories = [
-  { name: "Productos", className: "productos-card" },
-  { name: "Secciones", className: "secciones-card" },
-  { name: "Marcas", className: "marcas-card" },
-  { name: "Usuarios", className: "usuarios-card" },
-  {name: "Roles", className: "roles-card"},
+  {
+    name: "Productos",
+    className: "productos-card",
+    
+  },
+  {
+    name: "Secciones",
+    className: "secciones-card",
+    
+  },
+  {
+    name: "Marcas",
+    className: "marcas-card",
+   
+  },
+  {
+    name: "Usuarios",
+    className: "usuarios-card",
+   
+  },
+  {
+    name: "Roles",
+    className: "roles-card",
+     
+  },
+  {
+    name: "Cerrar Sesión",
+    className: "cerrar-card",
+     
+  }
 ];
 
 function RegistroAdmin() {
   const navigate = useNavigate();
 
-  const handleBackToLogin = () => {
-    navigate('/login'); // Ruta hacia la página de login
-  };
-
   const handleCategoryClick = (categoryName) => {
-    if (categoryName === 'Productos') {
-      navigate('/ProductosAdmin' ); // Redirige a ProductosAdmin
-    }
-    if (categoryName === 'Secciones') {
-      navigate('/SeccionesAdmin');
-    }
-    if (categoryName === 'Marcas') {
-      navigate('/MarcasAdmin');
-    }
-    if (categoryName === 'Usuarios') {
-      navigate('/UsuariosAdmin');
-    }
-    if (categoryName === 'Roles') {
-      navigate('/Rolesadmin');
+    switch (categoryName) {
+      case 'Productos':
+        navigate('/ProductosAdmin');
+        break;
+      case 'Secciones':
+        navigate('/SeccionesAdmin');
+        break;
+      case 'Marcas':
+        navigate('/MarcasAdmin');
+        break;
+      case 'Usuarios':
+        navigate('/UsuariosAdmin');
+        break;
+      case 'Roles':
+        navigate('/Rolesadmin');
+        break;
+      case 'Cerrar Sesión':
+        navigate('/login');
+        break;
+      default:
+        break;
     }
   };
 
   return (
-    <div><br /><br /><br />
+    <div className="admin-container">
       <h2 id="h2">Registro vista de administrador</h2>
       <p id="p">Aquí puedes registrar todo como administrador.</p>
-      <div className="category-container">
+      <div className="category-grid">
         {categories.map((category, index) => (
           <div
             key={index}
@@ -47,11 +75,9 @@ function RegistroAdmin() {
             onClick={() => handleCategoryClick(category.name)}
           >
             <div className="category-label">{category.name}</div>
+            <p className="category-description">{category.description}</p>
           </div>
         ))}
-      </div>
-      <div className="buttons-container">
-        <button id="back-to-login" onClick={handleBackToLogin}>Cerrar sesión</button>
       </div>
     </div>
   );
