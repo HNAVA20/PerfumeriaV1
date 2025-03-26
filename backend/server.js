@@ -13,6 +13,12 @@ app.use(express.json()); // Para leer JSON del frontend
 app.use(cors()); // Habilita CORS si el frontend está en otro dominio
 app.use("/uploads", express.static("uploads")); // Para servir las imágenes desde la carpeta 'uploads'
 
+
+// Configurar multer para BLOB
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+
 // Configuración a conexión a MySQL
 const db = mysql.createPool({
     host: 'srv1009.hstgr.io',
@@ -65,11 +71,6 @@ app.post("/enviar-correo", (req, res) => {
     });
 });
 
-// Configuración de multer para manejo de imágenes
-const upload = multer({
-    dest: "uploads/", // Carpeta donde se guardarán las imágenes
-    limits: { fileSize: 10 * 1024 * 1024 }, // Limitar el tamaño de las imágenes (10MB)
-}).single("imagen_producto"); // 'imagen_producto' es el campo del formulario para la imagen
 
 // Rutas CRUD para Marcas
 
@@ -200,62 +201,126 @@ app.delete("/secciones/:id", (req, res) => {
 // Obtener todos los productos
 app.get("/productos", (req, res) => {
     const query = `
-        SELECT p.id_producto, p.nombre_producto, p.descripcion, p.aroma, p.precio, p.cantidad, m.nombre_marca AS marca, s.nombre_seccion AS seccion, p.imagen FROM productos p LEFT JOIN marca m ON p.id_mar = m.id_marca LEFT JOIN secciones s ON p.id_seccion = s.id_seccion LIMIT 0, 25`;
-
+      SELECT p.id_producto, p.nombre_producto, p.descripcion, p.aroma, p.precio, p.cantidad, 
+      m.nombre_marca AS marca, s.nombre_seccion AS seccion, p.imagen 
+      FROM productos p 
+      LEFT JOIN marca m ON p.id_mar = m.id_marca 
+      LEFT JOIN secciones s ON p.id_seccion = s.id_seccion 
+      LIMIT 0, 25
+    `;
+  
     db.query(query, (err, results) => {
-        if (err) {
-            console.error("Error al obtener productos:", err);
-            res.status(500).json({ error: err.message });  // devuelve el mensaje exacto del error
-        } else {
-            res.json(results);
-        }
+      if (err) {
+        console.error("Error al obtener productos:", err);
+        res.status(500).json({ error: err.message });
+      } else {
+        // Convertir BLOB a base64
+        const productosConImagen = results.map((prod) => {
+          return {
+            ...prod,
+            imagen: prod.imagen
+              ? `data:image/jpeg;base64,${prod.imagen.toString("base64")}`
+              : null,
+          };
+        });
+  
+        res.json(productosConImagen);
+      }
     });
-});
+  });
 
 // Agregar un nuevo producto
-app.post("/productos", (req, res) => {
-    const { nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen } = req.body;
-
-    if (!nombre_producto || !precio || !id_mar || !id_seccion) {
-        return res.status(400).json({ error: "Faltan campos obligatorios" });
+app.post("/productos", upload.single("imagen_producto"), (req, res) => {
+    const {
+      nombre_producto,
+      descripcion_producto,
+      aroma_producto,
+      precio_producto,
+      cantidad_producto,
+      id_mar,
+      id_seccion
+    } = req.body;
+  
+    if (!nombre_producto || !precio_producto || !id_mar || !id_seccion) {
+      return res.status(400).json({ error: "Faltan campos obligatorios" });
     }
-
+  
+    const imagenBuffer = req.file ? req.file.buffer : null;
+  
     const query = `
-        INSERT INTO productos (nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO productos (nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-
-    db.query(query, [nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen], (err, result) => {
-        if (err) {
-            console.error("Error al agregar producto:", err);
-            res.status(500).json({ error: "Error al agregar producto" });
-        } else {
-            res.json({ message: "Producto agregado", id: result.insertId });
-        }
+  
+    db.query(query, [
+      nombre_producto,
+      descripcion_producto,
+      aroma_producto,
+      precio_producto,
+      cantidad_producto,
+      id_mar,
+      id_seccion,
+      imagenBuffer,
+    ], (err, result) => {
+      if (err) {
+        console.error("Error al agregar producto:", err);
+        res.status(500).json({ error: "Error al agregar producto" });
+      } else {
+        res.status(201).json({ message: "Producto agregado", id: result.insertId });
+      }
     });
-});
+  });
+  
 
-// Editar un producto
-app.put("/productos/:id", (req, res) => {
-    const { id } = req.params;
-    const { nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen } = req.body;
-
-    const query = `
+    // Editar un producto
+    app.put("/productos/:id", upload.single("imagen_producto"), (req, res) => {
+        const { id } = req.params;
+        const {
+        nombre_producto,
+        descripcion_producto,
+        aroma_producto,
+        precio_producto,
+        cantidad_producto,
+        id_mar,
+        id_seccion
+        } = req.body;
+    
+        const imagenBuffer = req.file ? req.file.buffer : null;
+    
+        let query = `
         UPDATE productos 
         SET nombre_producto = ?, descripcion = ?, aroma = ?, precio = ?, 
-            cantidad = ?, id_mar = ?, id_seccion = ?, imagen = ?
-        WHERE id_producto = ?
-    `;
-
-    db.query(query, [nombre_producto, descripcion, aroma, precio, cantidad, id_mar, id_seccion, imagen, id], (err) => {
+            cantidad = ?, id_mar = ?, id_seccion = ?
+        `;
+        const values = [
+        nombre_producto,
+        descripcion_producto,
+        aroma_producto,
+        precio_producto,
+        cantidad_producto,
+        id_mar,
+        id_seccion,
+        ];
+    
+        // Solo incluir la imagen si se subió una nueva
+        if (imagenBuffer) {
+        query += `, imagen = ?`;
+        values.push(imagenBuffer);
+        }
+    
+        query += ` WHERE id_producto = ?`;
+        values.push(id);
+    
+        db.query(query, values, (err) => {
         if (err) {
             console.error("Error al actualizar producto:", err);
             res.status(500).json({ error: "Error al actualizar producto" });
         } else {
             res.json({ message: "Producto actualizado correctamente" });
         }
+        });
     });
-});
+  
 
 // Eliminar un producto
 app.delete("/productos/:id", (req, res) => {
