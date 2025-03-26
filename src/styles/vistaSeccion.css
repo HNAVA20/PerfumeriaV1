@@ -21,6 +21,7 @@
   max-width: 600px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   position: relative;
+  overflow: auto;
 }
 
 .modal-content img {
