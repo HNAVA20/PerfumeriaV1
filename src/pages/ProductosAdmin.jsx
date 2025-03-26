@@ -19,6 +19,7 @@ function ProductosAdmin() {
     imagen_producto: "",
   });
   const [imagenPreview, setImagenPreview] = useState(null);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchProductos();
@@ -57,7 +58,26 @@ function ProductosAdmin() {
     window.history.back();
   };
 
+  const validate = () => {
+    const newErrors = {};
+    if (!newProducto.nombre_producto) newErrors.nombre_producto = "El nombre del producto es obligatorio";
+    if (!newProducto.precio_producto || isNaN(newProducto.precio_producto) || newProducto.precio_producto <= 0) 
+      newErrors.precio_producto = "El precio debe ser un número positivo";
+    if (!newProducto.descripcion_producto) newErrors.descripcion_producto = "La descripción es obligatoria";
+    if (!newProducto.aroma_producto) newErrors.aroma_producto = "El aroma es obligatorio";
+    if (!newProducto.cantidad_producto || isNaN(newProducto.cantidad_producto) || newProducto.cantidad_producto <= 0)
+      newErrors.cantidad_producto = "La cantidad debe ser un número positivo";
+    if (!newProducto.marca_producto) newErrors.marca_producto = "La marca es obligatoria";
+    if (!newProducto.seccion_producto) newErrors.seccion_producto = "La sección es obligatoria";
+    if (!newProducto.imagen_producto) newErrors.imagen_producto = "La imagen es obligatoria";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSaveProducto = async () => {
+    if (!validate()) return;
+
     try {
       const formData = new FormData();
       formData.append("nombre_producto", newProducto.nombre_producto);
@@ -107,6 +127,7 @@ function ProductosAdmin() {
     });
     setImagenPreview(null);
     setEditId(null);
+    setErrors({});
   };
 
   const handleEdit = (producto) => {
@@ -150,30 +171,40 @@ function ProductosAdmin() {
                 value={newProducto.nombre_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, nombre_producto: e.target.value })}
               />
+              {errors.nombre_producto && <div className="error-message">{errors.nombre_producto}</div>}
+
               <input
                 type="number"
                 placeholder="Precio"
                 value={newProducto.precio_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, precio_producto: e.target.value })}
               />
+              {errors.precio_producto && <div className="error-message">{errors.precio_producto}</div>}
+
               <input
                 type="text"
                 placeholder="Descripción"
                 value={newProducto.descripcion_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, descripcion_producto: e.target.value })}
               />
+              {errors.descripcion_producto && <div className="error-message">{errors.descripcion_producto}</div>}
+
               <input
                 type="text"
                 placeholder="Aroma"
                 value={newProducto.aroma_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, aroma_producto: e.target.value })}
               />
+              {errors.aroma_producto && <div className="error-message">{errors.aroma_producto}</div>}
+
               <input
                 type="number"
                 placeholder="Cantidad"
                 value={newProducto.cantidad_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, cantidad_producto: e.target.value })}
               />
+              {errors.cantidad_producto && <div className="error-message">{errors.cantidad_producto}</div>}
+
               <select
                 value={newProducto.marca_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, marca_producto: e.target.value })}
@@ -185,6 +216,8 @@ function ProductosAdmin() {
                   </option>
                 ))}
               </select>
+              {errors.marca_producto && <div className="error-message">{errors.marca_producto}</div>}
+
               <select
                 value={newProducto.seccion_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, seccion_producto: e.target.value })}
@@ -196,6 +229,8 @@ function ProductosAdmin() {
                   </option>
                 ))}
               </select>
+              {errors.seccion_producto && <div className="error-message">{errors.seccion_producto}</div>}
+
               <input
                 type="file"
                 placeholder="Imagen del Producto"
@@ -204,6 +239,7 @@ function ProductosAdmin() {
                   setNewProducto({ ...newProducto, imagen_producto: e.target.files[0] });
                 }}
               />
+              {errors.imagen_producto && <div className="error-message">{errors.imagen_producto}</div>}
               {imagenPreview && <img src={imagenPreview} alt="Imagen previa" width="100" />}
             </div>
             <div className="modal-actions">

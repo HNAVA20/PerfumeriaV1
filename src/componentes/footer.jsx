@@ -32,7 +32,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="footer-bottom">
+      <div className="footer-bottom1">
         <p>&copy; 2025 Perfumería Divina Tentación. Todos los derechos reservados.</p>
       </div>
     </footer>
