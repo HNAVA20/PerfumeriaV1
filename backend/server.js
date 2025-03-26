@@ -201,12 +201,22 @@ app.delete("/secciones/:id", (req, res) => {
 // Obtener todos los productos
 app.get("/productos", (req, res) => {
     const query = `
-      SELECT p.id_producto, p.nombre_producto, p.descripcion, p.aroma, p.precio, p.cantidad, 
-      m.nombre_marca AS marca, s.nombre_seccion AS seccion, p.imagen 
-      FROM productos p 
-      LEFT JOIN marca m ON p.id_mar = m.id_marca 
-      LEFT JOIN secciones s ON p.id_seccion = s.id_seccion 
-      LIMIT 0, 25
+      SELECT 
+      p.id_producto, 
+      p.nombre_producto, 
+      p.descripcion, 
+      p.aroma, 
+      p.precio, 
+      p.cantidad, 
+      m.nombre_marca AS marca, 
+      s.nombre_seccion AS seccion,
+      p.id_mar,
+      p.id_seccion,
+      p.imagen 
+    FROM productos p 
+    LEFT JOIN marca m ON p.id_mar = m.id_marca 
+    LEFT JOIN secciones s ON p.id_seccion = s.id_seccion 
+    LIMIT 0, 25;
     `;
   
     db.query(query, (err, results) => {

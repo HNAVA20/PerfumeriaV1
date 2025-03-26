@@ -69,7 +69,7 @@ function ProductosAdmin() {
       newErrors.cantidad_producto = "La cantidad debe ser un número positivo";
     if (!newProducto.marca_producto) newErrors.marca_producto = "La marca es obligatoria";
     if (!newProducto.seccion_producto) newErrors.seccion_producto = "La sección es obligatoria";
-    if (!newProducto.imagen_producto) newErrors.imagen_producto = "La imagen es obligatoria";
+    if (!newProducto.imagen_producto && !imagenPreview && !editId) newErrors.imagen_producto = "La imagen es obligatoria";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -137,10 +137,11 @@ function ProductosAdmin() {
       descripcion_producto: producto.descripcion,
       aroma_producto: producto.aroma,
       cantidad_producto: producto.cantidad,
-      marca_producto: producto.id_mar,
-      seccion_producto: producto.id_seccion,
+      marca_producto: producto.id_mar?.toString() || "",
+      seccion_producto: producto.id_seccion?.toString() || "",
       imagen_producto: "",
     });
+
     setImagenPreview(producto.imagen);
     setEditId(producto.id_producto);
     setModalOpen(true);
@@ -149,7 +150,7 @@ function ProductosAdmin() {
   const handleDelete = async (id) => {
     const confirmar = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
     if (!confirmar) return;
-  
+
     try {
       const response = await axios.delete(`http://localhost:3000/productos/${id}`);
       if (response.status === 200) {
@@ -160,7 +161,6 @@ function ProductosAdmin() {
       alert("No se pudo eliminar el producto.");
     }
   };
-  
 
   return (
     <div className="crud-container">
@@ -184,6 +184,7 @@ function ProductosAdmin() {
               <input
                 type="text"
                 placeholder="Nombre del Producto"
+                className={errors.nombre_producto ? "input-error" : ""}
                 value={newProducto.nombre_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, nombre_producto: e.target.value })}
               />
@@ -192,6 +193,7 @@ function ProductosAdmin() {
               <input
                 type="number"
                 placeholder="Precio"
+                className={errors.precio_producto ? "input-error" : ""}
                 value={newProducto.precio_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, precio_producto: e.target.value })}
               />
@@ -200,6 +202,7 @@ function ProductosAdmin() {
               <input
                 type="text"
                 placeholder="Descripción"
+                className={errors.descripcion_producto ? "input-error" : ""}
                 value={newProducto.descripcion_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, descripcion_producto: e.target.value })}
               />
@@ -208,6 +211,7 @@ function ProductosAdmin() {
               <input
                 type="text"
                 placeholder="Aroma"
+                className={errors.aroma_producto ? "input-error" : ""}
                 value={newProducto.aroma_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, aroma_producto: e.target.value })}
               />
@@ -216,12 +220,14 @@ function ProductosAdmin() {
               <input
                 type="number"
                 placeholder="Cantidad"
+                className={errors.cantidad_producto ? "input-error" : ""}
                 value={newProducto.cantidad_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, cantidad_producto: e.target.value })}
               />
               {errors.cantidad_producto && <div className="error-message">{errors.cantidad_producto}</div>}
 
               <select
+                className={errors.marca_producto ? "input-error" : ""}
                 value={newProducto.marca_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, marca_producto: e.target.value })}
               >
@@ -235,6 +241,7 @@ function ProductosAdmin() {
               {errors.marca_producto && <div className="error-message">{errors.marca_producto}</div>}
 
               <select
+                className={errors.seccion_producto ? "input-error" : ""}
                 value={newProducto.seccion_producto}
                 onChange={(e) => setNewProducto({ ...newProducto, seccion_producto: e.target.value })}
               >
@@ -250,6 +257,7 @@ function ProductosAdmin() {
               <input
                 type="file"
                 placeholder="Imagen del Producto"
+                className={errors.imagen_producto ? "input-error" : ""}
                 onChange={(e) => {
                   setImagenPreview(URL.createObjectURL(e.target.files[0]));
                   setNewProducto({ ...newProducto, imagen_producto: e.target.files[0] });
@@ -299,7 +307,6 @@ function ProductosAdmin() {
                 <td>
                   <button className="btn-edit" onClick={() => handleEdit(producto)}>Editar</button>
                   <button className="btn-delete" onClick={() => handleDelete(producto.id_producto)}>Eliminar</button>
-
                 </td>
               </tr>
             ))}
@@ -311,3 +318,4 @@ function ProductosAdmin() {
 }
 
 export default ProductosAdmin;
+
