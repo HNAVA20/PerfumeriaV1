@@ -557,6 +557,49 @@ app.delete("/productos/:id", (req, res) => {
             });
           });
 
+          // Obtener productos por sección
+            app.get("/productos/seccion/:nombre", (req, res) => {
+                const { nombre } = req.params;
+            
+                const query = `
+                SELECT p.*, m.nombre_marca AS marca, s.nombre_seccion AS seccion 
+                FROM productos p 
+                LEFT JOIN marca m ON p.id_mar = m.id_marca 
+                LEFT JOIN secciones s ON p.id_seccion = s.id_seccion 
+                WHERE LOWER(s.nombre_seccion) = LOWER(?)
+                `;
+            
+                db.query(query, [nombre], (err, results) => {
+                if (err) return res.status(500).json({ error: err.message });
+            
+                const productosConImagen = results.map(prod => ({
+                    ...prod,
+                    imagen: prod.imagen
+                    ? `data:image/jpeg;base64,${prod.imagen.toString("base64")}`
+                    : null
+                }));
+            
+                res.json(productosConImagen);
+                });
+            });
+
+        // Obtener marcas relacionadas a una sección
+            app.get("/marcas/seccion/:nombre", (req, res) => {
+                const { nombre } = req.params;
+                const query = `
+                SELECT DISTINCT m.id_marca, m.nombre_marca
+                FROM productos p
+                INNER JOIN marca m ON p.id_mar = m.id_marca
+                INNER JOIN secciones s ON p.id_seccion = s.id_seccion
+                WHERE LOWER(s.nombre_seccion) = LOWER(?)
+                `;
+            
+                db.query(query, [nombre], (err, results) => {
+                if (err) return res.status(500).json({ error: err.message });
+                res.json(results);
+                });
+            });
+
     // Inicia el servidor en el puerto 3000
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {

@@ -1,13 +1,35 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Importar Link de React Router
-import logo from '../imagenes/LogoPerfumeria.png';
-import './stylecom/NavBar.css';
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import logo from "../imagenes/LogoPerfumeria.png";
+import "./stylecom/NavBar.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [secciones, setSecciones] = useState([]);
+  const [hoveredSeccion, setHoveredSeccion] = useState(null);
+  const [marcasPorSeccion, setMarcasPorSeccion] = useState({});
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/secciones")
+      .then(res => setSecciones(res.data))
+      .catch(err => console.error("Error al obtener secciones:", err));
+  }, []);
+
+  const fetchMarcasDeSeccion = (nombre) => {
+    if (marcasPorSeccion[nombre]) return;
+
+    axios.get(`http://localhost:3000/marcas/seccion/${nombre}`)
+      .then(res => {
+        setMarcasPorSeccion(prev => ({
+          ...prev,
+          [nombre]: res.data
+        }));
+      })
+      .catch(err => console.error("Error al obtener marcas por sección:", err));
+  };
 
   const toggleSubmenu = (index) => {
     setSubmenuOpen(submenuOpen === index ? null : index);
@@ -19,17 +41,17 @@ const Navbar = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    console.log("Buscando: ", searchTerm);  // Aquí puedes hacer que el formulario redirija o filtre resultados.
+    console.log("Buscar:", searchTerm);
   };
 
   return (
     <nav>
       <div className="menu-container">
-        {/* Logo */}
-        <Link to="/"><img src={logo} alt="Logo" className="logo" /></Link>
+        <Link to="/">
+          <img src={logo} alt="Logo" className="logo" />
+        </Link>
+
         <div className="menu-busqueda-container">
-          
-          {/* Barra de búsqueda */}
           <div className="search-container">
             <form onSubmit={handleSearchSubmit}>
               <input
@@ -42,8 +64,6 @@ const Navbar = () => {
             </form>
           </div>
 
-
-          {/* Botón de hamburguesa */}
           <button 
             className={`menu-toggle ${menuOpen ? "open" : ""}`} 
             onClick={() => setMenuOpen(!menuOpen)}
@@ -51,34 +71,39 @@ const Navbar = () => {
             <span></span>
           </button>
 
-          {/* Menú con clases dinámicas */}
           <ul className={`menu ${menuOpen ? "open" : ""}`}>
             <li><Link to="/">Inicio</Link></li>
 
             <li className={`submenu ${submenuOpen === 1 ? "open" : ""}`}>
-              <Link to="/perfumes" onClick={() => toggleSubmenu(1)}>Perfumes</Link>
+              <span onClick={() => toggleSubmenu(1)}>Perfumes</span>
               <ul>
-                <li className={`submenu ${submenuOpen === 2 ? "open" : ""}`}>
-                  <Link to="/dama" onClick={() => toggleSubmenu(2)}>Dama</Link>
-                  <ul>
-                    <li><Link to="/dama/chanel">Chanel</Link></li>
-                    <li><Link to="/dama/dior">Dior</Link></li>
-                    <li><Link to="/dama/lancome">Lancôme</Link></li>
-                    <li><Link to="/dama/armani">Armani</Link></li>
-                  </ul>
-                </li>
-                <li className={`submenu ${submenuOpen === 3 ? "open" : ""}`}>
-                  <Link to="/caballero" onClick={() => toggleSubmenu(3)}>Caballero</Link>
-                  <ul>
-                    <li><Link to="/caballero/hugo-boss">Hugo Boss</Link></li>
-                    <li><Link to="/caballero/dolce-gabbana">Dolce & Gabbana</Link></li>
-                    <li><Link to="/caballero/yves-saint-laurent">Yves Saint Laurent</Link></li>
-                    <li><Link to="/caballero/paco-rabanne">Paco Rabanne</Link></li>
-                  </ul>
-                </li>
-                <li><Link to="/unisex">Unisex</Link></li>
-                <li><Link to="/ninos">Niños</Link></li>
-                <li><Link to="/sets">Sets</Link></li>
+                {secciones.map((sec) => (
+                  <li
+                    key={sec.id_seccion}
+                    onMouseEnter={() => {
+                      setHoveredSeccion(sec.nombre_seccion);
+                      fetchMarcasDeSeccion(sec.nombre_seccion);
+                    }}
+                    onMouseLeave={() => setHoveredSeccion(null)}
+                  >
+                    <Link to={`/seccion/${sec.nombre_seccion.toLowerCase()}`}>
+                      {sec.nombre_seccion}
+                    </Link>
+
+                    {/* Submenú de marcas relacionadas */}
+                    {hoveredSeccion === sec.nombre_seccion && marcasPorSeccion[sec.nombre_seccion] && (
+                      <ul>
+                        {marcasPorSeccion[sec.nombre_seccion].map((mar) => (
+                          <li key={mar.id_marca}>
+                            <Link to={`/seccion/${sec.nombre_seccion.toLowerCase()}/marca/${mar.nombre_marca.toLowerCase().replace(/\s/g, '-')}`}>
+                              {mar.nombre_marca}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
               </ul>
             </li>
 
