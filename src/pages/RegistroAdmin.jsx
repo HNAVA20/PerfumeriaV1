@@ -6,32 +6,27 @@ const categories = [
   {
     name: "Productos",
     className: "productos-card",
-    
+    descripcion: "hola que tal como tamos "
   },
   {
     name: "Secciones",
     className: "secciones-card",
-    
   },
   {
     name: "Marcas",
     className: "marcas-card",
-   
   },
   {
     name: "Usuarios",
-    className: "usuarios-card",
-   
+    className: "usuarios-card", 
   },
   {
     name: "Roles",
     className: "roles-card",
-     
   },
   {
     name: "Cerrar Sesión",
     className: "cerrar-card",
-     
   }
 ];
 

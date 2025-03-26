@@ -9,13 +9,12 @@ function VistaSeccion() {
   const [filtroAromas, setFiltroAromas] = useState([]);
   const [aromasDisponibles, setAromasDisponibles] = useState([]);
   const [rangoPrecio, setRangoPrecio] = useState([0, 10000]);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   useEffect(() => {
     axios.get(`http://localhost:3000/productos/seccion/${nombre}`)
       .then(res => {
         setProductos(res.data);
-
-        // Extraer aromas únicos para los filtros
         const aromas = [...new Set(res.data.map(p => p.aroma))];
         setAromasDisponibles(aromas);
       })
@@ -44,7 +43,6 @@ function VistaSeccion() {
   return (
     <div className="vista-seccion">
       <h2>{nombre}</h2>
-
       <div className="contenido">
         <aside className="filtros">
           <h3>Filtrar por:</h3>
@@ -61,7 +59,6 @@ function VistaSeccion() {
               </label>
             ))}
           </div>
-
           <div>
             <h4>Precio</h4>
             <label>Min: $<input type="number" name="min" value={rangoPrecio[0]} onChange={handlePrecioChange} /></label>
@@ -71,7 +68,7 @@ function VistaSeccion() {
 
         <section className="productos-container">
           {productosFiltrados.map(p => (
-            <div key={p.id_producto} className="producto-card">
+            <div key={p.id_producto} className="producto-card" onClick={() => setProductoSeleccionado(p)}>
               {p.imagen && <img src={p.imagen} alt={p.nombre_producto} />}
               <h3>{p.nombre_producto}</h3>
               <p>${Number(p.precio).toFixed(2)}</p>
@@ -79,6 +76,18 @@ function VistaSeccion() {
           ))}
         </section>
       </div>
+
+      {productoSeleccionado && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setProductoSeleccionado(null)}>&times;</span>
+            <img src={productoSeleccionado.imagen} alt={productoSeleccionado.nombre_producto} />
+            <h3>{productoSeleccionado.nombre_producto}</h3>
+            <p>Precio: ${Number(productoSeleccionado.precio).toFixed(2)}</p>
+            <p>{productoSeleccionado.descripcion}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
