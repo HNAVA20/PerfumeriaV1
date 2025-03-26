@@ -28,9 +28,9 @@ function Login() {
       if (user.nombre_rol === "admin") {
         navigate("/RegistroAdmin");
       } else if (user.nombre_rol === "visitante") {
-        navigate("/inicio");
+        navigate("/");
       } else {
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (err) {
       console.error("Error de login:", err);
