@@ -75,7 +75,9 @@ const Navbar = () => {
             <li><Link to="/">Inicio</Link></li>
 
             <li className={`submenu ${submenuOpen === 1 ? "open" : ""}`}>
-              <span onClick={() => toggleSubmenu(1)}>Perfumes</span>
+              <Link to="/perfumes" onClick={() => toggleSubmenu(1)} className="submenu-link">
+                Perfumes
+              </Link>
               <ul>
                 {secciones.map((sec) => (
                   <li
