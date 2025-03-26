@@ -1,10 +1,14 @@
+.perfumes-container {
+    padding-top: 90px;
+}
+
 .category-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
     padding: 20px;
-    padding-top: 120px;
+
 }
 
 .category-card {

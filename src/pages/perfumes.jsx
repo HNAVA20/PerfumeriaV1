@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/perfumes.css";
+import Breadcrumbs from "../componentes/Breadcrumb";
 
 // Imágenes estáticas por nombre de sección
 import dama from "../imagenes/dama.png";
@@ -34,7 +35,7 @@ function Perfumes() {
           return {
             name: sec.nombre_seccion,
             image: imagenesPorNombre[nombreLower] || defaultImage,
-            path: `/${nombreLower}`
+            path: `/perfumes/${nombreLower}`
           };
         });
 
@@ -48,17 +49,20 @@ function Perfumes() {
   }, []);
 
   return (
-    <div className="category-container">
-      {categories.map((category, index) => (
-        <div 
-          key={index} 
-          className="category-card" 
-          style={{ backgroundImage: `url(${category.image})` }} 
-          onClick={() => navigate(category.path)}
-        >
-          <div className="category-label">{category.name}</div>
-        </div>
-      ))}
+    <div className="perfumes-container">
+      <Breadcrumbs />
+      <div className="category-container">
+        {categories.map((category, index) => (
+          <div 
+            key={index} 
+            className="category-card" 
+            style={{ backgroundImage: `url(${category.image})` }} 
+            onClick={() => navigate(category.path)}
+          >
+            <div className="category-label">{category.name}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

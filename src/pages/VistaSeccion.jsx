@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/vistaSeccion.css";
+import Breadcrumbs from "../componentes/Breadcrumb";
 
 function VistaSeccion() {
   const { nombre } = useParams();
@@ -43,6 +44,7 @@ function VistaSeccion() {
   return (
     <div className="vista-seccion">
       <h2>{nombre}</h2>
+      <Breadcrumbs />
       <div className="contenido">
         <aside className="filtros">
           <h3>Filtrar por:</h3>
