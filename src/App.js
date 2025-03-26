@@ -27,6 +27,7 @@ import AgregarUsuariosAdmin from './pages/AgregarUsuariosAdmin.jsx';
 import RolesAdmin from './pages/RolesAdmin.jsx';
 import VistaSeccion from './pages/VistaSeccion.jsx';
 import VistaMarcaEnSeccion from './pages/VistaMarcaEnSeccion';
+import PrivateRoute from './componentes/PrivateRoute.jsx';  // Importa el componente PrivateRoute
 
 function App() {
   return (
@@ -36,28 +37,31 @@ function App() {
         <Route path="/" element={<Inicio />} />
         <Route path="/caballero" element={<Caballero />} />
         <Route path="/dama" element={<Dama />} />
-        <Route path='/ninos' element={<Ninos />} />
-        <Route path='/sets' element={<Sets />} />
-        <Route path='/unisex' element={<Unisex />} />
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/registroadmin' element={< Registroadmin/>} /> 
-        <Route path='/productosadmin' element={< ProductosAdmin />} />
-        <Route path='/seccionesadmin' element={< SeccionesAdmin />} />
-        <Route path='/sitemap' element={<Sitemap />} />
-        <Route path='/perfumes' element={<Perfumes />} />
-        <Route path='dama/chanel' element={<Chanel />} />
-        <Route path='/marcasadmin' element={<MarcasAdmin />} />
-        <Route path='/usuariosadmin' element={<UsuariosAdmin/>} />
-        <Route path='/agregarproductoadmin' element={<AgregarProductoAdmin/>} />
-        <Route path='/modificarproductoadmin' element={<ModificarProductoAdmin/>} />
-        <Route path='/agregarseccionadmin' element={<AgregarSeccionAdmin/>} />
-        <Route path='/agregarmarcasadmin' element={<AgregarMarcasAdmin/>} />
-        <Route path='/agregarusuariosadmin' element={<AgregarUsuariosAdmin/>} />
-        <Route path='/rolesadmin' element={<RolesAdmin/>} />
-        <Route path="/seccion/:nombre" element={<VistaSeccion />} />
-        <Route path="/seccion/:nombre/marca/:nombreMarca" element={<VistaMarcaEnSeccion />} />
-
+        <Route path="/ninos" element={<Ninos />} />
+        <Route path="/sets" element={<Sets />} />
+        <Route path="/unisex" element={<Unisex />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/login" element={<Login />} />
+        
+        {/* Ruta pública */}
+        <Route path="/sitemap" element={<Sitemap />} />
+        <Route path="/perfumes" element={<Perfumes />} />
+        <Route path="/dama/chanel" element={<Chanel />} />
+        
+        {/* Rutas protegidas */}
+        <Route path="/registroadmin" element={<PrivateRoute element={<Registroadmin />} />} />
+        <Route path="/productosadmin" element={<PrivateRoute element={<ProductosAdmin />} />} />
+        <Route path="/seccionesadmin" element={<PrivateRoute element={<SeccionesAdmin />} />} />
+        <Route path="/marcasadmin" element={<PrivateRoute element={<MarcasAdmin />} />} />
+        <Route path="/usuariosadmin" element={<PrivateRoute element={<UsuariosAdmin />} />} />
+        <Route path="/agregarproductoadmin" element={<PrivateRoute element={<AgregarProductoAdmin />} />} />
+        <Route path="/modificarproductoadmin" element={<PrivateRoute element={<ModificarProductoAdmin />} />} />
+        <Route path="/agregarseccionadmin" element={<PrivateRoute element={<AgregarSeccionAdmin />} />} />
+        <Route path="/agregarmarcasadmin" element={<PrivateRoute element={<AgregarMarcasAdmin />} />} />
+        <Route path="/agregarusuariosadmin" element={<PrivateRoute element={<AgregarUsuariosAdmin />} />} />
+        <Route path="/rolesadmin" element={<PrivateRoute element={<RolesAdmin />} />} />
+        <Route path="/seccion/:nombre" element={<PrivateRoute element={<VistaSeccion />} />} />
+        <Route path="/seccion/:nombre/marca/:nombreMarca" element={<PrivateRoute element={<VistaMarcaEnSeccion />} />} />
       </Routes>
       <Footer />
     </BrowserRouter>
