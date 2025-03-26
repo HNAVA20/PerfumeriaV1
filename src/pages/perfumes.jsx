@@ -49,17 +49,20 @@ function Perfumes() {
   }, []);
 
   return (
-    <div className="category-container">
-      {categories.map((category, index) => (
-        <div 
-          key={index} 
-          className="category-card" 
-          style={{ backgroundImage: `url(${category.image})` }} 
-          onClick={() => navigate(category.path)}
-        >
-          <div className="category-label">{category.name}</div>
-        </div>
-      ))}
+    <div className="perfumes-container">
+      <Breadcrumbs />
+      <div className="category-container">
+        {categories.map((category, index) => (
+          <div 
+            key={index} 
+            className="category-card" 
+            style={{ backgroundImage: `url(${category.image})` }} 
+            onClick={() => navigate(category.path)}
+          >
+            <div className="category-label">{category.name}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
