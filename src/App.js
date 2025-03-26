@@ -60,8 +60,8 @@ function App() {
         <Route path="/agregarmarcasadmin" element={<PrivateRoute element={<AgregarMarcasAdmin />} />} />
         <Route path="/agregarusuariosadmin" element={<PrivateRoute element={<AgregarUsuariosAdmin />} />} />
         <Route path="/rolesadmin" element={<PrivateRoute element={<RolesAdmin />} />} />
-        <Route path="/seccion/:nombre" element={<PrivateRoute element={<VistaSeccion />} />} />
-        <Route path="/seccion/:nombre/marca/:nombreMarca" element={<PrivateRoute element={<VistaMarcaEnSeccion />} />} />
+        <Route path="/perfumes/:nombre" element={<PrivateRoute element={<VistaSeccion />} />} />
+        <Route path="/perfumes/:nombre/marca/:nombreMarca" element={<PrivateRoute element={<VistaMarcaEnSeccion />} />} />
       </Routes>
       <Footer />
     </BrowserRouter>
