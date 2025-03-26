@@ -146,6 +146,22 @@ function ProductosAdmin() {
     setModalOpen(true);
   };
 
+  const handleDelete = async (id) => {
+    const confirmar = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
+    if (!confirmar) return;
+  
+    try {
+      const response = await axios.delete(`http://localhost:3000/productos/${id}`);
+      if (response.status === 200) {
+        fetchProductos();
+      }
+    } catch (error) {
+      console.error("Error al eliminar producto:", error);
+      alert("No se pudo eliminar el producto.");
+    }
+  };
+  
+
   return (
     <div className="crud-container">
       <h2>CRUD de Productos</h2>
@@ -282,7 +298,8 @@ function ProductosAdmin() {
                 </td>
                 <td>
                   <button className="btn-edit" onClick={() => handleEdit(producto)}>Editar</button>
-                  <button className="btn-delete">Eliminar</button>
+                  <button className="btn-delete" onClick={() => handleDelete(producto.id_producto)}>Eliminar</button>
+
                 </td>
               </tr>
             ))}

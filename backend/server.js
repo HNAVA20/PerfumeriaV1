@@ -323,18 +323,19 @@ app.post("/productos", upload.single("imagen_producto"), (req, res) => {
   
 
 // Eliminar un producto
-app.delete("/productos/:id", (req, res) => {
+  app.delete("/productos/:id", (req, res) => {
     const { id } = req.params;
 
     db.query("DELETE FROM productos WHERE id_producto = ?", [id], (err) => {
-        if (err) {
-            console.error("Error al eliminar producto:", err);
-            res.status(500).json({ error: "Error al eliminar producto" });
-        } else {
-            res.json({ message: "Producto eliminado correctamente" });
-        }
+      if (err) {
+        console.error("Error al eliminar producto:", err);
+        res.status(500).json({ error: "Error al eliminar producto" });
+      } else {
+        res.json({ message: "Producto eliminado correctamente" });
+      }
     });
-});
+  });
+
 
 //Rutas CRUD para usuarios
 // Obtener todos los usuarios
