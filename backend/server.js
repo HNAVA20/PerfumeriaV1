@@ -600,6 +600,36 @@ app.delete("/productos/:id", (req, res) => {
                 });
             });
 
+            // Obtener productos por sección y marca
+            app.get("/productos/seccion/:seccion/marca/:marca", (req, res) => {
+                const { seccion, marca } = req.params;
+                const marcaDecodificada = decodeURIComponent(marca);
+              
+                const query = `
+                  SELECT p.*, m.nombre_marca AS marca, s.nombre_seccion AS seccion 
+                  FROM productos p
+                  LEFT JOIN marca m ON p.id_mar = m.id_marca
+                  LEFT JOIN secciones s ON p.id_seccion = s.id_seccion
+                  WHERE LOWER(TRIM(s.nombre_seccion)) = LOWER(?) 
+                    AND LOWER(TRIM(m.nombre_marca)) = LOWER(?)
+                `;
+              
+                db.query(query, [seccion, marcaDecodificada], (err, results) => {
+                  if (err) return res.status(500).json({ error: err.message });
+              
+                  const productosConImagen = results.map(prod => ({
+                    ...prod,
+                    imagen: prod.imagen
+                      ? `data:image/jpeg;base64,${prod.imagen.toString("base64")}`
+                      : null
+                  }));
+              
+                  res.json(productosConImagen);
+                });
+              });
+              
+            
+
     // Inicia el servidor en el puerto 3000
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {

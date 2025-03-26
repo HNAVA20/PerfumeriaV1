@@ -237,3 +237,29 @@ body, html {
   padding: 0;
   box-sizing: border-box;
 }
+
+.submenu-tercer-nivel {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: #d2ab88;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  min-width: 150px;
+  z-index: 999;
+  white-space: nowrap;
+}
+
+.submenu-tercer-nivel li {
+  margin: 5px 0;
+}
+
+.submenu-tercer-nivel a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.submenu-tercer-nivel a:hover {
+  text-decoration: underline;
+}

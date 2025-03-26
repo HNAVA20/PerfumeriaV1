@@ -26,6 +26,7 @@ import AgregarMarcasAdmin from './pages/AgregarMarcasAdmin.jsx';
 import AgregarUsuariosAdmin from './pages/AgregarUsuariosAdmin.jsx';
 import RolesAdmin from './pages/RolesAdmin.jsx';
 import VistaSeccion from './pages/VistaSeccion.jsx';
+import VistaMarcaEnSeccion from './pages/VistaMarcaEnSeccion';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Route path='/agregarusuariosadmin' element={<AgregarUsuariosAdmin/>} />
         <Route path='/rolesadmin' element={<RolesAdmin/>} />
         <Route path="/seccion/:nombre" element={<VistaSeccion />} />
+        <Route path="/seccion/:nombre/marca/:nombreMarca" element={<VistaMarcaEnSeccion />} />
 
       </Routes>
       <Footer />

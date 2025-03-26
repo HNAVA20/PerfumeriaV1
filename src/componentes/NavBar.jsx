@@ -80,6 +80,7 @@ const Navbar = () => {
                 {secciones.map((sec) => (
                   <li
                     key={sec.id_seccion}
+                    className="submenu"
                     onMouseEnter={() => {
                       setHoveredSeccion(sec.nombre_seccion);
                       fetchMarcasDeSeccion(sec.nombre_seccion);
@@ -92,10 +93,10 @@ const Navbar = () => {
 
                     {/* Submenú de marcas relacionadas */}
                     {hoveredSeccion === sec.nombre_seccion && marcasPorSeccion[sec.nombre_seccion] && (
-                      <ul>
+                      <ul className="submenu-tercer-nivel">
                         {marcasPorSeccion[sec.nombre_seccion].map((mar) => (
                           <li key={mar.id_marca}>
-                            <Link to={`/seccion/${sec.nombre_seccion.toLowerCase()}/marca/${mar.nombre_marca.toLowerCase().replace(/\s/g, '-')}`}>
+                            <Link to={`/seccion/${encodeURIComponent(sec.nombre_seccion.toLowerCase())}/marca/${encodeURIComponent(mar.nombre_marca.toLowerCase())}`}>
                               {mar.nombre_marca}
                             </Link>
                           </li>
