@@ -12,7 +12,6 @@ function ResetPassword() {
   const location = useLocation();
 
   useEffect(() => {
-    // Obtener el token de la URL
     const urlParams = new URLSearchParams(location.search);
     const tokenFromUrl = urlParams.get('token');
     if (tokenFromUrl) {
@@ -24,9 +23,12 @@ function ResetPassword() {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-
     if (newPassword !== confirmPassword) {
       setError('Las contraseñas no coinciden');
+      return;
+    }
+    if (newPassword.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
       return;
     }
 
@@ -38,6 +40,7 @@ function ResetPassword() {
 
       if (response.status === 200) {
         setSuccess(true);
+        setTimeout(() => navigate('/login'), 3000);
       }
     } catch (err) {
       console.error('Error al restablecer la contraseña:', err);
@@ -48,28 +51,13 @@ function ResetPassword() {
   return (
     <div className="reset-password-container">
       <h2>Restablecer Contraseña</h2>
-
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">¡Contraseña restablecida con éxito!</p>}
 
       <form onSubmit={handleResetPassword}>
-        <input
-          type="password"
-          placeholder="Nueva Contraseña"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
-
-        <input
-          type="password"
-          placeholder="Confirmar Contraseña"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-
-        <button type="submit">Restablecer Contraseña</button>
+        <input type="password" placeholder="Nueva Contraseña" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+        <input type="password" placeholder="Confirmar Contraseña" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+        <button type="submit" disabled={success}>Restablecer Contraseña</button>
       </form>
 
       <button onClick={() => navigate('/login')}>Volver al inicio de sesión</button>

@@ -631,50 +631,59 @@ app.delete("/productos/:id", (req, res) => {
             
             // Ruta para solicitar recuperación de contraseña
             app.post('/recover-password', async (req, res) => {
-              const { email } = req.body;
-
-              const user = await User.findOne({ where: { email } });
-              if (!user) return res.status(404).send('Usuario no encontrado');
-
-              // Generar token de recuperación
-              const token = crypto.randomBytes(20).toString('hex');
-              const expirationDate = Date.now() + 3600000; // 1 hora de validez
-
-              // Guardar token y su fecha de expiración en la base de datos
-              user.recoveryToken = token;
-              user.recoveryTokenExpires = expirationDate;
-              await user.save();
-
-              // Enviar email con el enlace de recuperación
-              const recoveryLink = `http://localhost:3000/reset-password?token=${token}`;
-              await transporter.sendMail({
-                to: email,
-                subject: 'Recuperación de contraseña',
-                text: `Haga clic en el siguiente enlace para recuperar su contraseña: ${recoveryLink}`,
+                const { email } = req.body;
+              
+                try {
+                  const user = await User.findOne({ where: { email } });
+                  if (!user) return res.status(404).send('Usuario no encontrado');
+              
+                  const token = crypto.randomBytes(20).toString('hex');
+                  const expirationDate = Date.now() + 3600000;
+              
+                  user.recoveryToken = token;
+                  user.recoveryTokenExpires = expirationDate;
+                  await user.save();
+              
+                  const recoveryLink = `http://localhost:3001/reset-password?token=${token}`;
+              
+                  try {
+                    await transporter.sendMail({
+                      to: email,
+                      subject: 'Recuperación de contraseña',
+                      html: `<p>Hola,</p>
+                            <p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>
+                            <a href="${recoveryLink}">${recoveryLink}</a>
+                            <p>Este enlace expira en 1 hora.</p>`
+                    });
+                    res.send('Correo de recuperación enviado');
+                  } catch (error) {
+                    console.error('Error al enviar correo:', error);
+                    res.status(500).json({ success: false, message: 'Error enviando el correo.' });
+                  }
+              
+                } catch (err) {
+                  console.error('Error en recuperación:', err);
+                  res.status(500).json({ success: false, message: 'Error en el servidor' });
+                }
               });
-
-              res.send('Correo de recuperación enviado');
-            });
-
+              
             // Ruta para restablecer la contraseña
             app.post('/reset-password', async (req, res) => {
-              const { token, newPassword } = req.body;
-
-              const user = await User.findOne({ where: { recoveryToken: token } });
-
-              if (!user || user.recoveryTokenExpires < Date.now()) {
-                return res.status(400).send('Token inválido o expirado');
-              }
-
-              // Encriptar la nueva contraseña
-              const hashedPassword = await bcrypt.hash(newPassword, 10);
-              user.password = hashedPassword;
-              user.recoveryToken = null; // Invalidar token
-              user.recoveryTokenExpires = null; // Invalidar expiración
-              await user.save();
-
-              res.send('Contraseña actualizada');
-            });
+                const { token, newPassword } = req.body;
+                const user = await User.findOne({ where: { recoveryToken: token } });
+              
+                if (!user || user.recoveryTokenExpires < Date.now()) {
+                  return res.status(400).send('Token inválido o expirado');
+                }
+              
+                const hashedPassword = await bcrypt.hash(newPassword, 10);
+                user.pass = hashedPassword;
+                user.recoveryToken = null;
+                user.recoveryTokenExpires = null;
+                await user.save();
+              
+                res.send('Contraseña actualizada');
+              });
 
     // Inicia el servidor en el puerto 3000
     const PORT = process.env.PORT || 3000;

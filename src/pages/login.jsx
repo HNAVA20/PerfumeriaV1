@@ -74,7 +74,7 @@ function Login() {
 
         {/* Enlace de recuperación de contraseña */}
         <div className="login-recover">
-          <a href="#" onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña?</a>
+          <a className="register-link" onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña?</a>
         </div>
       </form>
 
@@ -89,12 +89,7 @@ function Login() {
               const email = e.target.email.value;
               handleRecoverPassword(email);
             }}>
-              <input 
-                type="email" 
-                name="email" 
-                placeholder="Introduce tu correo" 
-                required 
-              />
+              <input type="email" name="email" placeholder="Introduce tu correo" required />
               <button type="submit">Recuperar</button>
             </form>
             <button onClick={() => setShowModal(false)}>Cerrar</button>
