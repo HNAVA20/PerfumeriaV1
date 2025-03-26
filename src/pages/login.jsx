@@ -4,12 +4,13 @@ import axios from "axios";
 import '../styles/login.css';
 
 function Login() {
-  var [usuario, setUsuario] = useState("");
-  var [password, setPassword] = useState("");
-  var [error, setError] = useState("");
-  var navigate = useNavigate();
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false); // Estado para manejar la visibilidad del modal
+  const navigate = useNavigate();
 
-  var handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -37,6 +38,16 @@ function Login() {
     }
   };
 
+  const handleRecoverPassword = async (email) => {
+    try {
+      await axios.post('http://localhost:3000/recover-password', { email });
+      alert('Revisa tu correo para el enlace de recuperación');
+      setShowModal(false); // Cerrar el modal después de enviar la solicitud
+    } catch (error) {
+      alert('Error al enviar el correo, verifica tu email');
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="login-overlay"></div>
@@ -60,7 +71,36 @@ function Login() {
         />
 
         <button type="submit">Ingresar</button>
+
+        {/* Enlace de recuperación de contraseña */}
+        <div className="login-recover">
+          <a href="#" onClick={() => setShowModal(true)}>¿Olvidaste tu contraseña?</a>
+        </div>
       </form>
+
+
+      {/* Modal de recuperación de contraseña */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Recuperar Contraseña</h3>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const email = e.target.email.value;
+              handleRecoverPassword(email);
+            }}>
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="Introduce tu correo" 
+                required 
+              />
+              <button type="submit">Recuperar</button>
+            </form>
+            <button onClick={() => setShowModal(false)}>Cerrar</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
