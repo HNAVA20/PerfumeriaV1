@@ -685,6 +685,31 @@ app.delete("/productos/:id", (req, res) => {
               res.send('Contraseña actualizada');
             });
 
+            //Depuracion
+            app.get('/api/admin/depuracion', async (req, res) => {
+              try {
+                // Productos sin nombre o precio inválido
+                const [productosInvalidos] = await db.query(`
+                  SELECT * FROM productos
+                  WHERE nombre_producto IS NULL OR precio <= 0 OR cantidad < 0
+                `);
+            
+                // Usuarios sin nombre o sin rol
+                const [usuariosInvalidos] = await db.query(`
+                  SELECT * FROM usuarios
+                  WHERE nombres IS NULL OR id_rol IS NULL
+                `);
+            
+                res.json({
+                  productosInvalidos,
+                  usuariosInvalidos,
+                });
+              } catch (error) {
+                res.status(500).json({ error: 'Error al verificar los datos' });
+              }
+            });
+                     
+
     // Inicia el servidor en el puerto 3000
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
