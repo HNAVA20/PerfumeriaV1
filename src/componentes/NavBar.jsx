@@ -98,7 +98,9 @@ const Navbar = () => {
                       <ul className="submenu-tercer-nivel">
                         {marcasPorSeccion[sec.nombre_seccion].map((mar) => (
                           <li key={mar.id_marca}>
-                            <Link to={`/perfumes/${encodeURIComponent(sec.nombre_seccion.toLowerCase())}/marca/${encodeURIComponent(mar.nombre_marca.toLowerCase())}`}>
+                            <Link
+                              to={`/seccion/${sec.nombre_seccion.toLowerCase()}/marca/${encodeURIComponent(mar.nombre_marca.toLowerCase())}`}
+                              onClick={() => console.log("Redirigiendo a:", `/seccion/${sec.nombre_seccion.toLowerCase()}/marca/${encodeURIComponent(mar.nombre_marca.toLowerCase())}`)}>
                               {mar.nombre_marca}
                             </Link>
                           </li>

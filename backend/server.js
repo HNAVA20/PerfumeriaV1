@@ -568,33 +568,32 @@ app.delete("/productos/:id", (req, res) => {
           });
 
           // Obtener productos por sección
-            app.get("/productos/perfumes/:nombre", (req, res) => {
-                const { nombre } = req.params;
-            
-                const query = `
-                SELECT p.*, m.nombre_marca AS marca, s.nombre_seccion AS seccion 
-                FROM productos p 
-                LEFT JOIN marca m ON p.id_mar = m.id_marca 
-                LEFT JOIN secciones s ON p.id_seccion = s.id_seccion 
-                WHERE LOWER(s.nombre_seccion) = LOWER(?)
-                `;
-            
-                db.query(query, [nombre], (err, results) => {
-                if (err) return res.status(500).json({ error: err.message });
-            
-                const productosConImagen = results.map(prod => ({
-                    ...prod,
-                    imagen: prod.imagen
-                    ? `data:image/jpeg;base64,${prod.imagen.toString("base64")}`
-                    : null
-                }));
-            
-                res.json(productosConImagen);
-                });
+          app.get("/productos/seccion/:nombre", (req, res) => {
+            const { nombre } = req.params;
+          
+            const query = `
+              SELECT p.*, m.nombre_marca AS marca, s.nombre_seccion AS seccion 
+              FROM productos p 
+              LEFT JOIN marca m ON p.id_mar = m.id_marca 
+              LEFT JOIN secciones s ON p.id_seccion = s.id_seccion 
+              WHERE LOWER(TRIM(s.nombre_seccion)) = LOWER(?)
+            `;
+          
+            db.query(query, [nombre], (err, results) => {
+              if (err) return res.status(500).json({ error: err.message });
+          
+              const productosConImagen = results.map(prod => ({
+                ...prod,
+                imagen: prod.imagen
+                  ? `data:image/jpeg;base64,${prod.imagen.toString("base64")}`
+                  : null
+              }));
+          
+              res.json(productosConImagen);
             });
-
+          });
         // Obtener marcas relacionadas a una sección
-            app.get("/marcas/perfumes/:nombre", (req, res) => {
+            app.get("/marcas/seccion/:nombre", (req, res) => {
                 const { nombre } = req.params;
                 const query = `
                 SELECT DISTINCT m.id_marca, m.nombre_marca
@@ -611,32 +610,32 @@ app.delete("/productos/:id", (req, res) => {
             });
 
             // Obtener productos por sección y marca
-            app.get("/productos/perfumes/:perfumes/marca/:marca", (req, res) => {
-                const { seccion, marca } = req.params;
-                const marcaDecodificada = decodeURIComponent(marca);
-              
-                const query = `
-                  SELECT p.*, m.nombre_marca AS marca, s.nombre_seccion AS seccion 
-                  FROM productos p
-                  LEFT JOIN marca m ON p.id_mar = m.id_marca
-                  LEFT JOIN secciones s ON p.id_seccion = s.id_seccion
-                  WHERE LOWER(TRIM(s.nombre_seccion)) = LOWER(?) 
-                    AND LOWER(TRIM(m.nombre_marca)) = LOWER(?)
-                `;
-              
-                db.query(query, [seccion, marcaDecodificada], (err, results) => {
-                  if (err) return res.status(500).json({ error: err.message });
-              
-                  const productosConImagen = results.map(prod => ({
-                    ...prod,
-                    imagen: prod.imagen
-                      ? `data:image/jpeg;base64,${prod.imagen.toString("base64")}`
-                      : null
-                  }));
-              
-                  res.json(productosConImagen);
-                });
+            app.get("/productos/seccion/:seccion/marca/:marca", (req, res) => {
+              const { seccion, marca } = req.params;
+              const marcaDecodificada = decodeURIComponent(marca);
+            
+              const query = `
+                SELECT p.*, m.nombre_marca AS marca, s.nombre_seccion AS seccion 
+                FROM productos p
+                LEFT JOIN marca m ON p.id_mar = m.id_marca
+                LEFT JOIN secciones s ON p.id_seccion = s.id_seccion
+                WHERE LOWER(TRIM(s.nombre_seccion)) = LOWER(?) 
+                  AND LOWER(TRIM(m.nombre_marca)) = LOWER(?)
+              `;
+            
+              db.query(query, [seccion, marcaDecodificada], (err, results) => {
+                if (err) return res.status(500).json({ error: err.message });
+            
+                const productosConImagen = results.map(prod => ({
+                  ...prod,
+                  imagen: prod.imagen
+                    ? `data:image/jpeg;base64,${prod.imagen.toString("base64")}`
+                    : null
+                }));
+            
+                res.json(productosConImagen);
               });
+            });
               
             
             // Ruta para solicitar recuperación de contraseña
