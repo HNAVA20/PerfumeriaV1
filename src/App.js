@@ -28,6 +28,7 @@ import RolesAdmin from './pages/RolesAdmin.jsx';
 import VistaSeccion from './pages/VistaSeccion.jsx';
 import VistaMarcaEnSeccion from './pages/VistaMarcaEnSeccion';
 import PrivateRoute from './componentes/PrivateRoute.jsx';  // Importa el componente PrivateRoute
+import AdminDepuracion from './componentes/AdminDepuracion.jsx';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/unisex" element={<Unisex />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admindepuracion" element={<AdminDepuracion/>} />
         
         {/* Ruta pública */}
         <Route path="/sitemap" element={<Sitemap />} />

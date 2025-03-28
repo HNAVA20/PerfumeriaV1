@@ -1,52 +1,88 @@
+/* Estilos para la página de AdminDepuracion */
 .admin-depuracion {
-    padding: 2rem;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f7f7f7;
+  width: 90%;
+  margin: 30px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  padding-top: 35px;
+}
+
+/* Título principal */
+.admin-depuracion h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+/* Secciones (Productos inválidos, Usuarios inválidos) */
+.admin-depuracion h3 {
+  margin-top: 30px;
+  font-size: 24px;
+  color: #555;
+}
+
+/* Botones de acciones (Eliminar, Corregir automáticamente) */
+.admin-depuracion button {
+  margin-right: 10px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Botón de eliminar */
+.admin-depuracion .btn-delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.admin-depuracion .btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+/* Botón de corregir */
+.admin-depuracion .btn-fix {
+  background-color: #4caf50;
+  color: white;
+}
+
+.admin-depuracion .btn-fix:hover {
+  background-color: #45a049;
+}
+
+/* Lista de elementos inválidos */
+.admin-depuracion ul {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-depuracion li {
+  padding: 12px 18px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: #f9f9f9;
+  transition: background 0.3s;
+}
+
+.admin-depuracion li:hover {
+  background: #f1f1f1;
+}
+
+/* Animación de aparición de los elementos */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
-  .admin-depuracion h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #222;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .admin-depuracion h3 {
-    margin-top: 2rem;
-    color: #333;
-  }
-  
-  .admin-depuracion ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-top: 0.5rem;
-  }
-  
-  .admin-depuracion li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .admin-depuracion button {
-    margin-right: 0.5rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .admin-depuracion button:hover {
-    opacity: 0.9;
-  }
-  
-  button:nth-child(1) {
-    background-color: #d9534f;
-    color: white;
-  }
-  
-  button:nth-child(2) {
-    background-color: #5bc0de;
-    color: white;
-  }
-  
+}
+
+.admin-depuracion li {
+  animation: fadeIn 0.5s ease-in-out;
+}

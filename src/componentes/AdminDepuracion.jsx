@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import './styles/AdminDepuracion.css'; // Asegúrate de ajustar la ruta si es diferente
+import './stylecom/AdminDepuracion.css'; // Asegúrate de ajustar la ruta si es diferente
 
 function AdminDepuracion() {
   const [data, setData] = useState({
@@ -21,7 +21,8 @@ function AdminDepuracion() {
 
   // Eliminar productos inválidos
   const eliminarProductos = () => {
-    if (confirm("¿Estás seguro de eliminar TODOS los productos inválidos?")) {
+    // eslint-disable-next-line no-restricted-globals
+    if (window.confirm("¿Estás seguro de eliminar TODOS los productos inválidos?")) {
       axios.delete("http://localhost:3000/api/admin/depuracion/productos")
         .then(() => cargarDatos())
         .catch(err => console.error(err));
@@ -30,7 +31,8 @@ function AdminDepuracion() {
 
   // Corregir productos inválidos
   const corregirProductos = () => {
-    if (confirm("¿Corregir automáticamente los productos inválidos?")) {
+    // eslint-disable-next-line no-restricted-globals
+    if (window.confirm("¿Corregir automáticamente los productos inválidos?")) {
       axios.put("http://localhost:3000/api/admin/depuracion/productos")
         .then(() => cargarDatos())
         .catch(err => console.error(err));
@@ -39,7 +41,8 @@ function AdminDepuracion() {
 
   // Eliminar usuarios inválidos
   const eliminarUsuarios = () => {
-    if (confirm("¿Estás seguro de eliminar TODOS los usuarios inválidos?")) {
+    // eslint-disable-next-line no-restricted-globals
+    if (window.confirm("¿Estás seguro de eliminar TODOS los usuarios inválidos?")) {
       axios.delete("http://localhost:3000/api/admin/depuracion/usuarios")
         .then(() => cargarDatos())
         .catch(err => console.error(err));
@@ -48,7 +51,8 @@ function AdminDepuracion() {
 
   // Corregir usuarios inválidos
   const corregirUsuarios = () => {
-    if (confirm("¿Corregir automáticamente los usuarios inválidos?")) {
+    // eslint-disable-next-line no-restricted-globals
+    if (window.confirm("¿Corregir automáticamente los usuarios inválidos?")) {
       axios.put("http://localhost:3000/api/admin/depuracion/usuarios")
         .then(() => cargarDatos())
         .catch(err => console.error(err));

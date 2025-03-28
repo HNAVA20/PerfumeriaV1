@@ -6,28 +6,38 @@ const categories = [
   {
     name: "Productos",
     className: "productos-card",
-    descripcion: "hola que tal como tamos "
+    descripcion: "Aquí puedes administrar los productos.",
   },
   {
     name: "Secciones",
     className: "secciones-card",
+    descripcion: "Gestiona las secciones de tu plataforma.",
   },
   {
     name: "Marcas",
     className: "marcas-card",
+    descripcion: "Administra las marcas disponibles.",
   },
   {
     name: "Usuarios",
-    className: "usuarios-card", 
+    className: "usuarios-card",
+    descripcion: "Controla los usuarios registrados.",
   },
   {
     name: "Roles",
     className: "roles-card",
+    descripcion: "Define los roles de usuario.",
   },
   {
     name: "Cerrar Sesión",
     className: "cerrar-card",
-  }
+    descripcion: "Salir de la plataforma.",
+  },
+  {
+    name: "Depuración",
+    className: "depuracion-card",
+    descripcion: "Accede a las herramientas de depuración.",
+  },
 ];
 
 function RegistroAdmin() {
@@ -53,6 +63,9 @@ function RegistroAdmin() {
       case 'Cerrar Sesión':
         navigate('/login');
         break;
+      case 'Depuración':
+        navigate('/AdminDepuracion');
+        break;
       default:
         break;
     }
@@ -70,7 +83,7 @@ function RegistroAdmin() {
             onClick={() => handleCategoryClick(category.name)}
           >
             <div className="category-label">{category.name}</div>
-            <p className="category-description">{category.description}</p>
+            <p className="category-description">{category.descripcion}</p>
           </div>
         ))}
       </div>
